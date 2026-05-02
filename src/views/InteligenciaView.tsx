@@ -7,6 +7,7 @@ import {
   Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer,
   Scatter, ScatterChart, Tooltip as RechartsTooltip, XAxis, YAxis, ZAxis,
 } from 'recharts';
+import { MiniVisual } from '../components/ui/MiniVisual';
 
 const churnRiskData = [
   { name: 'Baixo', users: 1450, color: '#10b981' },
@@ -157,6 +158,17 @@ export function InteligenciaView() {
     );
   };
 
+  const ModelHealth = ({ tone, items }: { tone: 'teal' | 'sky' | 'rose' | 'amber'; items: string[] }) => (
+    <div className="bg-white rounded-[1.25rem] p-4 border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <MiniVisual variant={tone === 'sky' ? 'demand' : tone === 'rose' ? 'churn' : tone === 'amber' ? 'rfm' : 'forecast'} tone={tone} className="h-14 w-20" />
+      <div className="flex flex-wrap gap-2 md:justify-end">
+        {items.map((item) => (
+          <span key={item} className="rounded-xl bg-slate-50 border border-slate-100 px-3 py-2 text-xs font-black text-slate-700">{item}</span>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <div className="p-4 sm:p-8 pb-20 max-w-7xl mx-auto w-full space-y-8 relative z-0">
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
@@ -197,8 +209,11 @@ export function InteligenciaView() {
                   <h3 className="text-2xl sm:text-3xl font-black tracking-tight">Modelos em producao</h3>
                 </div>
                 <div className="bg-white/10 border border-white/10 rounded-2xl p-4">
-                  <CalendarDays size={26} className="text-teal-300 mb-3" />
-                  <h4 className="font-black text-lg mb-2">Previsao para amanha</h4>
+                  <div className="flex items-center justify-between gap-3 mb-3">
+                    <CalendarDays size={26} className="text-teal-300" />
+                    <MiniVisual variant="forecast" tone="teal" className="h-12 w-16" />
+                  </div>
+                  <h4 className="font-black text-lg mb-2">Amanha</h4>
                   <div className="grid grid-cols-3 gap-2 text-center">
                     <div className="bg-white/10 rounded-xl p-2"><p className="text-[10px] text-slate-400 font-black uppercase">Confianca</p><p className="text-xs font-black text-teal-300">Media-alta</p></div>
                     <div className="bg-white/10 rounded-xl p-2"><p className="text-[10px] text-slate-400 font-black uppercase">Pico</p><p className="text-xs font-black">20h</p></div>
@@ -261,32 +276,17 @@ export function InteligenciaView() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
-                ['Confianca', 'Media-alta', 'Historico parecido com ultimas sextas.'],
-                ['O que afeta', 'Clima, campanha e dia', 'O modelo pesa contexto externo e canal.'],
-                ['Quando nao confiar', 'Evento fora da curva', 'Show, chuva forte ou falta de entregador podem mudar tudo.'],
-              ].map(([title, value, desc]) => (
+                ['Confianca', 'Media-alta'],
+                ['Variaveis', 'Clima + campanha'],
+                ['Alerta', 'Evento fora da curva'],
+              ].map(([title, value]) => (
                 <div key={title} className="bg-white rounded-[1.25rem] p-5 border border-slate-100 shadow-sm">
                   <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-2">{title}</p>
                   <p className="text-xl font-black text-slate-900">{value}</p>
                 </div>
               ))}
             </div>
-            <div className="bg-white rounded-[1.25rem] p-5 border border-slate-100 shadow-sm">
-              <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3">Ciclo de vida do modelo</p>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                {[
-                  ['Status', 'Em validacao'],
-                  ['Atualizado', 'Hoje, 17:55'],
-                  ['Aprovacao', 'Usar como sugestao'],
-                  ['Impacto medido', 'Evita reforco tardio'],
-                ].map(([title, value]) => (
-                  <div key={title} className="rounded-2xl bg-slate-50 border border-slate-100 p-3">
-                    <p className="text-[10px] font-black uppercase text-slate-400">{title}</p>
-                    <p className="text-sm font-black text-slate-800 mt-1">{value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ModelHealth tone="teal" items={['Em validacao', 'Atualizado 17:55', 'Sugestao', 'Evita reforco tardio']} />
           </motion.section>
         )}
 
@@ -311,22 +311,7 @@ export function InteligenciaView() {
                 </div>
               ))}
             </div>
-            <div className="bg-white rounded-[1.25rem] p-5 border border-slate-100 shadow-sm">
-              <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3">Ciclo de vida do modelo</p>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                {[
-                  ['Status', 'Experimento'],
-                  ['Atualizado', 'Hoje, 16:40'],
-                  ['Quando nao confiar', 'Cardapio mudou'],
-                  ['Impacto esperado', 'Menos ruptura'],
-                ].map(([title, value]) => (
-                  <div key={title} className="rounded-2xl bg-slate-50 border border-slate-100 p-3">
-                    <p className="text-[10px] font-black uppercase text-slate-400">{title}</p>
-                    <p className="text-sm font-black text-slate-800 mt-1">{value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ModelHealth tone="sky" items={['Experimento', 'Atualizado 16:40', 'Cardapio mudou', 'Menos ruptura']} />
           </motion.section>
         )}
 
@@ -355,22 +340,7 @@ export function InteligenciaView() {
                 <button className="bg-rose-500 hover:bg-rose-600 text-white font-black py-3 rounded-xl transition-all w-full">Criar resgate</button>
               </section>
             </div>
-            <section className="bg-white rounded-[1.25rem] p-5 border border-slate-100 shadow-sm">
-              <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3">Ciclo de vida do modelo</p>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                {[
-                  ['Status', 'Produzindo insight'],
-                  ['Atualizado', 'Hoje, 18:42'],
-                  ['Quando nao confiar', 'Base pequena ou campanha nova'],
-                  ['Impacto medido', 'Lift de resgate pendente'],
-                ].map(([title, value]) => (
-                  <div key={title} className="rounded-2xl bg-slate-50 border border-slate-100 p-3">
-                    <p className="text-[10px] font-black uppercase text-slate-400">{title}</p>
-                    <p className="text-sm font-black text-slate-800 mt-1">{value}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
+            <ModelHealth tone="rose" items={['Insight ativo', 'Atualizado 18:42', 'Campanha nova', 'Lift pendente']} />
           </motion.div>
         )}
 
@@ -396,22 +366,7 @@ export function InteligenciaView() {
                 </ResponsiveContainer>
               </div>
             </section>
-            <section className="bg-white rounded-[1.25rem] p-5 border border-slate-100 shadow-sm">
-              <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3">Ciclo de vida do modelo</p>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                {[
-                  ['Status', 'Ativo'],
-                  ['Atualizado', 'Hoje, 03:00'],
-                  ['Quando nao confiar', 'Cliente sem historico'],
-                  ['Impacto medido', 'Ofertas mais precisas'],
-                ].map(([title, value]) => (
-                  <div key={title} className="rounded-2xl bg-slate-50 border border-slate-100 p-3">
-                    <p className="text-[10px] font-black uppercase text-slate-400">{title}</p>
-                    <p className="text-sm font-black text-slate-800 mt-1">{value}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
+            <ModelHealth tone="amber" items={['Ativo', 'Atualizado 03:00', 'Sem historico', 'Oferta precisa']} />
           </motion.div>
         )}
 
@@ -420,9 +375,9 @@ export function InteligenciaView() {
             <h3 className="text-xl font-black text-slate-800 mb-5">Auditoria das ferramentas</h3>
             <div className="space-y-3">
               {[
-                ['18:42', 'Modelo sugeriu campanha de churn', 'Usou: ultima compra, LTV, reclamacao, opt-in'],
-                ['18:39', 'Modelo bloqueou disparo automatico', 'Motivo: cliente com ticket aberto'],
-                ['17:55', 'Previsao de vendas atualizada', 'Nova estimativa para amanha: R$ 10.800'],
+                ['18:42', 'Churn sugeriu resgate', 'LTV + reclamacao + opt-in'],
+                ['18:39', 'Disparo bloqueado', 'Ticket aberto'],
+                ['17:55', 'Previsao atualizada', 'Amanha: R$ 10.800'],
               ].map(([time, title, desc]) => (
                 <div key={title} className="rounded-2xl border border-slate-100 bg-slate-50/70 p-4 flex items-start justify-between gap-4">
                   <div>

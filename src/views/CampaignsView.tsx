@@ -5,6 +5,7 @@ import {
   TrendingUp, UserRound, Wallet, Zap,
 } from 'lucide-react';
 import { AutomationCard } from '../components/ui/AutomationCard';
+import { MiniVisual } from '../components/ui/MiniVisual';
 import { automationStats, campaigns, clients, formatCurrency } from '../data/mockData';
 
 type GrowthMode = 'campanhas' | 'automacoes';
@@ -98,9 +99,9 @@ export function CampaignsView() {
                 <div className="flex items-start justify-between gap-3 mb-4">
                   <div>
                     <h3 className="font-black text-slate-800 text-lg">{campaign.name}</h3>
-                    <p className="text-sm text-slate-500 font-medium">{campaign.audience}</p>
+                    <p className="text-xs text-slate-400 font-bold mt-1">{campaign.audience}</p>
                   </div>
-                  <span className="bg-teal-50 text-teal-700 text-xs font-black px-2 py-1 rounded-lg">{campaign.status}</span>
+                  <MiniVisual variant="campaign" tone="teal" className="h-12 w-16 shrink-0" />
                 </div>
                 <div className="grid grid-cols-3 gap-2 mb-5">
                   {[
@@ -120,7 +121,7 @@ export function CampaignsView() {
                     <p className="font-black text-slate-900">{formatCurrency(campaign.projectedRevenue)}</p>
                   </div>
                   <span className="bg-emerald-50 text-emerald-700 px-2 py-1 rounded-lg text-xs font-black">ROI {campaign.roi}x</span>
-                  <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-xl text-xs font-black flex items-center gap-1">
+                  <button className="bg-slate-900 hover:bg-teal-700 text-white px-3 py-2 rounded-xl text-xs font-black flex items-center gap-1">
                     <Eye size={14} /> Revisar
                   </button>
                 </div>
@@ -134,6 +135,7 @@ export function CampaignsView() {
                 <div>
                   <h3 className="font-black text-xl text-slate-800">Resgate VIP 45 dias</h3>
                 </div>
+                <MiniVisual variant="campaign" tone="amber" className="hidden sm:block h-14 w-20" />
                 <span className="bg-amber-50 text-amber-700 px-3 py-1.5 rounded-xl text-xs font-black">Aguardando aprovacao</span>
               </div>
 
@@ -151,9 +153,9 @@ export function CampaignsView() {
                 ))}
               </div>
 
-              <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4 mb-5">
-                <p className="text-xs font-black text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2"><MessageCircle size={14} /> Mensagem</p>
-                <p className="text-sm font-medium text-slate-700 leading-relaxed">Oi, [Nome]. Sentimos sua falta. Liberamos 20% por 24h para voce voltar.</p>
+              <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <p className="text-xs font-black text-slate-400 uppercase tracking-wider flex items-center gap-2"><MessageCircle size={14} /> Mensagem</p>
+                <p className="text-sm font-black text-slate-800">20% por 24h</p>
               </div>
 
               <div className="flex flex-wrap gap-2">
@@ -163,13 +165,13 @@ export function CampaignsView() {
             </div>
 
             <aside className="bg-slate-900 rounded-[1.5rem] p-6 text-white shadow-xl h-fit">
-              <CheckCircle2 size={34} className="text-teal-300 mb-4" />
-              <h3 className="font-black text-xl mb-2">Antes do disparo</h3>
-              <div className="space-y-3 text-sm">
+              <MiniVisual variant="automation" tone="teal" className="h-16 w-24 mb-3" />
+              <h3 className="font-black text-xl mb-4">Antes do disparo</h3>
+              <div className="grid grid-cols-2 gap-2 text-sm">
                 {['Opt-in ok', 'Tickets excluidos', 'Frequencia ok', 'Cupom testado'].map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-slate-300">
+                  <div key={item} className="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-slate-300">
                     <CheckCircle2 size={16} className="text-teal-300" />
-                    <span className="font-bold">{item}</span>
+                    <span className="text-xs font-black">{item}</span>
                   </div>
                 ))}
               </div>
@@ -246,9 +248,12 @@ export function CampaignsView() {
 
           <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {automationTemplates.map(([title, expected]) => (
-              <article key={title} className="bg-white rounded-[1.5rem] p-5 border border-slate-100 shadow-sm">
-                <p className="font-black text-slate-800">{title}</p>
-                <span className="text-xs font-black bg-emerald-50 text-emerald-700 px-2 py-1 rounded-lg">{expected}</span>
+              <article key={title} className="bg-white rounded-[1.5rem] p-5 border border-slate-100 shadow-sm flex items-center justify-between gap-3">
+                <div>
+                  <p className="font-black text-slate-800">{title}</p>
+                  <span className="text-xs font-black bg-emerald-50 text-emerald-700 px-2 py-1 rounded-lg">{expected}</span>
+                </div>
+                <MiniVisual variant="automation" tone="sky" className="h-12 w-16 shrink-0" />
               </article>
             ))}
           </section>

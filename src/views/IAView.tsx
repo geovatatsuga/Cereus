@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Bot, FileSearch, Send, Sparkles } from 'lucide-react';
+import { MiniVisual } from '../components/ui/MiniVisual';
 import { clients, formatCurrency } from '../data/mockData';
 
 export function IAView() {
@@ -26,6 +27,7 @@ export function IAView() {
                 <h3 className="font-black text-slate-900">Cereus Chat</h3>
               </div>
             </div>
+            <MiniVisual variant="chat" tone="teal" className="h-11 w-16" />
           </div>
 
           <div className="flex-1 p-6 overflow-y-auto space-y-6 bg-slate-50/50">
@@ -53,8 +55,16 @@ export function IAView() {
                 <div>
                   <p className="text-xs font-black text-teal-700 uppercase tracking-wider mb-2">Resposta do Cereus</p>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {['Resolver atraso', 'Recuperar VIPs', 'Evitar campanha ampla'].map((step) => (
-                      <div key={step} className="bg-slate-50 border border-slate-100 rounded-xl p-3 text-sm font-black text-slate-800">{step}</div>
+                    {[
+                      ['Resolver atraso', 'rose'],
+                      ['Recuperar VIPs', 'teal'],
+                      ['Segurar disparo', 'amber'],
+                    ].map(([step, tone]) => (
+                      <div key={step} className={`border rounded-xl p-3 text-sm font-black ${
+                        tone === 'rose' ? 'bg-rose-50 border-rose-100 text-rose-800' : tone === 'amber' ? 'bg-amber-50 border-amber-100 text-amber-800' : 'bg-teal-50 border-teal-100 text-teal-900'
+                      }`}>
+                        {step}
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -91,13 +101,18 @@ export function IAView() {
         </section>
 
         <aside className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm h-fit">
-          <h3 className="font-black text-xl text-slate-800 mb-4">Fontes da resposta</h3>
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <h3 className="font-black text-xl text-slate-800">Sinais</h3>
+            <MiniVisual variant="churn" tone="rose" className="h-12 w-16" />
+          </div>
           <div className="space-y-3">
             {riskClients.map((client) => (
-              <div key={client.id} className="rounded-2xl bg-slate-50 p-4 border border-slate-100">
-                <p className="font-black text-slate-800">{client.name}</p>
-                <p className="text-xs text-slate-500 font-medium">Risco {client.churnRisk}% - LTV {formatCurrency(client.spent)}</p>
-                <p className="text-xs text-slate-400 mt-1">{client.timeline[0]}</p>
+              <div key={client.id} className="rounded-2xl bg-slate-50 p-4 border border-slate-100 flex items-center justify-between gap-3">
+                <div>
+                  <p className="font-black text-slate-800">{client.name}</p>
+                  <p className="text-xs text-slate-400 font-bold">LTV {formatCurrency(client.spent)}</p>
+                </div>
+                <span className="text-xs font-black text-rose-700 bg-rose-50 border border-rose-100 px-2 py-1 rounded-lg">{client.churnRisk}%</span>
               </div>
             ))}
           </div>

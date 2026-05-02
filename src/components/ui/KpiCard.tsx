@@ -9,7 +9,7 @@ export function KpiCard({ title, value, change, isPositive, icon, highlight, bor
   return (
     <motion.div 
       whileHover={{ y: -4 }}
-      className={`rounded-[1.5rem] p-5 shadow-sm border transition-shadow flex flex-col ${highlight ? 'bg-gradient-to-br from-slate-800 to-slate-900 text-white border-slate-700 shadow-xl' : `bg-white border-slate-100/60 hover:shadow-md ${borderTop}`}`}
+      className={`rounded-[1.25rem] p-5 shadow-sm border transition-shadow flex flex-col ${highlight ? 'bg-gradient-to-br from-slate-800 to-slate-900 text-white border-slate-700 shadow-xl' : `bg-white border-slate-100/60 hover:shadow-md ${borderTop}`}`}
     >
       <div className="flex justify-between items-start mb-4">
         <div className={`p-2.5 rounded-xl ${highlight ? 'bg-white/10 text-teal-400' : 'bg-slate-50 text-slate-600'}`}>
@@ -25,8 +25,8 @@ export function KpiCard({ title, value, change, isPositive, icon, highlight, bor
         </div>
       </div>
       <div>
-        <h4 className={`text-sm font-medium mb-1 ${highlight ? 'text-slate-400' : 'text-slate-500'}`}>{title}</h4>
-        <div className={`text-2xl font-black ${highlight ? 'text-white' : 'text-slate-800'}`}>{value}</div>
+        <h4 className={`text-xs font-bold uppercase tracking-wide mb-1 ${highlight ? 'text-slate-400' : 'text-slate-400'}`}>{title}</h4>
+        <div className={`text-2xl font-black tracking-tight ${highlight ? 'text-white' : 'text-slate-900'}`}>{value}</div>
       </div>
       {data && (
         <div className="h-10 mt-3 -mx-2 w-[calc(100%+16px)]">
