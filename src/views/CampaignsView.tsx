@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import {
-  AlertTriangle, CalendarClock, CheckCircle2, Eye, MessageCircle,
-  PauseCircle, PlayCircle, Repeat2, Route, Send, ShieldCheck, ShoppingBag, Target,
-  TrendingUp, UserRound, Wallet, Zap,
+  AlertTriangle, CheckCircle2, Eye, MessageCircle,
+  PauseCircle, PlayCircle, Repeat2, Route, Send, ShieldCheck, Zap,
 } from 'lucide-react';
 import { AutomationCard } from '../components/ui/AutomationCard';
-import { automationStats, campaigns, clients, formatCurrency } from '../data/mockData';
+import { automationStats, campaigns, formatCurrency } from '../data/mockData';
 
 type GrowthMode = 'campanhas' | 'automacoes';
-type GrowthGoal = 'vender' | 'recuperar' | 'ticket' | 'recorrencia';
 
 const automationTemplates = [
   ['Carrinho abandonado', '+R$ 4.200/mes'],
@@ -18,15 +16,13 @@ const automationTemplates = [
 
 export function CampaignsView() {
   const [activeMode, setActiveMode] = useState<GrowthMode>('campanhas');
-  const [activeGoal, setActiveGoal] = useState<GrowthGoal>('vender');
-  const selectedAudience = clients.filter((client) => client.segment === 'Em Risco' || client.churnRisk >= 60);
-
-  const growthGoals = [
-    { id: 'vender' as GrowthGoal, label: 'Vender hoje', hint: 'Campanha pontual', mode: 'campanhas' as GrowthMode, icon: <ShoppingBag size={18} /> },
-    { id: 'recuperar' as GrowthGoal, label: 'Recuperar clientes', hint: 'Campanha ou fluxo', mode: 'campanhas' as GrowthMode, icon: <UserRound size={18} /> },
-    { id: 'ticket' as GrowthGoal, label: 'Aumentar ticket', hint: 'Oferta no pedido', mode: 'automacoes' as GrowthMode, icon: <TrendingUp size={18} /> },
-    { id: 'recorrencia' as GrowthGoal, label: 'Automatizar retorno', hint: 'Roda sozinho', mode: 'automacoes' as GrowthMode, icon: <Repeat2 size={18} /> },
-  ];
+  const totalRevenue = campaigns.reduce((sum, campaign) => sum + campaign.projectedRevenue, 0);
+  const totalBudget = campaigns.reduce((sum, campaign) => sum + campaign.budget, 0);
+  const averageRoi = totalRevenue / totalBudget;
+  const totalAudience = campaigns.reduce((sum, campaign) => {
+    const match = campaign.audience.match(/\d+/);
+    return sum + (match ? Number(match[0]) : 0);
+  }, 0);
 
   return (
     <div className="p-4 sm:p-8 pb-20 max-w-7xl mx-auto w-full space-y-8 relative z-0">
@@ -42,33 +38,19 @@ export function CampaignsView() {
       </div>
 
       <section className="bg-white rounded-xl p-4 border border-slate-200/70">
-        <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 flex-1">
-          {growthGoals.map((goal) => (
-            <button
-              key={goal.id}
-              onClick={() => {
-                setActiveGoal(goal.id);
-                setActiveMode(goal.mode);
-              }}
-              className={`text-left rounded-lg border p-4 transition-all ${
-                activeGoal === goal.id
-                  ? 'bg-slate-900 border-slate-900 text-white'
-                  : 'bg-slate-50 border-slate-100 text-slate-700 hover:border-teal-200'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${
-                  activeGoal === goal.id ? 'bg-white/10 text-teal-200' : 'bg-white text-slate-600'
-                }`}>
-                  {goal.icon}
-                </div>
-                <div>
-                  <p className="text-sm font-black">{goal.label}</p>
-                </div>
+        <div className="flex flex-col 2xl:flex-row 2xl:items-center justify-between gap-4">
+          <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 flex-1">
+            {[
+              ['Receita prevista', formatCurrency(totalRevenue)],
+              ['Investimento', formatCurrency(totalBudget)],
+              ['ROI medio', `${averageRoi.toFixed(1)}x`],
+              ['Publico', `${totalAudience} clientes`],
+            ].map(([label, value]) => (
+              <div key={label} className="rounded-lg bg-slate-50 border border-slate-100 p-4">
+                <p className="text-[10px] font-bold uppercase tracking-wide text-slate-400">{label}</p>
+                <p className="text-xl font-extrabold text-slate-950 mt-1">{value}</p>
               </div>
-            </button>
-          ))}
+            ))}
           </div>
           <div className="bg-slate-100 p-1 rounded-lg border border-slate-200 flex w-full sm:w-fit">
             {[
@@ -92,87 +74,42 @@ export function CampaignsView() {
 
       {activeMode === 'campanhas' ? (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {campaigns.map((campaign) => (
-              <article key={campaign.name} className="bg-white rounded-xl p-5 border border-slate-200/70 hover:shadow-sm transition-all">
-                <div className="flex items-start justify-between gap-3 mb-4">
+          <section className="bg-white rounded-xl border border-slate-200/70 overflow-hidden">
+            <div className="grid grid-cols-[1.4fr_0.8fr_0.7fr_0.8fr_0.55fr_0.8fr_0.45fr] gap-4 px-5 py-3 border-b border-slate-100 text-[10px] font-bold uppercase tracking-wide text-slate-400 min-w-[920px]">
+              <span>Campanha</span>
+              <span>Publico</span>
+              <span>Investimento</span>
+              <span>Receita prevista</span>
+              <span>ROI</span>
+              <span>Status</span>
+              <span />
+            </div>
+            <div className="divide-y divide-slate-100 overflow-x-auto">
+              {campaigns.map((campaign) => (
+                <div key={campaign.name} className="grid grid-cols-[1.4fr_0.8fr_0.7fr_0.8fr_0.55fr_0.8fr_0.45fr] gap-4 px-5 py-4 items-center min-w-[920px]">
                   <div>
-                    <h3 className="font-black text-slate-800 text-lg">{campaign.name}</h3>
-                    <p className="text-xs text-slate-400 font-bold mt-1">{campaign.audience}</p>
+                    <p className="font-bold text-slate-950">{campaign.name}</p>
+                    <p className="text-xs font-semibold text-slate-400 mt-1">{campaign.channel}</p>
                   </div>
-                  <span className="text-xs font-bold text-slate-500 bg-slate-50 border border-slate-100 px-2.5 py-1 rounded-md">{campaign.status}</span>
-                </div>
-                <div className="grid grid-cols-3 gap-2 mb-5">
-                  {[
-                    ['Canal', campaign.channel],
-                    ['Data', 'Pontual'],
-                    ['Custo', formatCurrency(campaign.budget)],
-                  ].map(([label, value]) => (
-                    <div key={label} className="bg-slate-50 rounded-lg p-3">
-                      <p className="text-[10px] uppercase font-black text-slate-400">{label}</p>
-                      <p className="font-black text-slate-800 text-sm">{value}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex items-center justify-between border-t border-slate-100 pt-4">
-                  <div>
-                    <p className="text-xs font-bold text-slate-400">Receita prevista</p>
-                    <p className="font-black text-slate-900">{formatCurrency(campaign.projectedRevenue)}</p>
-                  </div>
-                  <span className="bg-emerald-50 text-emerald-700 px-2 py-1 rounded-md text-xs font-black">ROI {campaign.roi}x</span>
-                  <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-lg text-xs font-black flex items-center gap-1">
-                    <Eye size={14} /> Revisar
+                  <p className="text-sm font-bold text-slate-700">{campaign.audience}</p>
+                  <p className="text-sm font-bold text-slate-700">{formatCurrency(campaign.budget)}</p>
+                  <p className="text-sm font-extrabold text-slate-950">{formatCurrency(campaign.projectedRevenue)}</p>
+                  <span className="w-fit bg-emerald-50 text-emerald-700 px-2 py-1 rounded-md text-xs font-bold">{campaign.roi}x</span>
+                  <span className="w-fit text-xs font-bold text-slate-500 bg-slate-50 border border-slate-100 px-2.5 py-1 rounded-md">{campaign.status}</span>
+                  <button className="text-slate-500 hover:text-slate-900 transition-colors justify-self-end" aria-label={`Revisar ${campaign.name}`}>
+                    <Eye size={16} />
                   </button>
                 </div>
-              </article>
-            ))}
-          </div>
-
-          <section className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-            <div className="xl:col-span-2 bg-white rounded-xl p-6 border border-slate-200/70">
-              <div className="flex items-start justify-between gap-4 mb-6">
-                <div>
-                  <h3 className="font-black text-xl text-slate-800">Resgate VIP 45 dias</h3>
-                </div>
-                <span className="bg-amber-50 text-amber-700 px-3 py-1.5 rounded-md text-xs font-black">Aguardando aprovacao</span>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                {[
-                  ['Publico elegivel', `${selectedAudience.length} clientes`, <Target size={20} />],
-                  ['Receita prevista', formatCurrency(6300), <Wallet size={20} />],
-                  ['Janela', 'Hoje 20:00', <CalendarClock size={20} />],
-                ].map(([title, value, icon]) => (
-                  <div key={String(title)} className="rounded-lg bg-slate-50 border border-slate-100 p-4">
-                    <div className="text-teal-700 mb-3">{icon}</div>
-                    <p className="text-xs font-black uppercase tracking-wider text-slate-400">{title}</p>
-                    <p className="font-black text-slate-900 mt-1">{value}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="bg-slate-50 border border-slate-100 rounded-lg p-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <p className="text-xs font-black text-slate-400 uppercase tracking-wider flex items-center gap-2"><MessageCircle size={14} /> Mensagem</p>
-                <p className="text-sm font-black text-slate-800">20% por 24h</p>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                <button className="bg-slate-900 hover:bg-teal-700 text-white px-5 py-3 rounded-lg text-sm font-black flex items-center gap-2"><Send size={16} /> Agendar</button>
-                <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-3 rounded-lg text-sm font-black">Teste</button>
-              </div>
+              ))}
             </div>
-
-            <aside className="bg-slate-900 rounded-xl p-6 text-white shadow-sm h-fit">
-              <h3 className="font-black text-xl mb-4">Antes do disparo</h3>
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                {['Opt-in ok', 'Tickets excluidos', 'Frequencia ok', 'Cupom testado'].map((item) => (
-                  <div key={item} className="flex items-center gap-2 rounded-lg bg-white/10 px-3 py-2 text-slate-300">
-                    <CheckCircle2 size={16} className="text-teal-300" />
-                    <span className="text-xs font-black">{item}</span>
-                  </div>
-                ))}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-4 border-t border-slate-100 bg-slate-50/60">
+              {['Opt-in ok', 'Tickets excluidos', 'Frequencia ok', 'Cupom testado'].map((item) => (
+                <div key={item} className="flex items-center gap-2 rounded-lg bg-white border border-slate-100 px-3 py-2 text-slate-600">
+                  <CheckCircle2 size={15} className="text-emerald-600" />
+                  <span className="text-xs font-bold">{item}</span>
+                </div>
+              ))}
               </div>
-            </aside>
           </section>
         </>
       ) : (
