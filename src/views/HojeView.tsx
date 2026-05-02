@@ -2,7 +2,11 @@ import React from 'react';
 import { AlertTriangle, ArrowRight, Clock, MessageCircle, PackageSearch, ShoppingBag, Wallet } from 'lucide-react';
 import { campaigns, formatCurrency, operations, totals } from '../data/mockData';
 
-export function HojeView() {
+type HojeViewProps = {
+  onNavigate?: (tab: string) => void;
+};
+
+export function HojeView({ onNavigate }: HojeViewProps) {
   const lateOrders = operations.filter((order) => order.late);
   const openOrders = operations.length;
   const averageTicket = Math.round(totals.revenue / 594);
@@ -81,16 +85,28 @@ export function HojeView() {
             </div>
             <span className="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-lg text-xs font-black">{bestCampaign.roi}x ROI</span>
           </div>
-          <button className="w-full mt-5 bg-white border border-slate-200 hover:bg-teal-50 hover:border-teal-200 text-slate-800 rounded-xl py-3 text-sm font-black flex items-center justify-center gap-2 transition-colors">
+          <button
+            onClick={() => onNavigate?.('campanhas')}
+            className="w-full mt-5 bg-white border border-slate-200 hover:bg-teal-50 hover:border-teal-200 text-slate-800 rounded-xl py-3 text-sm font-black flex items-center justify-center gap-2 transition-colors"
+          >
             Revisar <ArrowRight size={16} />
           </button>
         </article>
       </section>
 
       <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {['Operacao', 'Atendimento', 'Crescimento', 'Cereus'].map((item) => (
-          <button key={item} className="bg-white border border-slate-100 rounded-2xl px-4 py-4 text-sm font-black text-slate-700 shadow-sm hover:border-teal-200 hover:text-teal-700 transition-colors">
-            {item}
+        {[
+          ['Pedidos', 'operacao'],
+          ['Atendimento', 'atendimento'],
+          ['Crescimento', 'campanhas'],
+          ['Cereus', 'ia'],
+        ].map(([label, tab]) => (
+          <button
+            key={tab}
+            onClick={() => onNavigate?.(tab)}
+            className="bg-white border border-slate-100 rounded-2xl px-4 py-4 text-sm font-black text-slate-700 shadow-sm hover:border-teal-200 hover:text-teal-700 transition-colors"
+          >
+            {label}
           </button>
         ))}
       </section>

@@ -5,7 +5,7 @@ export function SettingsView() {
   const roles = [
     { name: 'Super Admin', users: 2, access: 'Tudo, incluindo faturamento e exportacao' },
     { name: 'Vendedor', users: 5, access: 'Clientes, campanhas e inbox sem dados globais' },
-    { name: 'Operacao', users: 8, access: 'Pedidos, entregas e chamados operacionais' },
+    { name: 'Pedidos', users: 8, access: 'Pedidos, entregas e chamados operacionais' },
   ];
 
   const integrations = [

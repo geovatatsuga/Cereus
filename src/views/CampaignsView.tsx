@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import {
   AlertTriangle, CalendarClock, CheckCircle2, Eye, Megaphone, MessageCircle,
-  PauseCircle, PlayCircle, Repeat2, Route, Send, ShieldCheck, Target, TestTube2, Timer, Wallet, Zap,
+  PauseCircle, PlayCircle, Repeat2, Route, Send, ShieldCheck, ShoppingBag, Target, TestTube2,
+  Timer, TrendingUp, UserRound, Wallet, Zap,
 } from 'lucide-react';
 import { AutomationCard } from '../components/ui/AutomationCard';
 import { automationStats, campaigns, clients, formatCurrency } from '../data/mockData';
 
 type GrowthMode = 'campanhas' | 'automacoes';
+type GrowthGoal = 'vender' | 'recuperar' | 'ticket' | 'recorrencia';
 
 const automationTemplates = [
   ['Carrinho abandonado', 'Entrou no carrinho, nao pagou, recebe lembrete automatico.', '+R$ 4.200/mes'],
@@ -16,7 +18,15 @@ const automationTemplates = [
 
 export function CampaignsView() {
   const [activeMode, setActiveMode] = useState<GrowthMode>('campanhas');
+  const [activeGoal, setActiveGoal] = useState<GrowthGoal>('vender');
   const selectedAudience = clients.filter((client) => client.segment === 'Em Risco' || client.churnRisk >= 60);
+
+  const growthGoals = [
+    { id: 'vender' as GrowthGoal, label: 'Vender hoje', hint: 'Campanha pontual', mode: 'campanhas' as GrowthMode, icon: <ShoppingBag size={18} /> },
+    { id: 'recuperar' as GrowthGoal, label: 'Recuperar clientes', hint: 'Campanha ou fluxo', mode: 'campanhas' as GrowthMode, icon: <UserRound size={18} /> },
+    { id: 'ticket' as GrowthGoal, label: 'Aumentar ticket', hint: 'Oferta no pedido', mode: 'automacoes' as GrowthMode, icon: <TrendingUp size={18} /> },
+    { id: 'recorrencia' as GrowthGoal, label: 'Automatizar retorno', hint: 'Roda sozinho', mode: 'automacoes' as GrowthMode, icon: <Repeat2 size={18} /> },
+  ];
 
   return (
     <div className="p-4 sm:p-8 pb-20 max-w-7xl mx-auto w-full space-y-8 relative z-0">
@@ -80,6 +90,38 @@ export function CampaignsView() {
             </div>
           </button>
         ))}
+      </section>
+
+      <section className="bg-white rounded-[1.5rem] p-4 border border-slate-100 shadow-sm">
+        <p className="text-xs font-black uppercase tracking-wider text-slate-400 mb-3">Objetivo</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
+          {growthGoals.map((goal) => (
+            <button
+              key={goal.id}
+              onClick={() => {
+                setActiveGoal(goal.id);
+                setActiveMode(goal.mode);
+              }}
+              className={`text-left rounded-2xl border p-4 transition-all ${
+                activeGoal === goal.id
+                  ? 'bg-teal-50 border-teal-200 text-teal-900'
+                  : 'bg-slate-50 border-slate-100 text-slate-700 hover:border-teal-200'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${
+                  activeGoal === goal.id ? 'bg-teal-600 text-white' : 'bg-white text-teal-700'
+                }`}>
+                  {goal.icon}
+                </div>
+                <div>
+                  <p className="text-sm font-black">{goal.label}</p>
+                  <p className="text-xs font-bold text-slate-500">{goal.hint}</p>
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
       </section>
 
       {activeMode === 'campanhas' ? (

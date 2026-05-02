@@ -37,8 +37,8 @@ export function AnalyticsView() {
     <div className="p-4 sm:p-8 pb-20 max-w-7xl mx-auto w-full space-y-8 relative z-0">
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div>
-          <h2 className="text-3xl font-black text-slate-800 tracking-tight mb-2">Metricas</h2>
-          <p className="text-slate-500 font-medium">Dinheiro, funil e retencao em uma leitura.</p>
+          <h2 className="text-3xl font-black text-slate-800 tracking-tight mb-2">Resultados</h2>
+          <p className="text-slate-500 font-medium">Dinheiro, funil e retencao sem pressa operacional.</p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <button className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 shadow-sm hover:bg-slate-50 transition-colors">

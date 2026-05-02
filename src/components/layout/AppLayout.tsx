@@ -3,7 +3,6 @@ import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { FadeView } from '../ui/FadeView';
 import { AnimatePresence } from 'motion/react';
-import { DashboardView } from '../../views/DashboardView';
 import { HojeView } from '../../views/HojeView';
 import { AudienciaView } from '../../views/AudienciaView';
 import { AtendimentoView } from '../../views/AtendimentoView';
@@ -27,8 +26,7 @@ export function AppLayout() {
         <Header />
 
         <AnimatePresence mode="wait">
-          {activeTab === 'hoje' && <FadeView key="hoje"><HojeView /></FadeView>}
-          {activeTab === 'dashboard' && <FadeView key="dashboard"><DashboardView /></FadeView>}
+          {activeTab === 'hoje' && <FadeView key="hoje"><HojeView onNavigate={setActiveTab} /></FadeView>}
           {activeTab === 'audiencia' && <FadeView key="audiencia"><AudienciaView /></FadeView>}
           {activeTab === 'atendimento' && <FadeView key="atendimento"><AtendimentoView /></FadeView>}
           {activeTab === 'campanhas' && <FadeView key="campanhas"><CampaignsView /></FadeView>}

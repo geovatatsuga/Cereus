@@ -161,7 +161,7 @@ export function InteligenciaView() {
     <div className="p-4 sm:p-8 pb-20 max-w-7xl mx-auto w-full space-y-8 relative z-0">
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div>
-          <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Ferramentas de Inteligencia</h2>
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Lab de IA</h2>
           <p className="text-slate-500 font-medium">Modelos para vender melhor, prever demanda e reduzir perdas.</p>
         </div>
         <div className="flex bg-slate-100/80 p-1 rounded-xl w-full lg:w-auto overflow-x-auto shadow-inner border border-slate-200">

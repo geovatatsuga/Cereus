@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavItem } from './NavItem';
 import {
-  BarChart3, Bot, BrainCircuit, Home, Inbox, LayoutDashboard, Megaphone, Settings, Sparkles,
+  BarChart3, Bot, BrainCircuit, Home, Inbox, Megaphone, Settings, Sparkles,
   Utensils, Users,
 } from 'lucide-react';
 
@@ -32,11 +32,10 @@ export function Sidebar({ activeTab, setActiveTab }: { activeTab: string, setAct
         <div className="space-y-6">
           <nav className="flex flex-col gap-1">
             <NavItem icon={<Home size={20} />} label="Hoje" active={activeTab === 'hoje'} onClick={() => setActiveTab('hoje')} badge="Agora" />
-            <NavItem icon={<LayoutDashboard size={20} />} label="Dashboard" active={activeTab === 'dashboard'} onClick={() => setActiveTab('dashboard')} />
-            <NavItem icon={<Users size={20} />} label="Clientes" active={activeTab === 'audiencia'} onClick={() => setActiveTab('audiencia')} />
+            <NavItem icon={<Utensils size={20} />} label="Pedidos" active={activeTab === 'operacao'} onClick={() => setActiveTab('operacao')} />
             <NavItem icon={<Inbox size={20} />} label="Atendimento" active={activeTab === 'atendimento'} onClick={() => setActiveTab('atendimento')} badge="6" />
+            <NavItem icon={<Users size={20} />} label="Clientes" active={activeTab === 'audiencia'} onClick={() => setActiveTab('audiencia')} />
             <NavItem icon={<Megaphone size={20} />} label="Crescimento" active={activeTab === 'campanhas'} onClick={() => setActiveTab('campanhas')} badge="ROI" />
-            <NavItem icon={<Utensils size={20} />} label="Operacao" active={activeTab === 'operacao'} onClick={() => setActiveTab('operacao')} />
           </nav>
 
           <div>
@@ -45,7 +44,7 @@ export function Sidebar({ activeTab, setActiveTab }: { activeTab: string, setAct
               <div className="h-px bg-slate-200 flex-1" />
             </div>
             <nav className="flex flex-col gap-1">
-              <NavItem icon={<BarChart3 size={20} />} label="Metricas" active={activeTab === 'analytics'} onClick={() => setActiveTab('analytics')} />
+              <NavItem icon={<BarChart3 size={20} />} label="Resultados" active={activeTab === 'analytics'} onClick={() => setActiveTab('analytics')} />
             </nav>
           </div>
 
@@ -56,7 +55,7 @@ export function Sidebar({ activeTab, setActiveTab }: { activeTab: string, setAct
             </div>
             <nav className="flex flex-col gap-1">
               <NavItem icon={<Bot size={20} />} label="Cereus" active={activeTab === 'ia'} onClick={() => setActiveTab('ia')} badge="Chat" />
-              <NavItem icon={<BrainCircuit size={20} />} label="Inteligencia" active={activeTab === 'inteligencia'} onClick={() => setActiveTab('inteligencia')} badge="Lab" />
+              <NavItem icon={<BrainCircuit size={20} />} label="Lab de IA" active={activeTab === 'inteligencia'} onClick={() => setActiveTab('inteligencia')} badge="Lab" />
             </nav>
           </div>
         </div>

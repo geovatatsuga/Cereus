@@ -17,7 +17,12 @@ export function AudienciaView() {
 
   const filteredClients = useMemo(() => (
     clients.filter((client) => {
-      const matchesFilter = activeFilter === 'Todos' || client.segment === activeFilter;
+      const matchesFilter =
+        activeFilter === 'Todos'
+        || client.segment === activeFilter
+        || (activeFilter === 'Sumidos' && client.lastOrderDays >= 20)
+        || (activeFilter === 'Alto valor' && client.spent >= 3000)
+        || (activeFilter === 'Reclamaram' && client.timeline.some((event) => event.toLowerCase().includes('reclam')));
       const q = search.toLowerCase();
       const matchesSearch = client.name.toLowerCase().includes(q) || client.email.toLowerCase().includes(q) || client.tags.join(' ').includes(q);
       return matchesFilter && matchesSearch;
@@ -56,7 +61,7 @@ export function AudienciaView() {
         <section className="bg-white rounded-[1.5rem] p-5 sm:p-6 shadow-sm border border-slate-100">
           <div className="flex flex-col lg:flex-row justify-between gap-4 mb-6">
             <div className="flex bg-slate-50 p-1 rounded-xl border border-slate-100 overflow-x-auto">
-              {['Todos', 'VIP', 'Recorrente', 'Novo', 'Em Risco'].map((filter) => (
+              {['Todos', 'VIP', 'Em Risco', 'Sumidos', 'Alto valor', 'Reclamaram'].map((filter) => (
                 <button
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
