@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   AlertTriangle, CalendarClock, CheckCircle2, Eye, MessageCircle,
-  PauseCircle, PlayCircle, Repeat2, Route, Send, ShieldCheck, ShoppingBag, Target, TestTube2,
+  PauseCircle, PlayCircle, Repeat2, Route, Send, ShieldCheck, ShoppingBag, Target,
   TrendingUp, UserRound, Wallet, Zap,
 } from 'lucide-react';
 import { AutomationCard } from '../components/ui/AutomationCard';
@@ -208,42 +208,6 @@ export function CampaignsView() {
                 metrics={{ sent: `${item.sent} exec.`, conv: `${item.conversion}%`, rev: item.revenue ? formatCurrency(item.revenue) : '-' }}
               />
             ))}
-          </section>
-
-          <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
-              <h3 className="text-xl font-black text-slate-800 mb-6">Cliente critico</h3>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                {[
-                  ['Quando', '30 dias sem comprar'],
-                  ['Regra', 'LTV acima de R$ 700'],
-                  ['Pausa', 'Reclamacao aberta'],
-                  ['Acao', 'Jornada de retorno'],
-                ].map(([title, text]) => (
-                  <div key={title} className="rounded-2xl bg-slate-50 border border-slate-100 p-4">
-                    <p className="text-xs font-black uppercase tracking-wider text-slate-400">{title}</p>
-                    <p className="font-bold text-slate-800 mt-1">{text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <aside className="bg-slate-900 rounded-[1.5rem] p-6 text-white shadow-xl h-fit">
-              <TestTube2 className="text-teal-300 mb-4" size={30} />
-              <h3 className="font-black text-xl mb-2">Teste da automacao</h3>
-              <div className="grid grid-cols-3 gap-2 mb-5">
-                {[
-                  ['Elegiveis', '125'],
-                  ['Pausados', '9'],
-                  ['Receita', 'R$ 6,3k'],
-                ].map(([label, value]) => (
-                  <div key={label} className="bg-white/10 rounded-xl p-3">
-                    <p className="text-[10px] font-black uppercase text-slate-400">{label}</p>
-                    <p className="text-sm font-black">{value}</p>
-                  </div>
-                ))}
-              </div>
-              <button className="w-full bg-teal-500 hover:bg-teal-400 text-slate-950 font-black py-3 rounded-xl transition-colors">Publicar</button>
-            </aside>
           </section>
 
           <section className="grid grid-cols-1 md:grid-cols-3 gap-4">

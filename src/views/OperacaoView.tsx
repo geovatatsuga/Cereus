@@ -47,7 +47,7 @@ export function OperacaoView() {
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <KpiCard title="Pedidos Abertos" value={String(operations.length)} change="Volume normal" isPositive icon={<Activity size={20} />} borderTop="border-t-4 border-t-amber-400" highlight data={[5, 8, 12, 10, 15, 14, operations.length]} />
         <KpiCard title="Tempo Medio" value="22 min" change="-4 min" isPositive icon={<Clock size={20} />} borderTop="border-t-4 border-t-blue-400" data={[38, 35, 32, 34, 30, 29, 22]} />
-        <KpiCard title="Atrasados" value={String(operations.filter((o) => o.late).length)} change="Resolver agora" isPositive={false} icon={<AlertTriangle size={20} />} borderTop="border-t-4 border-t-rose-400" data={[3, 2, 0, 1, 0, 0, operations.filter((o) => o.late).length]} />
+        <KpiCard title="Atrasados" value={String(operations.filter((o) => o.late).length)} change="em rota" isPositive={false} icon={<AlertTriangle size={20} />} borderTop="border-t-4 border-t-rose-400" data={[3, 2, 0, 1, 0, 0, operations.filter((o) => o.late).length]} />
         <KpiCard title="Gargalo" value={bottleneck?.[0] ?? '-'} change={`${bottleneck?.[1] ?? 0} min somados`} isPositive={false} icon={<TimerReset size={20} />} borderTop="border-t-4 border-t-orange-400" data={[18, 21, 25, 28, 24, 27, bottleneck?.[1] ?? 0]} />
         <KpiCard title="Concluidos Hoje" value="84" change="+12%" isPositive icon={<CheckCircle2 size={20} />} borderTop="border-t-4 border-t-emerald-400" data={[30, 45, 50, 65, 70, 78, 84]} />
       </div>

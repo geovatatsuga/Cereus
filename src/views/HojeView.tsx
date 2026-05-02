@@ -1,5 +1,6 @@
 import React from 'react';
-import { AlertTriangle, ArrowRight, Clock, MessageCircle, PackageSearch, ShoppingBag, Wallet } from 'lucide-react';
+import { AlertTriangle, ArrowRight, PackageSearch, ShoppingBag, Wallet } from 'lucide-react';
+import { MiniVisual } from '../components/ui/MiniVisual';
 import { campaigns, formatCurrency, operations, totals } from '../data/mockData';
 
 type HojeViewProps = {
@@ -14,15 +15,16 @@ export function HojeView({ onNavigate }: HojeViewProps) {
 
   const kpis = [
     { label: 'Receita hoje', value: 'R$ 4.820', hint: '+12% vs ontem', icon: <Wallet size={19} />, tone: 'teal' },
-    { label: 'Pedidos hoje', value: '84', hint: `${openOrders} abertos agora`, icon: <ShoppingBag size={19} />, tone: 'sky' },
+    { label: 'Pedidos hoje', value: '84', hint: `${openOrders} abertos`, icon: <ShoppingBag size={19} />, tone: 'sky' },
     { label: 'Ticket medio', value: formatCurrency(averageTicket), hint: 'meta R$ 150', icon: <PackageSearch size={19} />, tone: 'amber' },
-    { label: 'Atrasados', value: String(lateOrders.length), hint: 'acao imediata', icon: <AlertTriangle size={19} />, tone: 'rose' },
+    { label: 'Atrasados', value: String(lateOrders.length), hint: 'em rota', icon: <AlertTriangle size={19} />, tone: 'rose' },
   ];
 
-  const alerts = [
-    { label: 'Reforce 19h-21h', icon: <Clock size={16} />, tone: 'teal' },
-    { label: '6 atendimentos', icon: <MessageCircle size={16} />, tone: 'sky' },
-    { label: '1 atraso em rota', icon: <AlertTriangle size={16} />, tone: 'rose' },
+  const dayFlow = [
+    { hour: '11h', orders: 18, revenue: 'R$ 980', tone: 'sky' },
+    { hour: '13h', orders: 34, revenue: 'R$ 1,8k', tone: 'teal' },
+    { hour: '19h', orders: 52, revenue: 'R$ 3,1k', tone: 'amber' },
+    { hour: '21h', orders: 41, revenue: 'R$ 2,4k', tone: 'rose' },
   ];
 
   return (
@@ -30,7 +32,7 @@ export function HojeView({ onNavigate }: HojeViewProps) {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <p className="text-xs font-black uppercase tracking-wider text-teal-700 mb-2">Hoje</p>
-          <h2 className="text-3xl font-black text-slate-900 tracking-tight">Painel rapido</h2>
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight">Hoje</h2>
         </div>
       </div>
 
@@ -53,17 +55,30 @@ export function HojeView({ onNavigate }: HojeViewProps) {
       </section>
 
       <section className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-        <article className="xl:col-span-2 bg-slate-900 rounded-[1.5rem] p-5 sm:p-6 text-white shadow-xl">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
-            <div>
-              <p className="text-xs font-black uppercase tracking-wider text-teal-300 mb-2">Proximo passo</p>
-              <h3 className="text-2xl font-black tracking-tight">Reforce o jantar</h3>
+        <article className="xl:col-span-2 bg-white rounded-[1.5rem] p-5 sm:p-6 border border-slate-100 shadow-sm">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+            <div className="flex items-center gap-4">
+              <MiniVisual variant="forecast" tone="teal" className="h-16 w-24 shrink-0" />
+              <div>
+                <p className="text-xs font-black uppercase tracking-wider text-slate-400 mb-1">Fluxo do dia</p>
+                <h3 className="text-2xl font-black text-slate-900 tracking-tight">145 pedidos</h3>
+              </div>
             </div>
-            <div className="grid grid-cols-3 gap-2 min-w-full md:min-w-[360px]">
-              {alerts.map((alert) => (
-                <div key={alert.label} className="bg-white/10 border border-white/10 rounded-2xl p-3">
-                  <div className={`mb-2 ${alert.tone === 'rose' ? 'text-rose-300' : alert.tone === 'sky' ? 'text-sky-300' : 'text-teal-300'}`}>{alert.icon}</div>
-                  <p className="text-xs font-black leading-tight">{alert.label}</p>
+            <div className="grid grid-cols-4 gap-2 min-w-full lg:min-w-[460px]">
+              {dayFlow.map((item) => (
+                <div key={item.hour} className="bg-slate-50 border border-slate-100 rounded-2xl p-3">
+                  <div className="h-20 flex items-end mb-3">
+                    <div
+                      className={`w-full rounded-xl ${
+                        item.tone === 'rose' ? 'bg-rose-400' : item.tone === 'amber' ? 'bg-amber-400' : item.tone === 'sky' ? 'bg-sky-400' : 'bg-teal-500'
+                      }`}
+                      style={{ height: `${Math.max(26, item.orders)}px` }}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-xs font-black text-slate-900">{item.hour}</p>
+                    <p className="text-[10px] font-black text-slate-400">{item.revenue}</p>
+                  </div>
                 </div>
               ))}
             </div>

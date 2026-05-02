@@ -43,7 +43,7 @@ export function IAView() {
             <div className="flex gap-4 flex-row-reverse">
               <img src="https://i.pravatar.cc/150?img=32" alt="User" className="w-10 h-10 rounded-full shadow-sm shrink-0" />
               <div className="bg-slate-900 p-4 rounded-2xl rounded-tr-none shadow-sm max-w-[88%]">
-                <p className="text-white text-sm font-medium leading-relaxed">O que eu deveria fazer agora para vender mais sem piorar a operacao?</p>
+                <p className="text-white text-sm font-medium leading-relaxed">Receita, operacao e clientes.</p>
               </div>
             </div>
 
@@ -56,9 +56,9 @@ export function IAView() {
                   <p className="text-xs font-black text-teal-700 uppercase tracking-wider mb-2">Resposta do Cereus</p>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     {[
-                      ['Resolver atraso', 'rose'],
-                      ['Recuperar VIPs', 'teal'],
-                      ['Segurar disparo', 'amber'],
+                      ['Atraso em rota', 'rose'],
+                      ['VIPs em risco', 'teal'],
+                      ['Disparo pausado', 'amber'],
                     ].map(([step, tone]) => (
                       <div key={step} className={`border rounded-xl p-3 text-sm font-black ${
                         tone === 'rose' ? 'bg-rose-50 border-rose-100 text-rose-800' : tone === 'amber' ? 'bg-amber-50 border-amber-100 text-amber-800' : 'bg-teal-50 border-teal-100 text-teal-900'
@@ -79,7 +79,7 @@ export function IAView() {
                   </div>
                   <div className="bg-amber-50 border border-amber-100 rounded-xl p-3">
                     <p className="text-[10px] font-black text-amber-600 uppercase">Cuidado</p>
-                    <p className="font-black text-amber-800">Suporte antes</p>
+                    <p className="font-black text-amber-800">1 ticket aberto</p>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2">

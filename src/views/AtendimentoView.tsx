@@ -116,7 +116,7 @@ export function AtendimentoView() {
             <div className="flex gap-3 flex-row-reverse">
               <div className="w-9 h-9 rounded-full bg-teal-600 shrink-0 flex items-center justify-center text-white"><MessageCircle size={16} /></div>
               <div className="bg-slate-900 text-white rounded-2xl rounded-tr-none p-4 max-w-xl shadow-sm">
-                <p className="text-sm font-medium">Vou verificar agora e retorno com solucao antes de qualquer campanha.</p>
+                <p className="text-sm font-medium">Pedido em rota. Ticket marcado como sensivel.</p>
               </div>
             </div>
           </div>
