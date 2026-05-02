@@ -25,7 +25,6 @@ export function AutomationCard({ title, trigger, action, icon, color, statusColo
         
         <h4 className="font-bold text-lg text-slate-800 mb-4">{title}</h4>
 
-        {/* Visual Workflow Flowchart Simplificado */}
         <div className="flex flex-col gap-2 mb-6">
           <div className="flex items-center gap-3">
             <div className="w-1.5 h-1.5 rounded-full bg-slate-300"></div>
@@ -41,10 +40,9 @@ export function AutomationCard({ title, trigger, action, icon, color, statusColo
           </div>
         </div>
 
-        {/* Performance Metrics */}
         <div className="mt-auto grid grid-cols-3 gap-2 pt-4 border-t border-slate-100">
            <div className="flex flex-col">
-              <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Disparos</span>
+              <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Exec.</span>
               <span className="text-sm font-black text-slate-700">{metrics.sent}</span>
            </div>
            <div className="flex flex-col border-l border-slate-100 pl-3">

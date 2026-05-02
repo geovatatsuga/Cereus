@@ -1,5 +1,5 @@
 import React from 'react';
-import { CalendarClock, CheckCircle2, Eye, MessageSquare, Send, Target, Wallet } from 'lucide-react';
+import { CalendarClock, CheckCircle2, Eye, Megaphone, MessageSquare, Send, Target, Timer, Wallet } from 'lucide-react';
 import { campaigns, clients, formatCurrency } from '../data/mockData';
 
 export function CampaignsView() {
@@ -10,12 +10,28 @@ export function CampaignsView() {
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
         <div>
           <h2 className="text-3xl font-black text-slate-800 tracking-tight">Campanhas</h2>
-          <p className="text-slate-500 font-medium">Escolha publico, confira ROI e envie com seguranca.</p>
+          <p className="text-slate-500 font-medium">Acoes pontuais: oferta, data, publico e resultado esperado.</p>
         </div>
         <button className="bg-slate-900 hover:bg-teal-700 text-white px-5 py-2.5 rounded-xl text-sm font-black shadow-sm flex items-center gap-2">
           <Send size={16} className="text-teal-300" /> Nova campanha
         </button>
       </div>
+
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {[
+          ['Tipo', 'Disparo unico', <Megaphone size={18} />],
+          ['Janela', 'Hoje ou agendada', <Timer size={18} />],
+          ['Meta', 'Venda no curto prazo', <Wallet size={18} />],
+        ].map(([label, value, icon]) => (
+          <div key={label} className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center">{icon}</div>
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">{label}</p>
+              <p className="font-black text-slate-900">{value}</p>
+            </div>
+          </div>
+        ))}
+      </section>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {campaigns.map((campaign) => (
@@ -33,12 +49,12 @@ export function CampaignsView() {
                 <p className="font-black text-slate-800 text-sm">{campaign.channel}</p>
               </div>
               <div className="bg-slate-50 rounded-xl p-3">
+                <p className="text-[10px] uppercase font-black text-slate-400">Data</p>
+                <p className="font-black text-slate-800 text-sm">Pontual</p>
+              </div>
+              <div className="bg-slate-50 rounded-xl p-3">
                 <p className="text-[10px] uppercase font-black text-slate-400">Custo</p>
                 <p className="font-black text-slate-800 text-sm">{formatCurrency(campaign.budget)}</p>
-              </div>
-              <div className="bg-emerald-50 rounded-xl p-3">
-                <p className="text-[10px] uppercase font-black text-emerald-600">ROI</p>
-                <p className="font-black text-emerald-700 text-sm">{campaign.roi}x</p>
               </div>
             </div>
             <div className="flex items-center justify-between border-t border-slate-100 pt-4">
@@ -46,6 +62,7 @@ export function CampaignsView() {
                 <p className="text-xs font-bold text-slate-400">Receita prevista</p>
                 <p className="font-black text-slate-900">{formatCurrency(campaign.projectedRevenue)}</p>
               </div>
+              <span className="bg-emerald-50 text-emerald-700 px-2 py-1 rounded-lg text-xs font-black">ROI {campaign.roi}x</span>
               <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-xl text-xs font-black flex items-center gap-1">
                 <Eye size={14} /> Revisar
               </button>
@@ -58,8 +75,8 @@ export function CampaignsView() {
         <div className="xl:col-span-2 bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
           <div className="flex items-start justify-between gap-4 mb-6">
             <div>
-              <h3 className="font-black text-xl text-slate-800">Resgate VIP 45 dias</h3>
-              <p className="text-sm text-slate-500 font-medium">Pronta para aprovacao.</p>
+              <h3 className="font-black text-xl text-slate-800">Lancamento: Resgate VIP 45 dias</h3>
+              <p className="text-sm text-slate-500 font-medium">Uma oferta, uma janela, um publico.</p>
             </div>
             <span className="bg-amber-50 text-amber-700 px-3 py-1.5 rounded-xl text-xs font-black">Aguardando aprovacao</span>
           </div>
@@ -68,7 +85,7 @@ export function CampaignsView() {
             {[
               ['Publico elegivel', `${selectedAudience.length} clientes`, <Target size={20} />],
               ['Receita prevista', formatCurrency(6300), <Wallet size={20} />],
-              ['Envio', 'Hoje 20:00', <CalendarClock size={20} />],
+              ['Janela', 'Hoje 20:00', <CalendarClock size={20} />],
             ].map(([title, value, icon]) => (
               <div key={String(title)} className="rounded-2xl bg-slate-50 border border-slate-100 p-4">
                 <div className="text-teal-700 mb-3">{icon}</div>
@@ -91,7 +108,7 @@ export function CampaignsView() {
 
         <aside className="bg-slate-900 rounded-[1.5rem] p-6 text-white shadow-xl h-fit">
           <CheckCircle2 size={34} className="text-teal-300 mb-4" />
-          <h3 className="font-black text-xl mb-2">Checklist de envio</h3>
+          <h3 className="font-black text-xl mb-2">Antes do disparo</h3>
           <div className="space-y-3 text-sm">
             {['Opt-in ok', 'Tickets excluidos', 'Frequencia ok', 'Cupom testado'].map((item) => (
               <div key={item} className="flex items-center gap-2 text-slate-300">

@@ -36,7 +36,7 @@ export function Sidebar({ activeTab, setActiveTab }: { activeTab: string, setAct
             <NavItem icon={<Users size={20} />} label="Clientes" active={activeTab === 'audiencia'} onClick={() => setActiveTab('audiencia')} />
             <NavItem icon={<Inbox size={20} />} label="Atendimento" active={activeTab === 'atendimento'} onClick={() => setActiveTab('atendimento')} badge="6" />
             <NavItem icon={<Megaphone size={20} />} label="Campanhas" active={activeTab === 'campanhas'} onClick={() => setActiveTab('campanhas')} badge="ROI" />
-            <NavItem icon={<Zap size={20} />} label="Automacoes" active={activeTab === 'automacoes'} onClick={() => setActiveTab('automacoes')} />
+            <NavItem icon={<Zap size={20} />} label="Jornadas" active={activeTab === 'automacoes'} onClick={() => setActiveTab('automacoes')} />
             <NavItem icon={<Utensils size={20} />} label="Operacao" active={activeTab === 'operacao'} onClick={() => setActiveTab('operacao')} />
           </nav>
 
