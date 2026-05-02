@@ -1,15 +1,16 @@
 # Cereus CRM
 
-Cereus CRM e um prototipo front-end de um SaaS de gestao comercial, relacionamento com clientes, campanhas, automacoes, operacao e inteligencia de negocio.
+Cereus CRM e um prototipo front-end de CRM para restaurantes, delivery e negocios com venda recorrente.
 
-O foco do projeto e simular um CRM completo para negocios com vendas recorrentes, delivery, canais digitais e base de clientes ativa. A aplicacao nao e apenas um painel visual: as telas foram organizadas para responder perguntas reais de gestao, como:
+O foco do produto e ajudar o dono do restaurante a abrir o sistema e entender rapidamente:
 
-- Onde esta o dinheiro parado?
-- Quais clientes devem ser acionados hoje?
-- Qual campanha tem maior ROI previsto?
-- Qual etapa da operacao esta travando?
-- Quais automacoes estao gerando receita ou falhando?
-- Que decisoes a IA recomenda e com base em quais dados?
+- o que esta acontecendo hoje
+- quais pedidos ou atendimentos precisam de cuidado
+- quais clientes merecem atencao
+- como vender mais sem pressionar a operacao
+- quando usar IA, previsao e automacao
+
+A interface prioriza pouco texto, cards objetivos, listas escaneaveis e decisoes praticas.
 
 ## Stack
 
@@ -45,10 +46,6 @@ npm run build
 
 ```text
 src/
-  App.tsx
-  main.tsx
-  index.css
-
   data/
     mockData.ts
 
@@ -65,258 +62,208 @@ src/
 
   views/
     HojeView.tsx
-    DashboardView.tsx
-    AudienciaView.tsx
-    AtendimentoView.tsx
-    CampaignsView.tsx
-    AutomacoesView.tsx
     OperacaoView.tsx
+    AtendimentoView.tsx
+    AudienciaView.tsx
+    CampaignsView.tsx
     AnalyticsView.tsx
     IAView.tsx
     InteligenciaView.tsx
     SettingsView.tsx
 ```
 
-## Modelo de dados
+## Navegacao atual
 
-O arquivo `src/data/mockData.ts` centraliza a base mockada do produto:
+O menu principal foi organizado por fluxo real de trabalho:
 
-- clientes, segmentos, tags, score e risco de churn
-- funil de conversao
-- receita, despesas e lucro
-- campanhas, ROI previsto e orcamento
-- automacoes, conversao, falhas e receita atribuida
-- pedidos em operacao, responsaveis, status e tempo por etapa
+- **Hoje**: cockpit diario.
+- **Pedidos**: operacao em tempo real.
+- **Atendimento**: fila de conversas e tickets.
+- **Clientes**: lista de clientes, segmentos, risco e LTV.
+- **Crescimento**: campanhas e automacoes em uma unica area.
+- **Resultados**: financeiro, funil, ROI e retencao.
+- **Cereus**: chatbot LLM.
+- **Lab de IA**: modelos preditivos e auditoria.
+- **Configuracoes**: conta, integracoes, permissoes e LGPD.
 
-Essa camada evita numeros soltos em cada tela. As abas contam a mesma historia de negocio usando uma base compartilhada.
-
-## Abas do produto
+## Abas
 
 ### Hoje
 
-Tela inicial para o dono do restaurante. Resume o que precisa de atencao agora:
+Tela inicial do dono do restaurante.
 
-- vendas do mes
-- atrasos em rota
-- pendencias de atendimento
-- campanha indicada
-- clientes em risco
-- preparo do pico do jantar
-- checklist operacional do dia
+Mostra apenas o essencial:
 
-O objetivo e reduzir complexidade: antes de olhar graficos, o dono entende o que fazer primeiro.
+- receita de hoje
+- pedidos de hoje
+- ticket medio
+- atrasos
+- proximo passo
+- crescimento recomendado
+- atalhos para Pedidos, Atendimento, Crescimento e Cereus
 
-### Dashboard
+### Pedidos
 
-Visao executiva com receita, lucro bruto, CAC, LTV/CAC, chamados abertos, clientes em churn critico, caixa projetado e campanhas com impacto previsto.
-
-Tambem inclui uma recomendacao tatica: recuperar clientes de alto risco com estimativa de receita recuperavel.
-
-### Clientes
-
-CRM 360 com:
-
-- filtros por segmento
-- busca por nome, e-mail ou tag
-- score de engajamento
-- risco de churn
-- LTV
-- perfil lateral do cliente
-- tags dinamicas
-- linha do tempo de interacoes
-- acoes de mensagem e segmentacao
-
-### Atendimento
-
-Inbox para conversas e pendencias de relacionamento. Conecta suporte, reclamacoes, oportunidades e CRM 360.
-
-- fila priorizada de conversas
-- cliente, canal, status e contexto
-- alertas para nao acionar campanha quando existe ticket aberto
-- resposta rapida
-- resumo para salvar no perfil do cliente
-
-Essa aba evita que a IA ou as campanhas aumentem vendas em cima de uma operacao com cliente insatisfeito.
-
-### Campanhas
-
-Acoes pontuais e agendadas para vender agora. Fecha o fluxo entre analise e acao:
-
-- publico-alvo
-- canal
-- custo estimado
-- receita prevista
-- ROI
-- revisao de mensagem
-- checklist de seguranca antes do envio
-- envio de teste e aprovacao
-
-Campanhas sao diferentes de automacoes: uma campanha e uma acao manual ou sazonal, criada para um momento especifico.
-
-### Automacoes
-
-Regras continuas que rodam sozinhas. Hub de jornadas recorrentes com:
-
-- automacoes ativas
-- receita atribuida
-- falhas nas ultimas 24h
-- editor logico simples
-- condicoes if/else
-- aprovacao humana
-- dry run antes de publicar
-- logs de auditoria
-- templates inteligentes
-
-Automacoes sao diferentes de campanhas: uma automacao e uma regra permanente que reage a comportamento do cliente ou evento operacional.
-
-### Operacao
-
-Kanban operacional em tempo real para pedidos:
+Kanban operacional para acompanhar o fluxo do restaurante:
 
 - novos
 - preparando
 - em rota
-- busca por pedido ou cliente
-- responsavel interno por pedido
-- tempo por etapa
-- atraso e alerta visual
-- gargalo operacional calculado
-- entregador em rota
+- tempo por pedido
+- responsavel interno
+- atrasos
+- gargalo da operacao
 
-### Metricas
+Essa tela deve ser direta e visual, porque e usada durante o servico.
 
-BI com leitura financeira e comercial:
+### Atendimento
 
-- evolucao de receita, despesa e lucro
-- funil de conversao
+Inbox priorizada para conversas e pendencias.
+
+O objetivo e proteger a experiencia do cliente antes de aumentar vendas:
+
+- urgente
+- resgate
+- venda
+- pos-venda
+- bloqueio de campanha quando existe ticket aberto
+- resposta rapida
+
+### Clientes
+
+Lista central do CRM.
+
+A tela foi simplificada para evitar painel lateral fixo e excesso de acao imediata. O foco e filtrar e encontrar clientes rapidamente.
+
+Filtros atuais:
+
+- Todos
+- VIP
+- Em Risco
+- Sumidos
+- Alto valor
+- Reclamaram
+
+Dados principais:
+
+- segmento
+- canal
+- score
+- risco
+- LTV
+- ultima compra
+
+### Crescimento
+
+Area unica para vender mais, recuperar clientes e automatizar recorrencia.
+
+Campanhas e automacoes ficam juntas porque, para o dono do restaurante, a pergunta principal nao e "qual ferramenta usar?", e sim "qual objetivo quero atingir?".
+
+Objetivos atuais:
+
+- vender hoje
+- recuperar clientes
+- aumentar ticket
+- automatizar retorno
+
+Dentro da area existem duas divisoes:
+
+- **Campanhas**: disparo pontual, com janela, publico, custo, receita prevista e ROI.
+- **Automacoes**: fluxo recorrente por gatilho, com pausa por risco, execucoes, conversao e receita.
+
+### Resultados
+
+Area de analise, sem urgencia operacional.
+
+Inclui:
+
+- financeiro
+- funil e canais
+- retencao
 - ROI por canal
-- cohorts de retencao
-- leitura executiva sobre margem, canal mais rentavel e risco operacional
+- margem
+- lucro
+- conversao
 
 ### Cereus
 
-Chatbot LLM do produto. E a parte conversacional da IA, feita para o dono do restaurante perguntar em linguagem natural e receber uma resposta pratica.
+Chatbot LLM do produto.
 
-- recomendacao de next best action
-- fontes usadas pela IA
-- criacao assistida de campanhas
-- explicacao de decisoes
-- bloqueio de disparos sensiveis quando ha ticket aberto
+O Cereus responde perguntas em linguagem natural e transforma dados em passos curtos:
 
-### Inteligencia
+- resolver atraso
+- recuperar clientes
+- evitar campanha ampla
+- mostrar fontes
+- criar acao assistida
 
-Ferramentas de inteligencia e laboratorio de modelos. Essa area nao e chat: ela mostra previsoes, modelos em andamento, metricas e auditoria.
+### Lab de IA
 
-O objetivo dessa aba e ser uma vitrine simples de modelos para leigos. Cada card explica:
+Area dos modelos preditivos.
 
-- a pergunta que o modelo responde
-- o status do modelo
-- a metrica principal
-- o impacto esperado no restaurante
-- a pagina propria daquele modelo
+Nao e chat. E o laboratorio visual de modelos que ajudam o restaurante a antecipar demanda, venda, churn e segmentacao.
 
-Os cards nao possuem botoes de acao internos. O card inteiro funciona como entrada para a pagina do modelo correspondente.
+Modelos atuais:
 
-Modelos disponiveis:
+- **Previsao de vendas diaria**: estima venda por dia e horario.
+- **Previsao de demanda por produto**: indica itens com risco de falta ou alta.
+- **Churn de clientes**: aponta clientes com risco de nao voltar.
+- **RFM e segmentacao**: agrupa clientes por recencia, frequencia e valor.
 
-- **Previsao de vendas diaria**: estima quanto o restaurante deve vender por dia e horario para orientar equipe, estoque, compras e campanhas.
-- **Previsao de demanda por produto**: aponta quais produtos podem faltar ou vender mais em cada turno.
-- **Churn de clientes**: identifica clientes com maior risco de nao voltar e ajuda a priorizar campanhas de resgate.
-- **RFM e segmentacao**: agrupa clientes por recencia, frequencia e valor gasto para escolher ofertas melhores.
-
-Paginas internas da area de Inteligencia:
-
-- **Modelos**: vitrine com cards clicaveis dos modelos.
-- **Vendas**: pagina do modelo de previsao de vendas diaria.
-- **Demanda**: pagina do modelo de previsao de demanda por produto.
-- **Churn**: pagina do modelo de risco de evasao.
-- **RFM**: pagina de segmentacao por comportamento.
-- **Auditoria**: historico de eventos, atualizacoes e bloqueios dos modelos.
-
-Cada pagina de modelo tambem mostra ciclo de vida operacional:
-
-- status atual
-- ultima atualizacao
-- quando nao confiar no modelo
-- impacto esperado ou medido
-
-## Valor por modulo
-
-- **Hoje**: reduz ruido e mostra a prioridade do dia.
-- **Dashboard**: mostra saude financeira e risco comercial.
-- **Clientes**: aumenta recompra e identifica quem merece atencao.
-- **Atendimento**: protege experiencia do cliente antes de escalar vendas.
-- **Campanhas**: gera receita pontual com publico, custo e ROI claros.
-- **Automacoes**: economiza tempo com regras recorrentes e auditaveis.
-- **Operacao**: reduz atraso, gargalo e erro de preparo.
-- **Metricas**: apoia decisoes com funil, ROI e cohort.
-- **Cereus**: transforma perguntas em respostas e proximos passos.
-- **Inteligencia**: antecipa vendas, demanda, churn e segmentos.
-
-## MVP e futuro
-
-### MVP essencial
-
-- tela Hoje como cockpit operacional
-- Clientes com perfil 360 e risco de churn
-- Atendimento conectado ao contexto do cliente
-- Campanhas com revisao antes do envio
-- Automacoes com dry run e logs
-- Operacao com atrasos e responsaveis
-- Inteligencia com previsao de vendas, demanda, churn e RFM
-
-### Diferenciais
-
-- Cereus como chatbot LLM explicavel
-- Laboratorio de IA para leigos
-- campanhas bloqueadas quando existe risco operacional ou ticket aberto
-- modelos com ciclo de vida e quando nao confiar
-
-### Futuro
-
-- inbox omnichannel completo
-- mais modelos preditivos por loja, produto e horario
-- testes A/B de campanhas
-- playbooks de atendimento
-- simulador de impacto antes de disparar campanha
+Cada modelo mostra status, metrica, confianca, impacto e auditoria.
 
 ### Configuracoes
 
-Central administrativa com:
+Central administrativa:
 
-- perfil da conta
-- hub de integracoes
+- perfil
+- integracoes
 - WhatsApp API
 - iFood
 - Tiny ERP
 - Mercado Pago
 - cargos e permissoes
-- LGPD e consentimento
+- LGPD
 - log de auditoria
+
+## Modelo de dados
+
+O arquivo `src/data/mockData.ts` concentra os dados mockados:
+
+- clientes
+- segmentos
+- tags
+- score
+- risco de churn
+- funil de conversao
+- receita, despesas e lucro
+- campanhas
+- automacoes
+- pedidos
+- totais do negocio
+
+Essa camada evita numeros soltos nas telas e mantém a narrativa do produto consistente.
+
+## Direcao de produto
+
+Principios atuais:
+
+- menos texto, mais leitura visual
+- cards com numero, estado e acao curta
+- CRM orientado a restaurante, nao a painel generico
+- crescimento guiado por objetivo de negocio
+- IA separada entre chat e laboratorio de modelos
+- atendimento e operacao protegendo a experiencia antes de escalar vendas
 
 ## Componentes principais
 
 ### `KpiCard`
 
-Card reutilizavel para metricas com:
-
-- icone
-- valor principal
-- variacao
-- estado positivo/negativo
-- modo destacado
-- mini grafico em linha
+Card reutilizavel para metricas com icone, valor, variacao, estado e mini grafico.
 
 ### `AutomationCard`
 
-Card para fluxos automatizados com:
-
-- gatilho
-- acao
-- status
-- disparos
-- conversao
-- receita atribuida
+Card para automacoes com gatilho, acao, status, execucoes, conversao e receita.
 
 ### `FadeView`
 
@@ -324,20 +271,7 @@ Wrapper de transicao entre abas usando Motion.
 
 ### `Sidebar` e `Header`
 
-Navegacao principal, busca global visual, indicador de saude do CRM e notificacoes criticas.
-
-## Design
-
-O produto usa uma interface corporativa clara, com foco em leitura rapida e tomada de decisao. A UI evita cara de landing page e prioriza telas densas, operacionais e uteis para uso recorrente.
-
-Diretrizes usadas:
-
-- cards compactos para metricas e itens repetidos
-- tabelas e paineis para comparacao
-- icones Lucide em acoes e navegacao
-- graficos Recharts para BI
-- layout responsivo com grids
-- estados visuais para risco, sucesso, alerta e pausa
+Navegacao principal, busca global, indicador de saude do CRM e notificacoes criticas.
 
 ## Scripts
 
@@ -347,18 +281,15 @@ npm run build
 npm run lint
 ```
 
-## Validacao realizada
+## Validacao
 
 Na ultima atualizacao:
 
-- `npm install` executado
 - `npm run lint` passou
 - `npm run build` passou
-- app verificado em navegador local
-- paginas carregaram sem overlay de erro
-- console sem erros capturados
-- abas principais renderizando corretamente
+- fluxo principal verificado em navegador local
+- abas principais carregaram sem erro de console
 
-## Documentacao complementar
+## Observacao
 
-O arquivo `PRODUCT_ANALYSIS.md` contem a analise de produto original, com lacunas, prioridades de MVP e comparacao com CRMs reais.
+Este projeto ainda e um prototipo front-end. O backend, persistencia real, autenticacao, permissoes reais, integracoes e execucao de automacoes ainda nao sao o foco desta etapa.
