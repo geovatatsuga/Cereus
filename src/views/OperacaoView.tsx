@@ -100,8 +100,10 @@ export function OperacaoView() {
                         </div>
                       </div>
 
-                      <h4 className="font-black text-slate-800 text-base mb-1">{order.customer}</h4>
-                      <p className="text-sm text-slate-500 font-medium leading-relaxed mb-4">{order.items}</p>
+                      <div className="flex items-center justify-between gap-3 mb-4">
+                        <h4 className="font-black text-slate-800 text-base">{order.customer}</h4>
+                        <span className="bg-slate-50 text-slate-500 px-2 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider">Itens</span>
+                      </div>
 
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         <div className="bg-slate-50 rounded-xl p-2">

@@ -104,7 +104,9 @@ export function AudienciaView() {
                         <img src={`https://api.dicebear.com/7.x/fun-emoji/svg?seed=${client.avatarSeed}`} alt={client.name} className="w-10 h-10 rounded-full bg-slate-100" />
                         <div>
                           <p className="text-sm font-black text-slate-800">{client.name}</p>
-                          <p className="text-xs text-slate-400 font-medium">{client.lastOrderDays === 0 ? 'Comprou hoje' : `${client.lastOrderDays} dias sem compra`}</p>
+                          <p className="text-xs text-slate-400 font-medium">
+                            {client.lastOrderDays === 0 ? 'Comprou hoje' : `${client.lastOrderDays} ${client.lastOrderDays === 1 ? 'dia' : 'dias'} sem compra`}
+                          </p>
                         </div>
                       </div>
                     </td>

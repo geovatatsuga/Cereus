@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {
-  AlertTriangle, CalendarClock, CheckCircle2, Eye, Megaphone, MessageCircle,
+  AlertTriangle, CalendarClock, CheckCircle2, Eye, MessageCircle,
   PauseCircle, PlayCircle, Repeat2, Route, Send, ShieldCheck, ShoppingBag, Target, TestTube2,
-  Timer, TrendingUp, UserRound, Wallet, Zap,
+  TrendingUp, UserRound, Wallet, Zap,
 } from 'lucide-react';
 import { AutomationCard } from '../components/ui/AutomationCard';
 import { automationStats, campaigns, clients, formatCurrency } from '../data/mockData';
@@ -41,63 +41,9 @@ export function CampaignsView() {
         </button>
       </div>
 
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {[
-          {
-            id: 'campanhas' as GrowthMode,
-            title: 'Campanhas',
-            icon: <Megaphone size={22} />,
-            chips: ['Hoje ou agendada', 'Oferta unica', 'Aprovar envio'],
-          },
-          {
-            id: 'automacoes' as GrowthMode,
-            title: 'Automacoes',
-            icon: <Repeat2 size={22} />,
-            chips: ['Gatilho', 'Pausa por risco', 'Auditoria'],
-          },
-        ].map((option) => (
-          <button
-            key={option.id}
-            onClick={() => setActiveMode(option.id)}
-            className={`text-left rounded-[1.5rem] border p-5 shadow-sm transition-all ${
-              activeMode === option.id
-                ? 'bg-slate-900 text-white border-slate-900 shadow-xl'
-                : 'bg-white text-slate-800 border-slate-100 hover:border-teal-200 hover:shadow-md'
-            }`}
-          >
-            <div className="flex items-start gap-4">
-              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${
-                activeMode === option.id ? 'bg-teal-400 text-slate-950' : 'bg-teal-50 text-teal-700'
-              }`}>
-                {option.icon}
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between gap-3">
-                  <h3 className="text-xl font-black tracking-tight">{option.title}</h3>
-                  <span className={`px-2.5 py-1 rounded-lg text-xs font-black ${
-                    activeMode === option.id ? 'bg-white/10 text-teal-200' : 'bg-emerald-50 text-emerald-700'
-                  }`}>
-                    {option.id === 'campanhas' ? 'ROI' : 'Auto'}
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {option.chips.map((chip) => (
-                    <span key={chip} className={`px-2.5 py-1 rounded-lg text-xs font-black ${
-                      activeMode === option.id ? 'bg-white/10 text-teal-200' : 'bg-slate-50 text-slate-500'
-                    }`}>
-                      {chip}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </button>
-        ))}
-      </section>
-
       <section className="bg-white rounded-[1.5rem] p-4 border border-slate-100 shadow-sm">
-        <p className="text-xs font-black uppercase tracking-wider text-slate-400 mb-3">Objetivo</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
+        <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 flex-1">
           {growthGoals.map((goal) => (
             <button
               key={goal.id}
@@ -123,27 +69,29 @@ export function CampaignsView() {
               </div>
             </button>
           ))}
+          </div>
+          <div className="bg-slate-100 p-1 rounded-2xl border border-slate-200 flex w-full sm:w-fit">
+            {[
+              ['campanhas', 'Campanhas', <Send size={15} />],
+              ['automacoes', 'Automacoes', <Route size={15} />],
+            ].map(([mode, label, icon]) => (
+              <button
+                key={String(mode)}
+                onClick={() => setActiveMode(mode as GrowthMode)}
+                className={`flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-black flex items-center justify-center gap-2 transition-all ${
+                  activeMode === mode ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                {icon}
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
       {activeMode === 'campanhas' ? (
         <>
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[
-              ['Tipo', 'Disparo unico', <Megaphone size={18} />],
-              ['Janela', 'Hoje ou agendada', <Timer size={18} />],
-              ['Meta', 'Venda no curto prazo', <Wallet size={18} />],
-            ].map(([label, value, icon]) => (
-              <div key={String(label)} className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center">{icon}</div>
-                <div>
-                  <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">{label}</p>
-                  <p className="font-black text-slate-900">{value}</p>
-                </div>
-              </div>
-            ))}
-          </section>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {campaigns.map((campaign) => (
               <article key={campaign.name} className="bg-white rounded-[1.5rem] p-5 border border-slate-100 shadow-sm hover:shadow-md transition-all">
@@ -230,22 +178,6 @@ export function CampaignsView() {
         </>
       ) : (
         <>
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[
-              ['Quando roda', 'Sempre que o gatilho acontece', <Repeat2 size={18} />],
-              ['Controle', 'Pausa por risco ou suporte', <ShieldCheck size={18} />],
-              ['Meta', 'Receita recorrente e menos trabalho', <Zap size={18} />],
-            ].map(([label, value, icon]) => (
-              <div key={String(label)} className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-slate-900 text-teal-300 flex items-center justify-center">{icon}</div>
-                <div>
-                  <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">{label}</p>
-                  <p className="font-black text-slate-900">{value}</p>
-                </div>
-              </div>
-            ))}
-          </section>
-
           <section className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {[
               ['Rodando', '2', <PlayCircle size={20} />, 'bg-emerald-50 text-emerald-700'],
