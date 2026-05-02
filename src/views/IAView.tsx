@@ -11,13 +11,13 @@ export function IAView() {
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div>
           <h2 className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-teal-700 to-emerald-500 tracking-tight mb-2">Cereus</h2>
-          <p className="text-slate-500 font-medium">Chatbot LLM para conversar com os dados do restaurante e transformar pergunta em acao.</p>
+          <p className="text-slate-500 font-medium">Pergunte. Ele cruza dados e sugere o proximo passo.</p>
         </div>
         <span className="w-fit bg-emerald-50 text-emerald-700 px-4 py-2 rounded-xl text-sm font-black border border-emerald-100">LLM assistido</span>
       </div>
 
       <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <section className="xl:col-span-2 bg-white/95 backdrop-blur-xl rounded-[1.5rem] shadow-sm border border-teal-100 flex flex-col min-h-[640px] overflow-hidden">
+        <section className="xl:col-span-2 bg-white/95 backdrop-blur-xl rounded-[1.5rem] shadow-sm border border-teal-100 flex flex-col min-h-[560px] overflow-hidden">
           <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-slate-100 bg-white">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-teal-600 to-emerald-400 flex items-center justify-center text-white">
@@ -25,7 +25,7 @@ export function IAView() {
               </div>
               <div>
                 <h3 className="font-black text-slate-900">Cereus Chat</h3>
-                <p className="text-xs font-bold text-slate-400">Pergunte em linguagem natural. O Cereus responde com dados, fontes e proximos passos.</p>
+                <p className="text-xs font-bold text-slate-400">Dados, fontes e acao.</p>
               </div>
             </div>
           </div>
@@ -37,7 +37,7 @@ export function IAView() {
               </div>
               <div className="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 max-w-[88%]">
                 <p className="text-slate-700 text-sm font-medium leading-relaxed">
-                  Bom dia. Hoje eu recomendo olhar primeiro para pedidos em rota e para clientes de alto risco. A operacao tem atraso pontual e existe receita recuperavel em clientes que sumiram.
+                  Hoje: resolva o atraso em rota e recupere clientes de alto risco.
                 </p>
               </div>
             </div>
@@ -57,7 +57,7 @@ export function IAView() {
                 <div>
                   <p className="text-xs font-black text-teal-700 uppercase tracking-wider mb-2">Resposta do Cereus</p>
                   <p className="text-sm font-medium text-slate-700">
-                    Nao mande campanha ampla agora. Primeiro resolva o pedido atrasado em rota. Depois envie uma campanha pequena para clientes em risco com LTV alto, usando aprovacao humana para quem teve reclamacao aberta.
+                    Nao mande campanha ampla agora. Primeiro resolva o atraso. Depois envie uma campanha pequena para clientes em risco com LTV alto.
                   </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">

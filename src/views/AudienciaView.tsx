@@ -33,8 +33,8 @@ export function AudienciaView() {
     <div className="p-4 sm:p-8 pb-20 max-w-7xl mx-auto w-full space-y-8 relative z-0">
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-black text-slate-800 tracking-tight">Clientes e Relacionamento</h2>
-          <p className="text-slate-500 font-medium">CRM 360 com segmentos, risco de churn, tags e historico de interacoes.</p>
+          <h2 className="text-3xl font-black text-slate-800 tracking-tight">Clientes</h2>
+          <p className="text-slate-500 font-medium">Quem vale cuidar, vender ou recuperar.</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <button className="bg-white border border-slate-200 text-slate-700 px-4 py-2.5 rounded-xl text-sm font-bold shadow-sm flex items-center gap-2">
@@ -154,7 +154,7 @@ export function AudienciaView() {
           </div>
 
           <div className="mb-5">
-            <p className="text-xs font-black text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2"><Tags size={14} /> Tags dinamicas</p>
+            <p className="text-xs font-black text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2"><Tags size={14} /> Tags</p>
             <div className="flex flex-wrap gap-2">
               {selected.tags.map((tag) => (
                 <span key={tag} className="bg-teal-50 text-teal-700 px-2 py-1 rounded-lg text-xs font-bold">{tag}</span>
@@ -163,7 +163,7 @@ export function AudienciaView() {
           </div>
 
           <div className="mb-6">
-            <p className="text-xs font-black text-slate-400 uppercase tracking-wider mb-3">Linha do tempo</p>
+            <p className="text-xs font-black text-slate-400 uppercase tracking-wider mb-3">Historico</p>
             <div className="space-y-3">
               {selected.timeline.map((event) => (
                 <div key={event} className="flex gap-3">

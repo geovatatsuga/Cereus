@@ -37,8 +37,8 @@ export function AnalyticsView() {
     <div className="p-4 sm:p-8 pb-20 max-w-7xl mx-auto w-full space-y-8 relative z-0">
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div>
-          <h2 className="text-3xl font-black text-slate-800 tracking-tight mb-2">Metricas e BI</h2>
-          <p className="text-slate-500 font-medium">Funil, cohorts, ROI por canal e leitura financeira para decisao.</p>
+          <h2 className="text-3xl font-black text-slate-800 tracking-tight mb-2">Metricas</h2>
+          <p className="text-slate-500 font-medium">Dinheiro, funil e retencao em uma leitura.</p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <button className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 shadow-sm hover:bg-slate-50 transition-colors">
@@ -93,7 +93,7 @@ export function AnalyticsView() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <section className="lg:col-span-2 bg-white rounded-[1.5rem] p-6 shadow-sm border border-slate-100">
             <h3 className="text-xl font-black text-slate-800">Evolucao financeira</h3>
-            <p className="text-sm text-slate-500 font-medium mb-6">Receita, despesas e lucro por mes</p>
+            <p className="text-sm text-slate-500 font-medium mb-6">Receita, despesas e lucro</p>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={revenueData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
@@ -113,8 +113,8 @@ export function AnalyticsView() {
           </section>
           <aside className="bg-slate-900 rounded-[1.5rem] p-6 text-white">
             <Layers size={28} className="text-teal-300 mb-4" />
-            <h3 className="font-black text-xl mb-2">Leitura executiva</h3>
-            <p className="text-sm text-slate-300 leading-relaxed mb-5">A margem cresce quando o WhatsApp ganha participacao, mas chamados abertos subiram. Escale campanhas de alto LTV antes de gerar volume frio.</p>
+            <h3 className="font-black text-xl mb-2">Decisao</h3>
+            <p className="text-sm text-slate-300 leading-relaxed mb-5">WhatsApp puxa margem. Suporte precisa respirar antes de campanha fria.</p>
             <div className="space-y-3">
               <div className="flex justify-between text-sm"><span className="text-slate-400">Margem media</span><strong>38%</strong></div>
               <div className="flex justify-between text-sm"><span className="text-slate-400">Canal mais rentavel</span><strong>WhatsApp</strong></div>
@@ -127,8 +127,8 @@ export function AnalyticsView() {
       {activeTab === 'funil' && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <section className="bg-white rounded-[1.5rem] p-6 shadow-sm border border-slate-100">
-            <h3 className="text-xl font-black text-slate-800">Funil de conversao</h3>
-            <p className="text-sm text-slate-500 font-medium mb-6">Da visita ao pedido pago</p>
+            <h3 className="text-xl font-black text-slate-800">Funil</h3>
+            <p className="text-sm text-slate-500 font-medium mb-6">Da visita ao pagamento</p>
             <div className="space-y-4">
               {funnelData.map((item, index) => (
                 <div key={item.step}>
@@ -146,7 +146,7 @@ export function AnalyticsView() {
           </section>
           <section className="bg-white rounded-[1.5rem] p-6 shadow-sm border border-slate-100">
             <h3 className="text-xl font-black text-slate-800">ROI por canal</h3>
-            <p className="text-sm text-slate-500 font-medium mb-6">Receita atribuida contra custo</p>
+            <p className="text-sm text-slate-500 font-medium mb-6">Receita contra custo</p>
             <div className="h-72">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={channelRoi}>
@@ -169,8 +169,8 @@ export function AnalyticsView() {
           <div className="flex items-start gap-3 mb-6">
             <Users className="text-teal-600" size={24} />
             <div>
-              <h3 className="text-xl font-black text-slate-800">Cohorts de retencao</h3>
-              <p className="text-sm text-slate-500 font-medium">Percentual de clientes que voltam a comprar apos a primeira compra.</p>
+              <h3 className="text-xl font-black text-slate-800">Retencao</h3>
+              <p className="text-sm text-slate-500 font-medium">Quem volta depois da primeira compra.</p>
             </div>
           </div>
           <div className="grid grid-cols-5 gap-2 min-w-[620px] overflow-x-auto">

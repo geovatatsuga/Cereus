@@ -41,9 +41,23 @@ export function AtendimentoView() {
 
   return (
     <div className="p-4 sm:p-8 pb-20 max-w-7xl mx-auto w-full space-y-8 relative z-0">
-      <div>
-        <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Atendimento</h2>
-        <p className="text-slate-500 font-medium">Inbox para conversas, reclamacoes, oportunidades e respostas pendentes ligadas ao CRM.</p>
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+        <div>
+          <p className="text-xs font-black uppercase tracking-wider text-teal-700 mb-2">Atendimento</p>
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight">Fila inteligente</h2>
+        </div>
+        <div className="grid grid-cols-3 gap-2 text-center">
+          {[
+            ['Urgente', '1'],
+            ['Resgate', '1'],
+            ['Venda', '1'],
+          ].map(([label, value]) => (
+            <div key={label} className="bg-white border border-slate-100 rounded-xl px-4 py-2 shadow-sm">
+              <p className="text-[10px] font-black uppercase text-slate-400">{label}</p>
+              <p className="text-lg font-black text-slate-900">{value}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -92,7 +106,7 @@ export function AtendimentoView() {
             </span>
           </div>
 
-          <div className="p-6 bg-slate-50/60 min-h-[360px] space-y-4">
+          <div className="p-6 bg-slate-50/60 min-h-[320px] space-y-4">
             <div className="flex gap-3">
               <div className="w-9 h-9 rounded-full bg-slate-200 shrink-0" />
               <div className="bg-white rounded-2xl rounded-tl-none border border-slate-100 p-4 max-w-xl shadow-sm">
@@ -102,7 +116,7 @@ export function AtendimentoView() {
             <div className="flex gap-3 flex-row-reverse">
               <div className="w-9 h-9 rounded-full bg-teal-600 shrink-0 flex items-center justify-center text-white"><MessageCircle size={16} /></div>
               <div className="bg-slate-900 text-white rounded-2xl rounded-tr-none p-4 max-w-xl shadow-sm">
-                <p className="text-sm font-medium">Vou verificar agora e te retorno com uma solucao antes de seguirmos com qualquer campanha.</p>
+                <p className="text-sm font-medium">Vou verificar agora e retorno com solucao antes de qualquer campanha.</p>
               </div>
             </div>
           </div>
@@ -111,15 +125,15 @@ export function AtendimentoView() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
               <div className="rounded-2xl bg-rose-50 border border-rose-100 p-3 flex gap-2">
                 <AlertTriangle size={16} className="text-rose-700 shrink-0 mt-0.5" />
-                <p className="text-xs font-bold text-rose-800">Nao acionar campanha se houver ticket aberto.</p>
+                <p className="text-xs font-bold text-rose-800">Sem campanha com ticket aberto.</p>
               </div>
               <div className="rounded-2xl bg-amber-50 border border-amber-100 p-3 flex gap-2">
                 <Clock size={16} className="text-amber-700 shrink-0 mt-0.5" />
-                <p className="text-xs font-bold text-amber-800">Responder em ate 10 minutos.</p>
+                <p className="text-xs font-bold text-amber-800">Responder em 10 min.</p>
               </div>
               <div className="rounded-2xl bg-teal-50 border border-teal-100 p-3 flex gap-2">
                 <CheckCircle2 size={16} className="text-teal-700 shrink-0 mt-0.5" />
-                <p className="text-xs font-bold text-teal-800">Salvar resumo no perfil 360.</p>
+                <p className="text-xs font-bold text-teal-800">Salvar no perfil.</p>
               </div>
             </div>
             <div className="relative">

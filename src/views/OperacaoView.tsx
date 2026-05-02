@@ -30,8 +30,8 @@ export function OperacaoView() {
     <div className="p-4 sm:p-8 pb-20 max-w-7xl mx-auto w-full space-y-8 relative z-0">
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-black text-slate-800 tracking-tight">Operacao em Tempo Real</h2>
-          <p className="text-slate-500 font-medium">Pedidos, responsaveis, tempo por coluna e gargalos de entrega.</p>
+          <h2 className="text-3xl font-black text-slate-800 tracking-tight">Operacao</h2>
+          <p className="text-slate-500 font-medium">Pedidos, atrasos e gargalos agora.</p>
         </div>
         <div className="relative w-full lg:w-80">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"><Search size={16} /></span>
@@ -63,7 +63,7 @@ export function OperacaoView() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.08 }}
               key={col.id}
-              className="bg-slate-50/85 backdrop-blur-xl rounded-[1.5rem] p-4 sm:p-5 border border-slate-200 shadow-sm flex flex-col min-h-[560px]"
+              className="bg-slate-50/85 backdrop-blur-xl rounded-[1.5rem] p-4 sm:p-5 border border-slate-200 shadow-sm flex flex-col min-h-[520px]"
             >
               <div className="flex justify-between items-center mb-5 px-1">
                 <div className="flex items-center gap-2">

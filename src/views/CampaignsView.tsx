@@ -10,7 +10,7 @@ export function CampaignsView() {
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
         <div>
           <h2 className="text-3xl font-black text-slate-800 tracking-tight">Campanhas</h2>
-          <p className="text-slate-500 font-medium">Acoes pontuais e agendadas para vender agora: publico, custo, ROI, mensagem e aprovacao antes do envio.</p>
+          <p className="text-slate-500 font-medium">Escolha publico, confira ROI e envie com seguranca.</p>
         </div>
         <button className="bg-slate-900 hover:bg-teal-700 text-white px-5 py-2.5 rounded-xl text-sm font-black shadow-sm flex items-center gap-2">
           <Send size={16} className="text-teal-300" /> Nova campanha
@@ -58,8 +58,8 @@ export function CampaignsView() {
         <div className="xl:col-span-2 bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
           <div className="flex items-start justify-between gap-4 mb-6">
             <div>
-              <h3 className="font-black text-xl text-slate-800">Revisao: Resgate VIP 45 dias</h3>
-              <p className="text-sm text-slate-500 font-medium">Antes de enviar, confira publico, mensagem e regras de seguranca.</p>
+              <h3 className="font-black text-xl text-slate-800">Resgate VIP 45 dias</h3>
+              <p className="text-sm text-slate-500 font-medium">Pronta para aprovacao.</p>
             </div>
             <span className="bg-amber-50 text-amber-700 px-3 py-1.5 rounded-xl text-xs font-black">Aguardando aprovacao</span>
           </div>
@@ -93,7 +93,7 @@ export function CampaignsView() {
           <CheckCircle2 size={34} className="text-teal-300 mb-4" />
           <h3 className="font-black text-xl mb-2">Checklist de envio</h3>
           <div className="space-y-3 text-sm">
-            {['Opt-in validado', 'Clientes com ticket aberto excluidos', 'Limite de frequencia respeitado', 'Cupom testado no checkout'].map((item) => (
+            {['Opt-in ok', 'Tickets excluidos', 'Frequencia ok', 'Cupom testado'].map((item) => (
               <div key={item} className="flex items-center gap-2 text-slate-300">
                 <CheckCircle2 size={16} className="text-teal-300" />
                 <span className="font-bold">{item}</span>

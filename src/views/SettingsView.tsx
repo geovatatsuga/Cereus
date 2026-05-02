@@ -19,7 +19,7 @@ export function SettingsView() {
     <div className="p-4 sm:p-8 pb-20 max-w-6xl mx-auto w-full space-y-8 relative z-0">
       <div>
         <h2 className="text-3xl font-black text-slate-800 tracking-tight">Configuracoes</h2>
-        <p className="text-slate-500 font-medium">Conta, integracoes, seguranca, permissoes e LGPD.</p>
+        <p className="text-slate-500 font-medium">Conta, integracoes e seguranca.</p>
       </div>
 
       <section className="bg-white rounded-[1.5rem] p-6 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-8">
@@ -92,8 +92,8 @@ export function SettingsView() {
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="bg-slate-900 rounded-[1.5rem] p-6 text-white shadow-xl">
           <ShieldCheck size={30} className="text-teal-300 mb-4" />
-          <h3 className="font-black text-xl mb-2">LGPD e consentimento</h3>
-          <p className="text-sm text-slate-300 leading-relaxed mb-5">Exporte, anonimize ou exclua dados de clientes com trilha de auditoria.</p>
+          <h3 className="font-black text-xl mb-2">LGPD</h3>
+          <p className="text-sm text-slate-300 leading-relaxed mb-5">Exporte, anonimize ou exclua com trilha.</p>
           <button className="w-full bg-white text-slate-900 font-black py-3 rounded-xl">Abrir central LGPD</button>
         </div>
         <div className="lg:col-span-2 bg-white rounded-[1.5rem] p-6 shadow-sm border border-slate-100">

@@ -67,17 +67,26 @@ export function DashboardView() {
         <section className="xl:col-span-2 bg-white rounded-[1.5rem] p-6 shadow-sm border border-slate-100">
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
             <div>
-              <p className="text-xs font-black uppercase tracking-wider text-teal-600 mb-2">Acao recomendada</p>
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight">Recuperar clientes com churn critico</h2>
-              <p className="text-sm text-slate-500 font-medium mt-1 max-w-2xl">
-                {highRiskClients.length} clientes concentram {formatCurrency(totalRisk)} de valor historico.
-                A campanha sugerida pode recuperar cerca de {formatCurrency(projectedRecovery)} no curto prazo.
-              </p>
+              <p className="text-xs font-black uppercase tracking-wider text-teal-600 mb-2">Prioridade</p>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight">Recuperar clientes valiosos</h2>
             </div>
             <button className="bg-slate-900 hover:bg-teal-700 text-white px-4 py-3 rounded-xl text-sm font-bold shadow-sm transition-all flex items-center justify-center gap-2">
               <Send size={16} className="text-teal-300" />
               Revisar disparo
             </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+            {[
+              ['Clientes', highRiskClients.length],
+              ['LTV em risco', formatCurrency(totalRisk)],
+              ['Recuperavel', formatCurrency(projectedRecovery)],
+            ].map(([label, value]) => (
+              <div key={label} className="rounded-2xl bg-slate-50 border border-slate-100 p-4">
+                <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">{label}</p>
+                <p className="text-xl font-black text-slate-900 mt-1">{value}</p>
+              </div>
+            ))}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -183,8 +192,8 @@ export function DashboardView() {
       <section className="bg-white rounded-[1.5rem] p-6 shadow-sm border border-slate-100">
         <div className="flex items-center justify-between gap-4 mb-5">
           <div>
-            <h3 className="font-black text-xl text-slate-800">Campanhas com impacto previsto</h3>
-            <p className="text-sm font-medium text-slate-400">Priorize pelo ROI e risco de perda de receita</p>
+            <h3 className="font-black text-xl text-slate-800">Campanhas com impacto</h3>
+            <p className="text-sm font-medium text-slate-400">ROI, publico e receita esperada</p>
           </div>
           <button className="text-teal-700 font-bold text-sm bg-teal-50 px-4 py-2 rounded-xl flex items-center gap-1">
             Ver campanhas <ChevronRight size={16} />
@@ -214,7 +223,7 @@ export function DashboardView() {
         <div className="flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
           <AlertTriangle size={20} className="shrink-0 mt-0.5" />
           <p className="text-sm font-bold">
-            Ha {totals.openTickets} chamados abertos. Segure campanhas grandes ate resolver os tickets criticos para nao aumentar demanda sobre uma operacao pressionada.
+            {totals.openTickets} chamados abertos. Resolva os criticos antes de campanha grande.
           </p>
         </div>
       )}

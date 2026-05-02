@@ -28,7 +28,7 @@ export function AutomacoesView() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <h2 className="text-3xl font-black text-slate-800 tracking-tight">Automacoes e Regras</h2>
-          <p className="text-slate-500 font-medium">Regras continuas que rodam sozinhas: gatilhos, condicoes, aprovacao humana, dry run, logs e ROI por jornada.</p>
+          <p className="text-slate-500 font-medium">Fluxos que economizam tempo sem perder controle.</p>
         </div>
         <button className="bg-slate-900 hover:bg-teal-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-all flex items-center gap-2">
           <Zap size={16} className="text-teal-300" /> Nova regra
@@ -52,9 +52,9 @@ export function AutomacoesView() {
 
       <div className="flex bg-slate-100 p-1 rounded-2xl w-full md:w-fit shadow-inner border border-slate-200/50">
         {[
-          ['ativas', 'Regras ativas'],
-          ['builder', 'Editor logico'],
-          ['templates', 'Templates'],
+          ['ativas', 'Ativas'],
+          ['builder', 'Teste'],
+          ['templates', 'Modelos'],
           ['logs', 'Logs'],
         ].map(([id, label]) => (
           <button
@@ -88,8 +88,8 @@ export function AutomacoesView() {
               <div className="w-12 h-12 rounded-full bg-slate-200 text-slate-400 flex items-center justify-center mb-4 group-hover:bg-teal-100 group-hover:text-teal-600 transition-colors">
                 <Plus size={24} />
               </div>
-              <p className="font-black text-slate-700">Criar fluxo do zero</p>
-              <p className="text-xs text-slate-400 mt-1">Gatilho, condicao, acao e aprovacao</p>
+              <p className="font-black text-slate-700">Novo fluxo</p>
+              <p className="text-xs text-slate-400 mt-1">Gatilho, regra e acao</p>
             </div>
           </motion.div>
         )}
@@ -97,8 +97,8 @@ export function AutomacoesView() {
         {activeTab === 'builder' && (
           <motion.div key="builder" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <section className="lg:col-span-2 bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
-              <h3 className="text-xl font-black text-slate-800 mb-1">Fluxo: Resgate de clientes criticos</h3>
-              <p className="text-sm text-slate-500 font-medium mb-6">Um editor simples de if/else para provar valor antes do backend real.</p>
+              <h3 className="text-xl font-black text-slate-800 mb-1">Resgate de clientes criticos</h3>
+              <p className="text-sm text-slate-500 font-medium mb-6">Simule antes de publicar.</p>
               <div className="space-y-4">
                 {[
                   ['Gatilho', 'Cliente ficou 30 dias sem comprar', 'bg-blue-50 text-blue-700'],
@@ -121,8 +121,19 @@ export function AutomacoesView() {
             </section>
             <aside className="bg-slate-900 rounded-[1.5rem] p-6 text-white shadow-xl h-fit">
               <TestTube2 className="text-teal-300 mb-4" size={30} />
-              <h3 className="font-black text-xl mb-2">Dry run antes de publicar</h3>
-              <p className="text-sm text-slate-300 leading-relaxed mb-5">Simulacao encontrou 125 contatos elegiveis, 9 bloqueados por LGPD e receita estimada de R$ 6.300.</p>
+              <h3 className="font-black text-xl mb-2">Resultado do teste</h3>
+              <div className="grid grid-cols-3 gap-2 mb-5">
+                {[
+                  ['Elegiveis', '125'],
+                  ['Bloqueados', '9'],
+                  ['Receita', 'R$ 6,3k'],
+                ].map(([label, value]) => (
+                  <div key={label} className="bg-white/10 rounded-xl p-3">
+                    <p className="text-[10px] font-black uppercase text-slate-400">{label}</p>
+                    <p className="text-sm font-black">{value}</p>
+                  </div>
+                ))}
+              </div>
               <button className="w-full bg-teal-500 hover:bg-teal-400 text-slate-950 font-black py-3 rounded-xl transition-colors">Enviar teste para gestor</button>
             </aside>
           </motion.div>
