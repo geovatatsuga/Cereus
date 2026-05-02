@@ -13,7 +13,7 @@ export function Header() {
         </div>
         <input
           type="text"
-          placeholder="Buscar cliente, pedido, campanha ou automacao..."
+          placeholder="Buscar cliente, pedido ou crescimento..."
           className="w-full bg-white/70 backdrop-blur-md border border-white/80 rounded-2xl py-3 pl-12 pr-4 text-sm font-medium text-slate-700 focus:outline-none focus:ring-4 focus:ring-teal-500/10 focus:bg-white transition-all shadow-sm placeholder-slate-400"
         />
       </div>

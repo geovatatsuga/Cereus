@@ -7,7 +7,6 @@ import { DashboardView } from '../../views/DashboardView';
 import { HojeView } from '../../views/HojeView';
 import { AudienciaView } from '../../views/AudienciaView';
 import { AtendimentoView } from '../../views/AtendimentoView';
-import { AutomacoesView } from '../../views/AutomacoesView';
 import { OperacaoView } from '../../views/OperacaoView';
 import { AnalyticsView } from '../../views/AnalyticsView';
 import { IAView } from '../../views/IAView';
@@ -33,7 +32,6 @@ export function AppLayout() {
           {activeTab === 'audiencia' && <FadeView key="audiencia"><AudienciaView /></FadeView>}
           {activeTab === 'atendimento' && <FadeView key="atendimento"><AtendimentoView /></FadeView>}
           {activeTab === 'campanhas' && <FadeView key="campanhas"><CampaignsView /></FadeView>}
-          {activeTab === 'automacoes' && <FadeView key="automacoes"><AutomacoesView /></FadeView>}
           {activeTab === 'operacao' && <FadeView key="operacao"><OperacaoView /></FadeView>}
           {activeTab === 'analytics' && <FadeView key="analytics"><AnalyticsView /></FadeView>}
           {activeTab === 'ia' && <FadeView key="ia"><IAView /></FadeView>}

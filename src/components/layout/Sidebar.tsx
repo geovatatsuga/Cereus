@@ -2,7 +2,7 @@ import React from 'react';
 import { NavItem } from './NavItem';
 import {
   BarChart3, Bot, BrainCircuit, Home, Inbox, LayoutDashboard, Megaphone, Settings, Sparkles,
-  Utensils, Users, Zap,
+  Utensils, Users,
 } from 'lucide-react';
 
 export function Sidebar({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (t: string) => void }) {
@@ -35,8 +35,7 @@ export function Sidebar({ activeTab, setActiveTab }: { activeTab: string, setAct
             <NavItem icon={<LayoutDashboard size={20} />} label="Dashboard" active={activeTab === 'dashboard'} onClick={() => setActiveTab('dashboard')} />
             <NavItem icon={<Users size={20} />} label="Clientes" active={activeTab === 'audiencia'} onClick={() => setActiveTab('audiencia')} />
             <NavItem icon={<Inbox size={20} />} label="Atendimento" active={activeTab === 'atendimento'} onClick={() => setActiveTab('atendimento')} badge="6" />
-            <NavItem icon={<Megaphone size={20} />} label="Campanhas" active={activeTab === 'campanhas'} onClick={() => setActiveTab('campanhas')} badge="ROI" />
-            <NavItem icon={<Zap size={20} />} label="Jornadas" active={activeTab === 'automacoes'} onClick={() => setActiveTab('automacoes')} />
+            <NavItem icon={<Megaphone size={20} />} label="Crescimento" active={activeTab === 'campanhas'} onClick={() => setActiveTab('campanhas')} badge="ROI" />
             <NavItem icon={<Utensils size={20} />} label="Operacao" active={activeTab === 'operacao'} onClick={() => setActiveTab('operacao')} />
           </nav>
 

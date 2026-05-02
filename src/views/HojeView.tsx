@@ -72,7 +72,7 @@ export function HojeView() {
         </article>
 
         <article className="bg-white rounded-[1.5rem] p-5 border border-slate-100 shadow-sm">
-          <p className="text-xs font-black uppercase tracking-wider text-teal-700 mb-2">Campanha</p>
+          <p className="text-xs font-black uppercase tracking-wider text-teal-700 mb-2">Crescimento</p>
           <h3 className="font-black text-lg text-slate-900">{bestCampaign.name}</h3>
           <div className="flex items-end justify-between gap-3 mt-5">
             <div>
@@ -88,7 +88,7 @@ export function HojeView() {
       </section>
 
       <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {['Operacao', 'Atendimento', 'Campanha', 'Cereus'].map((item) => (
+        {['Operacao', 'Atendimento', 'Crescimento', 'Cereus'].map((item) => (
           <button key={item} className="bg-white border border-slate-100 rounded-2xl px-4 py-4 text-sm font-black text-slate-700 shadow-sm hover:border-teal-200 hover:text-teal-700 transition-colors">
             {item}
           </button>

@@ -192,11 +192,11 @@ export function DashboardView() {
       <section className="bg-white rounded-[1.5rem] p-6 shadow-sm border border-slate-100">
         <div className="flex items-center justify-between gap-4 mb-5">
           <div>
-            <h3 className="font-black text-xl text-slate-800">Campanhas com impacto</h3>
-            <p className="text-sm font-medium text-slate-400">ROI, publico e receita esperada</p>
+            <h3 className="font-black text-xl text-slate-800">Crescimento com impacto</h3>
+            <p className="text-sm font-medium text-slate-400">Campanhas, automacoes e receita esperada</p>
           </div>
           <button className="text-teal-700 font-bold text-sm bg-teal-50 px-4 py-2 rounded-xl flex items-center gap-1">
-            Ver campanhas <ChevronRight size={16} />
+            Ver crescimento <ChevronRight size={16} />
           </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
