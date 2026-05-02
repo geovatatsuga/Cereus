@@ -11,7 +11,6 @@ export function IAView() {
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div>
           <h2 className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-teal-700 to-emerald-500 tracking-tight mb-2">Cereus</h2>
-          <p className="text-slate-500 font-medium">Pergunte. Ele cruza dados e sugere o proximo passo.</p>
         </div>
         <span className="w-fit bg-emerald-50 text-emerald-700 px-4 py-2 rounded-xl text-sm font-black border border-emerald-100">LLM assistido</span>
       </div>
@@ -25,7 +24,6 @@ export function IAView() {
               </div>
               <div>
                 <h3 className="font-black text-slate-900">Cereus Chat</h3>
-                <p className="text-xs font-bold text-slate-400">Dados, fontes e acao.</p>
               </div>
             </div>
           </div>
@@ -36,9 +34,7 @@ export function IAView() {
                 <Sparkles size={20} />
               </div>
               <div className="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 max-w-[88%]">
-                <p className="text-slate-700 text-sm font-medium leading-relaxed">
-                  Hoje: resolva o atraso em rota e recupere clientes de alto risco.
-                </p>
+                <p className="text-slate-700 text-sm font-medium leading-relaxed">Hoje: atraso + clientes em risco.</p>
               </div>
             </div>
 
@@ -56,9 +52,11 @@ export function IAView() {
               <div className="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-teal-100/50 max-w-[88%] space-y-4">
                 <div>
                   <p className="text-xs font-black text-teal-700 uppercase tracking-wider mb-2">Resposta do Cereus</p>
-                  <p className="text-sm font-medium text-slate-700">
-                    Nao mande campanha ampla agora. Primeiro resolva o atraso. Depois envie uma campanha pequena para clientes em risco com LTV alto.
-                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {['Resolver atraso', 'Recuperar VIPs', 'Evitar campanha ampla'].map((step) => (
+                      <div key={step} className="bg-slate-50 border border-slate-100 rounded-xl p-3 text-sm font-black text-slate-800">{step}</div>
+                    ))}
+                  </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   <div className="bg-slate-50 border border-slate-100 rounded-xl p-3">
@@ -74,12 +72,9 @@ export function IAView() {
                     <p className="font-black text-amber-800">Suporte antes</p>
                   </div>
                 </div>
-                <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm text-slate-700">
-                  Oi, [Nome]. Vimos que sua ultima experiencia nao foi perfeita. Liberamos 20% por 24h e vamos acompanhar seu pedido de perto desta vez.
-                </div>
                 <div className="flex flex-wrap gap-2">
-                  <button className="bg-slate-900 hover:bg-teal-700 text-white px-4 py-2 rounded-lg text-sm font-black transition-colors flex items-center gap-2"><Send size={15} /> Criar campanha</button>
-                  <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-lg text-sm font-black transition-colors flex items-center gap-2"><FileSearch size={15} /> Exibir fontes</button>
+                  <button className="bg-slate-900 hover:bg-teal-700 text-white px-4 py-2 rounded-lg text-sm font-black transition-colors flex items-center gap-2"><Send size={15} /> Criar</button>
+                  <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-lg text-sm font-black transition-colors flex items-center gap-2"><FileSearch size={15} /> Fontes</button>
                 </div>
               </div>
             </div>
@@ -87,7 +82,7 @@ export function IAView() {
 
           <div className="p-4 bg-white border-t border-slate-100">
             <div className="relative">
-              <input type="text" placeholder="Pergunte ao Cereus: o que devo fazer hoje?" className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3.5 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/50" />
+              <input type="text" placeholder="Pergunte ao Cereus..." className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3.5 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/50" />
               <button className="absolute right-2 top-2 bg-slate-900 hover:bg-teal-700 transition-colors text-white p-2 rounded-lg">
                 <ArrowRight size={18} />
               </button>

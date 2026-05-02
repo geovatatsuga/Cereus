@@ -122,18 +122,18 @@ export function AtendimentoView() {
           </div>
 
           <div className="p-4 border-t border-slate-100 bg-white">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+            <div className="flex flex-wrap gap-2 mb-4">
               <div className="rounded-2xl bg-rose-50 border border-rose-100 p-3 flex gap-2">
                 <AlertTriangle size={16} className="text-rose-700 shrink-0 mt-0.5" />
-                <p className="text-xs font-bold text-rose-800">Sem campanha com ticket aberto.</p>
+                <p className="text-xs font-bold text-rose-800">Sem campanha</p>
               </div>
               <div className="rounded-2xl bg-amber-50 border border-amber-100 p-3 flex gap-2">
                 <Clock size={16} className="text-amber-700 shrink-0 mt-0.5" />
-                <p className="text-xs font-bold text-amber-800">Responder em 10 min.</p>
+                <p className="text-xs font-bold text-amber-800">10 min</p>
               </div>
               <div className="rounded-2xl bg-teal-50 border border-teal-100 p-3 flex gap-2">
                 <CheckCircle2 size={16} className="text-teal-700 shrink-0 mt-0.5" />
-                <p className="text-xs font-bold text-teal-800">Salvar no perfil.</p>
+                <p className="text-xs font-bold text-teal-800">Salvar</p>
               </div>
             </div>
             <div className="relative">

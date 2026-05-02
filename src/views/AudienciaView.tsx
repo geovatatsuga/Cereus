@@ -38,14 +38,13 @@ export function AudienciaView() {
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
         <div>
           <h2 className="text-3xl font-black text-slate-800 tracking-tight">Clientes</h2>
-          <p className="text-slate-500 font-medium">Quem vale cuidar, vender ou recuperar.</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <button className="bg-white border border-slate-200 text-slate-700 px-4 py-2.5 rounded-xl text-sm font-bold shadow-sm flex items-center gap-2">
-            <Download size={16} /> Importar CSV
+            <Download size={16} /> Importar
           </button>
           <button className="bg-slate-900 hover:bg-teal-700 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-sm flex items-center gap-2">
-            <Send size={16} className="text-teal-300" /> Acionar segmento
+            <Send size={16} className="text-teal-300" /> Acionar
           </button>
         </div>
       </div>
@@ -75,7 +74,7 @@ export function AudienciaView() {
             </div>
             <div className="relative w-full lg:w-72">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"><Search size={16} /></span>
-              <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Buscar nome, e-mail ou tag" className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-100 transition-all" />
+              <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Buscar cliente" className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-100 transition-all" />
             </div>
           </div>
 
@@ -105,7 +104,7 @@ export function AudienciaView() {
                         <img src={`https://api.dicebear.com/7.x/fun-emoji/svg?seed=${client.avatarSeed}`} alt={client.name} className="w-10 h-10 rounded-full bg-slate-100" />
                         <div>
                           <p className="text-sm font-black text-slate-800">{client.name}</p>
-                          <p className="text-xs text-slate-400 font-medium">{client.email}</p>
+                          <p className="text-xs text-slate-400 font-medium">{client.lastOrderDays === 0 ? 'Comprou hoje' : `${client.lastOrderDays} dias sem compra`}</p>
                         </div>
                       </div>
                     </td>

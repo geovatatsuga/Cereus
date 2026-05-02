@@ -31,13 +31,12 @@ export function OperacaoView() {
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
         <div>
           <h2 className="text-3xl font-black text-slate-800 tracking-tight">Pedidos</h2>
-          <p className="text-slate-500 font-medium">Pedidos, atrasos e gargalos agora.</p>
         </div>
         <div className="relative w-full lg:w-80">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"><Search size={16} /></span>
           <input
             type="text"
-            placeholder="Buscar pedido ou cliente..."
+            placeholder="Buscar pedido"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-100 transition-all shadow-sm"

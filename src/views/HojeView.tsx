@@ -32,10 +32,6 @@ export function HojeView({ onNavigate }: HojeViewProps) {
           <p className="text-xs font-black uppercase tracking-wider text-teal-700 mb-2">Hoje</p>
           <h2 className="text-3xl font-black text-slate-900 tracking-tight">Painel rapido</h2>
         </div>
-        <div className="bg-slate-900 text-white rounded-2xl px-4 py-3 shadow-sm">
-          <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">Agora</p>
-          <p className="text-sm font-black">Vender sem travar a operacao</p>
-        </div>
       </div>
 
       <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -60,9 +56,8 @@ export function HojeView({ onNavigate }: HojeViewProps) {
         <article className="xl:col-span-2 bg-slate-900 rounded-[1.5rem] p-5 sm:p-6 text-white shadow-xl">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
             <div>
-              <p className="text-xs font-black uppercase tracking-wider text-teal-300 mb-2">Acao recomendada</p>
+              <p className="text-xs font-black uppercase tracking-wider text-teal-300 mb-2">Proximo passo</p>
               <h3 className="text-2xl font-black tracking-tight">Reforce o jantar</h3>
-              <p className="text-sm font-bold text-slate-300 mt-2">Pico previsto entre 19h e 21h.</p>
             </div>
             <div className="grid grid-cols-3 gap-2 min-w-full md:min-w-[360px]">
               {alerts.map((alert) => (

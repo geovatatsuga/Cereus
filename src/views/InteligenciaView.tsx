@@ -162,7 +162,6 @@ export function InteligenciaView() {
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div>
           <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Lab de IA</h2>
-          <p className="text-slate-500 font-medium">Modelos para vender melhor, prever demanda e reduzir perdas.</p>
         </div>
         <div className="flex bg-slate-100/80 p-1 rounded-xl w-full lg:w-auto overflow-x-auto shadow-inner border border-slate-200">
           {[
@@ -195,15 +194,11 @@ export function InteligenciaView() {
               <div className="relative grid grid-cols-1 lg:grid-cols-3 gap-5 items-center">
                 <div className="lg:col-span-2">
                   <p className="text-xs font-black uppercase tracking-wider text-teal-300 mb-3 flex items-center gap-2"><Beaker size={15} /> Laboratorio de IA</p>
-                  <h3 className="text-2xl sm:text-3xl font-black tracking-tight mb-3">Ferramentas que explicam o futuro do restaurante</h3>
-                  <p className="text-sm sm:text-base text-slate-300 font-medium leading-relaxed max-w-3xl">
-                    Cada modelo responde uma pergunta pratica e vira uma acao simples para o restaurante.
-                  </p>
+                  <h3 className="text-2xl sm:text-3xl font-black tracking-tight">Modelos em producao</h3>
                 </div>
                 <div className="bg-white/10 border border-white/10 rounded-2xl p-4">
                   <CalendarDays size={26} className="text-teal-300 mb-3" />
                   <h4 className="font-black text-lg mb-2">Previsao para amanha</h4>
-                  <p className="text-sm text-slate-300 leading-relaxed mb-4">R$ 10.800 em vendas, com pico entre 19h e 21h.</p>
                   <div className="grid grid-cols-3 gap-2 text-center">
                     <div className="bg-white/10 rounded-xl p-2"><p className="text-[10px] text-slate-400 font-black uppercase">Confianca</p><p className="text-xs font-black text-teal-300">Media-alta</p></div>
                     <div className="bg-white/10 rounded-xl p-2"><p className="text-[10px] text-slate-400 font-black uppercase">Pico</p><p className="text-xs font-black">20h</p></div>
@@ -256,12 +251,10 @@ export function InteligenciaView() {
                 <div>
                   <p className="text-xs font-black uppercase tracking-wider text-teal-700 mb-2">Modelo de previsao</p>
                   <h3 className="text-2xl font-black text-slate-900">Previsao de vendas diaria</h3>
-                  <p className="text-sm text-slate-500 font-medium mt-2 max-w-2xl">Preve venda por dia e horario para ajustar equipe, estoque e campanha.</p>
                 </div>
                 <div className="rounded-2xl bg-teal-50 border border-teal-100 p-4 min-w-56">
                   <p className="text-[10px] font-black uppercase tracking-wider text-teal-700 mb-1">Resultado de amanha</p>
                   <p className="text-2xl font-black text-slate-900">R$ 10.800</p>
-                  <p className="text-xs font-bold text-slate-500 mt-1">Pico previsto entre 19h e 21h</p>
                 </div>
               </div>
             </div>
@@ -275,7 +268,6 @@ export function InteligenciaView() {
                 <div key={title} className="bg-white rounded-[1.25rem] p-5 border border-slate-100 shadow-sm">
                   <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-2">{title}</p>
                   <p className="text-xl font-black text-slate-900">{value}</p>
-                  <p className="text-sm font-medium text-slate-500 mt-2">{desc}</p>
                 </div>
               ))}
             </div>
@@ -303,7 +295,6 @@ export function InteligenciaView() {
             <div className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
               <p className="text-xs font-black uppercase tracking-wider text-sky-700 mb-2">Modelo de demanda</p>
               <h3 className="text-2xl font-black text-slate-900">Previsao de demanda por produto</h3>
-              <p className="text-sm text-slate-500 font-medium mt-2 max-w-2xl">Preve falta, preparo e reforco de estoque por item.</p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
@@ -344,7 +335,6 @@ export function InteligenciaView() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <section className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
                 <h3 className="text-xl font-black text-slate-800">Modelo de churn</h3>
-                <p className="text-sm text-slate-500 font-medium mb-6">Volumetria calculada nas ultimas 24 horas.</p>
                 <div className="h-72">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={churnRiskData} layout="vertical" margin={{ top: 10, right: 30, left: 10, bottom: 0 }}>
@@ -361,9 +351,8 @@ export function InteligenciaView() {
               </section>
               <section className="bg-slate-900 rounded-[1.5rem] p-6 shadow-sm text-white flex flex-col justify-center">
                 <AlertTriangle size={42} className="text-rose-400 mb-4 opacity-80" />
-                <h3 className="text-xl font-black mb-2">Acao sugerida pelo modelo</h3>
-                <p className="text-slate-300 text-sm mb-6 leading-relaxed">Grupo critico: R$ 8.500 em LTV sob risco. Use campanha pequena com revisao humana.</p>
-                <button className="bg-rose-500 hover:bg-rose-600 text-white font-black py-3 rounded-xl transition-all w-full">Criar automacao de resgate</button>
+                <h3 className="text-xl font-black mb-6">R$ 8.500 em risco</h3>
+                <button className="bg-rose-500 hover:bg-rose-600 text-white font-black py-3 rounded-xl transition-all w-full">Criar resgate</button>
               </section>
             </div>
             <section className="bg-white rounded-[1.25rem] p-5 border border-slate-100 shadow-sm">
@@ -392,7 +381,6 @@ export function InteligenciaView() {
                 <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl"><Brain size={24} /></div>
                 <div>
                   <h3 className="text-xl font-black text-slate-800">Matriz RFM</h3>
-                  <p className="text-sm text-slate-500 max-w-2xl">Recencia, frequencia e valor para decidir oferta, atendimento ou retencao.</p>
                 </div>
               </div>
               <div className="h-[420px]">

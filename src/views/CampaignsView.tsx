@@ -11,9 +11,9 @@ type GrowthMode = 'campanhas' | 'automacoes';
 type GrowthGoal = 'vender' | 'recuperar' | 'ticket' | 'recorrencia';
 
 const automationTemplates = [
-  ['Carrinho abandonado', 'Entrou no carrinho, nao pagou, recebe lembrete automatico.', '+R$ 4.200/mes'],
-  ['Cliente sumido', 'Sem compra ha 30 dias entra em jornada de retorno.', '34% retorno'],
-  ['NPS com suporte', 'Nota baixa abre ticket e pausa ofertas para o cliente.', '-18% churn'],
+  ['Carrinho abandonado', '+R$ 4.200/mes'],
+  ['Cliente sumido', '34% retorno'],
+  ['NPS com suporte', '-18% churn'],
 ];
 
 export function CampaignsView() {
@@ -34,7 +34,6 @@ export function CampaignsView() {
         <div>
           <p className="text-xs font-black uppercase tracking-wider text-teal-700 mb-2">Crescimento</p>
           <h2 className="text-3xl font-black text-slate-800 tracking-tight">Vender e recuperar clientes</h2>
-          <p className="text-slate-500 font-medium">Escolha entre uma acao pontual ou um fluxo que roda sozinho.</p>
         </div>
         <button className="bg-slate-900 hover:bg-teal-700 text-white px-5 py-2.5 rounded-xl text-sm font-black shadow-sm flex items-center gap-2">
           {activeMode === 'campanhas' ? <Send size={16} className="text-teal-300" /> : <Route size={16} className="text-teal-300" />}
@@ -47,14 +46,12 @@ export function CampaignsView() {
           {
             id: 'campanhas' as GrowthMode,
             title: 'Campanhas',
-            desc: 'Disparo pontual com data, publico e ROI esperado.',
             icon: <Megaphone size={22} />,
             chips: ['Hoje ou agendada', 'Oferta unica', 'Aprovar envio'],
           },
           {
             id: 'automacoes' as GrowthMode,
             title: 'Automacoes',
-            desc: 'Fluxo continuo que roda quando um gatilho acontece.',
             icon: <Repeat2 size={22} />,
             chips: ['Gatilho', 'Pausa por risco', 'Auditoria'],
           },
@@ -74,9 +71,15 @@ export function CampaignsView() {
               }`}>
                 {option.icon}
               </div>
-              <div className="min-w-0">
-                <h3 className="text-xl font-black tracking-tight">{option.title}</h3>
-                <p className={`text-sm font-bold mt-1 ${activeMode === option.id ? 'text-slate-300' : 'text-slate-500'}`}>{option.desc}</p>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="text-xl font-black tracking-tight">{option.title}</h3>
+                  <span className={`px-2.5 py-1 rounded-lg text-xs font-black ${
+                    activeMode === option.id ? 'bg-white/10 text-teal-200' : 'bg-emerald-50 text-emerald-700'
+                  }`}>
+                    {option.id === 'campanhas' ? 'ROI' : 'Auto'}
+                  </span>
+                </div>
                 <div className="flex flex-wrap gap-2 mt-4">
                   {option.chips.map((chip) => (
                     <span key={chip} className={`px-2.5 py-1 rounded-lg text-xs font-black ${
@@ -116,7 +119,6 @@ export function CampaignsView() {
                 </div>
                 <div>
                   <p className="text-sm font-black">{goal.label}</p>
-                  <p className="text-xs font-bold text-slate-500">{goal.hint}</p>
                 </div>
               </div>
             </button>
@@ -182,8 +184,7 @@ export function CampaignsView() {
             <div className="xl:col-span-2 bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
               <div className="flex items-start justify-between gap-4 mb-6">
                 <div>
-                  <h3 className="font-black text-xl text-slate-800">Lancamento: Resgate VIP 45 dias</h3>
-                  <p className="text-sm text-slate-500 font-medium">Uma oferta, uma janela, um publico.</p>
+                  <h3 className="font-black text-xl text-slate-800">Resgate VIP 45 dias</h3>
                 </div>
                 <span className="bg-amber-50 text-amber-700 px-3 py-1.5 rounded-xl text-xs font-black">Aguardando aprovacao</span>
               </div>
@@ -208,8 +209,8 @@ export function CampaignsView() {
               </div>
 
               <div className="flex flex-wrap gap-2">
-                <button className="bg-slate-900 hover:bg-teal-700 text-white px-5 py-3 rounded-xl text-sm font-black flex items-center gap-2"><Send size={16} /> Aprovar e agendar</button>
-                <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-3 rounded-xl text-sm font-black">Enviar teste</button>
+                <button className="bg-slate-900 hover:bg-teal-700 text-white px-5 py-3 rounded-xl text-sm font-black flex items-center gap-2"><Send size={16} /> Agendar</button>
+                <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-3 rounded-xl text-sm font-black">Teste</button>
               </div>
             </div>
 
@@ -277,8 +278,7 @@ export function CampaignsView() {
 
           <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
-              <h3 className="text-xl font-black text-slate-800 mb-1">Simulador: cliente critico</h3>
-              <p className="text-sm text-slate-500 font-medium mb-6">Roda sempre que alguem entra no criterio.</p>
+              <h3 className="text-xl font-black text-slate-800 mb-6">Cliente critico</h3>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
                 {[
                   ['Quando', '30 dias sem comprar'],
@@ -308,15 +308,14 @@ export function CampaignsView() {
                   </div>
                 ))}
               </div>
-              <button className="w-full bg-teal-500 hover:bg-teal-400 text-slate-950 font-black py-3 rounded-xl transition-colors">Publicar com aprovacao</button>
+              <button className="w-full bg-teal-500 hover:bg-teal-400 text-slate-950 font-black py-3 rounded-xl transition-colors">Publicar</button>
             </aside>
           </section>
 
           <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {automationTemplates.map(([title, desc, expected]) => (
+            {automationTemplates.map(([title, expected]) => (
               <article key={title} className="bg-white rounded-[1.5rem] p-5 border border-slate-100 shadow-sm">
                 <p className="font-black text-slate-800">{title}</p>
-                <p className="text-sm text-slate-500 font-medium mt-1 mb-4">{desc}</p>
                 <span className="text-xs font-black bg-emerald-50 text-emerald-700 px-2 py-1 rounded-lg">{expected}</span>
               </article>
             ))}
