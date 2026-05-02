@@ -10,8 +10,8 @@ export function Sidebar({ activeTab, setActiveTab }: { activeTab: string, setAct
     <aside className="w-20 md:w-64 bg-slate-50 border-r border-slate-200/70 flex flex-col justify-between py-5 md:py-7 px-3 md:px-4 transition-all z-20 relative overflow-hidden">
       <div className="relative z-10">
         <button onClick={() => setActiveTab('hoje')} className="mb-8 px-2 md:px-4 flex items-center justify-center md:justify-start gap-4 group w-full">
-          <div className="flex items-center justify-center group-hover:scale-105 transition-all duration-300">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 drop-shadow-sm">
+          <div className="flex items-center justify-center transition-all duration-300">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8">
               <rect x="2" y="7" width="5" height="10" rx="2.5" fill="#46B29D" />
               <rect x="9.5" y="2" width="5" height="20" rx="2.5" fill="url(#cereusGrad)" />
               <rect x="17" y="7" width="5" height="10" rx="2.5" fill="#46B29D" />
@@ -63,9 +63,9 @@ export function Sidebar({ activeTab, setActiveTab }: { activeTab: string, setAct
 
       <button
         onClick={() => setActiveTab('configuracoes')}
-        className={`relative z-10 hidden md:flex items-center gap-3 px-3 py-2.5 rounded-2xl cursor-pointer transition-colors border text-left ${
+        className={`relative z-10 hidden md:flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-colors border text-left ${
           activeTab === 'configuracoes'
-            ? 'bg-white shadow-[0_2px_10px_rgba(0,0,0,0.03)] border-slate-100'
+            ? 'bg-white border-slate-200/70'
             : 'hover:bg-slate-100/50 border-transparent'
         }`}
       >

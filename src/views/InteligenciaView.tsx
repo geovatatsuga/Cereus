@@ -7,7 +7,6 @@ import {
   Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer,
   Scatter, ScatterChart, Tooltip as RechartsTooltip, XAxis, YAxis, ZAxis,
 } from 'recharts';
-import { MiniVisual } from '../components/ui/MiniVisual';
 
 const churnRiskData = [
   { name: 'Baixo', users: 1450, color: '#10b981' },
@@ -99,52 +98,6 @@ const modelCards = [
   },
 ];
 
-function ModelIllustration({ tone }: { tone: string }) {
-  const palette: Record<string, { main: string; soft: string; line: string }> = {
-    teal: { main: '#0f766e', soft: '#ccfbf1', line: '#14b8a6' },
-    sky: { main: '#0369a1', soft: '#e0f2fe', line: '#38bdf8' },
-    rose: { main: '#be123c', soft: '#ffe4e6', line: '#fb7185' },
-    amber: { main: '#b45309', soft: '#fef3c7', line: '#f59e0b' },
-  };
-  const color = palette[tone] ?? palette.teal;
-
-  return (
-    <svg viewBox="0 0 96 72" className="h-14 w-20" role="img" aria-label="Visual do modelo">
-      <rect x="6" y="8" width="84" height="56" rx="16" fill={color.soft} />
-      {tone === 'teal' && (
-        <>
-          <path d="M18 48 C30 36, 38 41, 48 29 S66 18, 78 24" fill="none" stroke={color.main} strokeWidth="4" strokeLinecap="round" />
-          <circle cx="48" cy="29" r="4" fill="white" stroke={color.main} strokeWidth="2" />
-          <rect x="18" y="19" width="18" height="5" rx="2.5" fill="white" opacity="0.9" />
-        </>
-      )}
-      {tone === 'sky' && (
-        <>
-          <rect x="22" y="38" width="10" height="14" rx="3" fill={color.main} opacity="0.82" />
-          <rect x="39" y="27" width="10" height="25" rx="3" fill={color.line} opacity="0.9" />
-          <rect x="56" y="18" width="10" height="34" rx="3" fill={color.main} opacity="0.68" />
-          <path d="M20 24 H72" stroke="white" strokeWidth="4" strokeLinecap="round" opacity="0.9" />
-        </>
-      )}
-      {tone === 'rose' && (
-        <>
-          <path d="M48 18 L72 54 H24 Z" fill="white" opacity="0.9" />
-          <path d="M48 28 V42" stroke={color.main} strokeWidth="5" strokeLinecap="round" />
-          <circle cx="48" cy="49" r="3" fill={color.main} />
-        </>
-      )}
-      {tone === 'amber' && (
-        <>
-          <circle cx="31" cy="31" r="9" fill="white" stroke={color.main} strokeWidth="3" />
-          <circle cx="61" cy="25" r="7" fill="white" stroke={color.line} strokeWidth="3" />
-          <circle cx="58" cy="49" r="8" fill="white" stroke={color.main} strokeWidth="3" />
-          <path d="M39 33 L53 27 M38 36 L51 45" stroke={color.main} strokeWidth="3" strokeLinecap="round" opacity="0.7" />
-        </>
-      )}
-    </svg>
-  );
-}
-
 export function InteligenciaView() {
   const [activeTab, setActiveTab] = useState<'modelos' | 'vendas' | 'demanda' | 'churn' | 'rfm' | 'auditoria'>('modelos');
 
@@ -159,11 +112,11 @@ export function InteligenciaView() {
   };
 
   const ModelHealth = ({ tone, items }: { tone: 'teal' | 'sky' | 'rose' | 'amber'; items: string[] }) => (
-    <div className="bg-white rounded-[1.25rem] p-4 border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3">
-      <MiniVisual variant={tone === 'sky' ? 'demand' : tone === 'rose' ? 'churn' : tone === 'amber' ? 'rfm' : 'forecast'} tone={tone} className="h-14 w-20" />
+    <div className="bg-white rounded-xl p-4 border border-slate-200/70 flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <span className={`h-2 w-2 rounded-full ${tone === 'rose' ? 'bg-rose-500' : tone === 'amber' ? 'bg-amber-500' : tone === 'sky' ? 'bg-sky-500' : 'bg-emerald-600'}`} />
       <div className="flex flex-wrap gap-2 md:justify-end">
         {items.map((item) => (
-          <span key={item} className="rounded-xl bg-slate-50 border border-slate-100 px-3 py-2 text-xs font-black text-slate-700">{item}</span>
+          <span key={item} className="rounded-md bg-slate-50 border border-slate-100 px-3 py-2 text-xs font-bold text-slate-700">{item}</span>
         ))}
       </div>
     </div>
@@ -175,7 +128,7 @@ export function InteligenciaView() {
         <div>
           <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Lab de IA</h2>
         </div>
-        <div className="flex bg-slate-100/80 p-1 rounded-xl w-full lg:w-auto overflow-x-auto shadow-inner border border-slate-200">
+        <div className="flex bg-slate-100/80 p-1 rounded-lg w-full lg:w-auto overflow-x-auto border border-slate-200">
           {[
             { id: 'modelos', label: 'Modelos', icon: <Beaker size={16} /> },
             { id: 'vendas', label: 'Vendas', icon: <LineChart size={16} /> },
@@ -187,7 +140,7 @@ export function InteligenciaView() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-black transition-all whitespace-nowrap ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-md text-sm font-bold transition-all whitespace-nowrap ${
                 activeTab === tab.id ? 'bg-white text-teal-700 shadow-sm border border-slate-100' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'
               }`}
             >
@@ -201,23 +154,21 @@ export function InteligenciaView() {
       <AnimatePresence mode="wait">
         {activeTab === 'modelos' && (
           <motion.div key="modelos" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98 }} className="space-y-6">
-            <section className="bg-slate-900 rounded-[1.5rem] p-5 sm:p-6 text-white shadow-xl overflow-hidden relative">
-              <div className="absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.18),transparent_55%)] pointer-events-none" />
+            <section className="bg-slate-900 rounded-xl p-5 sm:p-6 text-white overflow-hidden relative">
               <div className="relative grid grid-cols-1 lg:grid-cols-3 gap-5 items-center">
                 <div className="lg:col-span-2">
                   <p className="text-xs font-black uppercase tracking-wider text-teal-300 mb-3 flex items-center gap-2"><Beaker size={15} /> Laboratorio de IA</p>
                   <h3 className="text-2xl sm:text-3xl font-black tracking-tight">Modelos em producao</h3>
                 </div>
-                <div className="bg-white/10 border border-white/10 rounded-2xl p-4">
+                <div className="bg-white/10 border border-white/10 rounded-lg p-4">
                   <div className="flex items-center justify-between gap-3 mb-3">
                     <CalendarDays size={26} className="text-teal-300" />
-                    <MiniVisual variant="forecast" tone="teal" className="h-12 w-16" />
                   </div>
                   <h4 className="font-black text-lg mb-2">Amanha</h4>
                   <div className="grid grid-cols-3 gap-2 text-center">
-                    <div className="bg-white/10 rounded-xl p-2"><p className="text-[10px] text-slate-400 font-black uppercase">Confianca</p><p className="text-xs font-black text-teal-300">Media-alta</p></div>
-                    <div className="bg-white/10 rounded-xl p-2"><p className="text-[10px] text-slate-400 font-black uppercase">Pico</p><p className="text-xs font-black">20h</p></div>
-                    <div className="bg-white/10 rounded-xl p-2"><p className="text-[10px] text-slate-400 font-black uppercase">Acao</p><p className="text-xs font-black">+1 pessoa</p></div>
+                    <div className="bg-white/10 rounded-lg p-2"><p className="text-[10px] text-slate-400 font-bold uppercase">Confianca</p><p className="text-xs font-black text-teal-300">Media-alta</p></div>
+                    <div className="bg-white/10 rounded-lg p-2"><p className="text-[10px] text-slate-400 font-bold uppercase">Pico</p><p className="text-xs font-black">20h</p></div>
+                    <div className="bg-white/10 rounded-lg p-2"><p className="text-[10px] text-slate-400 font-bold uppercase">Equipe</p><p className="text-xs font-black">+1 pessoa</p></div>
                   </div>
                 </div>
               </div>
@@ -228,27 +179,25 @@ export function InteligenciaView() {
                 <button
                   key={model.name}
                   onClick={() => setActiveTab(model.route as any)}
-                  className={`group text-left rounded-[1.25rem] border border-slate-100 shadow-sm overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg bg-gradient-to-br ${model.bg}`}
+                  className="group text-left rounded-xl border border-slate-200/70 bg-white overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-sm"
                 >
                   <div className="p-4">
                     <div className="flex items-start justify-between gap-3 mb-4">
-                      <div className={`w-10 h-10 rounded-xl bg-white border border-white ${model.accent} flex items-center justify-center shrink-0 shadow-sm`}>
+                      <div className={`w-10 h-10 rounded-lg bg-slate-50 border border-slate-100 ${model.accent} flex items-center justify-center shrink-0`}>
                         {model.icon}
                       </div>
-                      <div className="rounded-2xl bg-white/75 border border-white p-1 shadow-sm">
-                        <ModelIllustration tone={model.tone} />
-                      </div>
+                      <span className={`h-2 w-2 rounded-full mt-2 ${model.tone === 'rose' ? 'bg-rose-500' : model.tone === 'amber' ? 'bg-amber-500' : model.tone === 'sky' ? 'bg-sky-500' : 'bg-emerald-600'}`} />
                     </div>
 
                     <div className="mb-4">
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-1">{model.status}</p>
-                      <h4 className="font-black text-base text-slate-900 leading-tight mb-2">{model.name}</h4>
-                      <p className="text-sm font-bold text-slate-700 leading-snug">{model.question}</p>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">{model.status}</p>
+                      <h4 className="font-bold text-base text-slate-950 leading-tight mb-2">{model.name}</h4>
+                      <p className="text-sm font-semibold text-slate-600 leading-snug">{model.question}</p>
                     </div>
 
                     <div className="flex items-center justify-between gap-3 pt-4 border-t border-white/80">
-                      <span className={`bg-white border border-white ${model.accent} px-2.5 py-1 rounded-lg text-xs font-black shadow-sm`}>{model.metric}</span>
-                      <span className="w-8 h-8 rounded-full bg-white border border-white text-slate-700 flex items-center justify-center shadow-sm transition-transform group-hover:translate-x-1">
+                      <span className={`bg-slate-50 border border-slate-100 ${model.accent} px-2.5 py-1 rounded-md text-xs font-bold`}>{model.metric}</span>
+                      <span className="w-8 h-8 rounded-lg bg-slate-50 border border-slate-100 text-slate-700 flex items-center justify-center transition-transform group-hover:translate-x-1">
                         <ArrowRight size={15} />
                       </span>
                     </div>
@@ -261,13 +210,13 @@ export function InteligenciaView() {
 
         {activeTab === 'vendas' && (
           <motion.section key="vendas" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98 }} className="space-y-6">
-            <div className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
+            <div className="bg-white rounded-xl p-6 border border-slate-200/70">
               <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
                 <div>
                   <p className="text-xs font-black uppercase tracking-wider text-teal-700 mb-2">Modelo de previsao</p>
                   <h3 className="text-2xl font-black text-slate-900">Previsao de vendas diaria</h3>
                 </div>
-                <div className="rounded-2xl bg-teal-50 border border-teal-100 p-4 min-w-56">
+                <div className="rounded-lg bg-teal-50 border border-teal-100 p-4 min-w-56">
                   <p className="text-[10px] font-black uppercase tracking-wider text-teal-700 mb-1">Resultado de amanha</p>
                   <p className="text-2xl font-black text-slate-900">R$ 10.800</p>
                 </div>
@@ -280,7 +229,7 @@ export function InteligenciaView() {
                 ['Variaveis', 'Clima + campanha'],
                 ['Alerta', 'Evento fora da curva'],
               ].map(([title, value]) => (
-                <div key={title} className="bg-white rounded-[1.25rem] p-5 border border-slate-100 shadow-sm">
+                <div key={title} className="bg-white rounded-xl p-5 border border-slate-200/70">
                   <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-2">{title}</p>
                   <p className="text-xl font-black text-slate-900">{value}</p>
                 </div>
@@ -292,7 +241,7 @@ export function InteligenciaView() {
 
         {activeTab === 'demanda' && (
           <motion.section key="demanda" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98 }} className="space-y-6">
-            <div className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
+            <div className="bg-white rounded-xl p-6 border border-slate-200/70">
               <p className="text-xs font-black uppercase tracking-wider text-sky-700 mb-2">Modelo de demanda</p>
               <h3 className="text-2xl font-black text-slate-900">Previsao de demanda por produto</h3>
             </div>
@@ -304,7 +253,7 @@ export function InteligenciaView() {
                 ['Sobremesas', '+7%', 'Estoque ok'],
                 ['Saladas', '-4%', 'Baixa demanda'],
               ].map(([item, value, note]) => (
-                <div key={item} className="bg-white rounded-[1.25rem] p-5 border border-slate-100 shadow-sm">
+                <div key={item} className="bg-white rounded-xl p-5 border border-slate-200/70">
                   <p className="text-sm font-black text-slate-900">{item}</p>
                   <p className="text-2xl font-black text-sky-700 mt-2">{value}</p>
                   <p className="text-xs font-bold text-slate-500 mt-1">{note}</p>
@@ -318,7 +267,7 @@ export function InteligenciaView() {
         {activeTab === 'churn' && (
           <motion.div key="churn" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98 }} className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <section className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
+              <section className="bg-white rounded-xl p-6 border border-slate-200/70">
                 <h3 className="text-xl font-black text-slate-800">Modelo de churn</h3>
                 <div className="h-72">
                   <ResponsiveContainer width="100%" height="100%">
@@ -334,10 +283,10 @@ export function InteligenciaView() {
                   </ResponsiveContainer>
                 </div>
               </section>
-              <section className="bg-slate-900 rounded-[1.5rem] p-6 shadow-sm text-white flex flex-col justify-center">
+              <section className="bg-slate-900 rounded-xl p-6 shadow-sm text-white flex flex-col justify-center">
                 <AlertTriangle size={42} className="text-rose-400 mb-4 opacity-80" />
                 <h3 className="text-xl font-black mb-6">R$ 8.500 em risco</h3>
-                <button className="bg-rose-500 hover:bg-rose-600 text-white font-black py-3 rounded-xl transition-all w-full">Criar resgate</button>
+                <button className="bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 rounded-lg transition-all w-full">Criar resgate</button>
               </section>
             </div>
             <ModelHealth tone="rose" items={['Insight ativo', 'Atualizado 18:42', 'Campanha nova', 'Lift pendente']} />
@@ -346,9 +295,9 @@ export function InteligenciaView() {
 
         {activeTab === 'rfm' && (
           <motion.div key="rfm" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98 }} className="space-y-6">
-            <section className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
+            <section className="bg-white rounded-xl p-6 border border-slate-200/70">
               <div className="mb-6 flex items-center gap-3">
-                <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl"><Brain size={24} /></div>
+                <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-lg"><Brain size={24} /></div>
                 <div>
                   <h3 className="text-xl font-black text-slate-800">Matriz RFM</h3>
                 </div>
@@ -371,7 +320,7 @@ export function InteligenciaView() {
         )}
 
         {activeTab === 'auditoria' && (
-          <motion.section key="auditoria" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98 }} className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
+          <motion.section key="auditoria" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98 }} className="bg-white rounded-xl p-6 border border-slate-200/70">
             <h3 className="text-xl font-black text-slate-800 mb-5">Auditoria das ferramentas</h3>
             <div className="space-y-3">
               {[
@@ -379,7 +328,7 @@ export function InteligenciaView() {
                 ['18:39', 'Disparo bloqueado', 'Ticket aberto'],
                 ['17:55', 'Previsao atualizada', 'Amanha: R$ 10.800'],
               ].map(([time, title, desc]) => (
-                <div key={title} className="rounded-2xl border border-slate-100 bg-slate-50/70 p-4 flex items-start justify-between gap-4">
+                <div key={title} className="rounded-lg border border-slate-100 bg-slate-50/70 p-4 flex items-start justify-between gap-4">
                   <div>
                     <p className="font-black text-slate-800">{title}</p>
                     <p className="text-sm text-slate-500 font-medium mt-1">{desc}</p>

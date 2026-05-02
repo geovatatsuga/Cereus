@@ -57,9 +57,9 @@ export function AudienciaView() {
       </div>
 
       <div>
-        <section className="bg-white rounded-[1.5rem] p-5 sm:p-6 shadow-sm border border-slate-100">
+        <section className="bg-white rounded-xl p-5 sm:p-6 border border-slate-200/70">
           <div className="flex flex-col lg:flex-row justify-between gap-4 mb-6">
-            <div className="flex bg-slate-50 p-1 rounded-xl border border-slate-100 overflow-x-auto">
+            <div className="flex bg-slate-50 p-1 rounded-lg border border-slate-100 overflow-x-auto">
               {['Todos', 'VIP', 'Em Risco', 'Sumidos', 'Alto valor', 'Reclamaram'].map((filter) => (
                 <button
                   key={filter}
@@ -74,7 +74,7 @@ export function AudienciaView() {
             </div>
             <div className="relative w-full lg:w-72">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"><Search size={16} /></span>
-              <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Buscar cliente" className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-100 transition-all" />
+              <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Buscar cliente" className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-4 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-100 transition-all" />
             </div>
           </div>
 

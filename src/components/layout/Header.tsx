@@ -14,12 +14,12 @@ export function Header() {
         <input
           type="text"
           placeholder="Buscar cliente, pedido ou crescimento..."
-          className="w-full bg-white/70 backdrop-blur-md border border-white/80 rounded-2xl py-3 pl-12 pr-4 text-sm font-medium text-slate-700 focus:outline-none focus:ring-4 focus:ring-teal-500/10 focus:bg-white transition-all shadow-sm placeholder-slate-400"
+          className="w-full bg-white border border-slate-200/70 rounded-lg py-3 pl-12 pr-4 text-sm font-medium text-slate-700 focus:outline-none focus:ring-4 focus:ring-teal-500/10 transition-all placeholder-slate-400"
         />
       </div>
 
       <div className="flex items-center gap-4 ml-auto relative">
-        <div className="hidden lg:flex items-center gap-2 rounded-2xl bg-white/70 border border-white/80 px-3 py-2 shadow-sm">
+        <div className="hidden lg:flex items-center gap-2 rounded-lg bg-white border border-slate-200/70 px-3 py-2">
           <CheckCircle2 size={16} className="text-emerald-600" />
           <span className="text-xs font-black text-slate-600">CRM saudavel</span>
         </div>
@@ -27,7 +27,7 @@ export function Header() {
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
           onClick={() => setOpen((value) => !value)}
-          className="relative p-3 text-teal-600 hover:text-teal-700 bg-white/85 hover:bg-white backdrop-blur-xl rounded-full transition-all shadow-sm border border-teal-50"
+          className="relative p-3 text-teal-600 hover:text-teal-700 bg-white hover:bg-white rounded-lg transition-all border border-slate-200/70"
           aria-label="Abrir notificacoes"
         >
           <Bell size={20} strokeWidth={2.5} />
@@ -40,18 +40,18 @@ export function Header() {
               initial={{ opacity: 0, y: 8, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 8, scale: 0.98 }}
-              className="absolute right-0 top-14 w-[min(360px,calc(100vw-2rem))] bg-white rounded-2xl border border-slate-100 shadow-xl p-4"
+              className="absolute right-0 top-14 w-[min(360px,calc(100vw-2rem))] bg-white rounded-xl border border-slate-200/70 shadow-lg p-4"
             >
               <h3 className="font-black text-slate-800 mb-3">Notificacoes criticas</h3>
               <div className="space-y-3">
-                <div className="flex gap-3 rounded-xl bg-rose-50 p-3">
+                <div className="flex gap-3 rounded-lg bg-rose-50 p-3">
                   <AlertTriangle size={18} className="text-rose-600 shrink-0 mt-0.5" />
                   <div>
                     <p className="text-sm font-black text-rose-800">1 pedido atrasado em rota</p>
                     <p className="text-xs font-medium text-rose-600">Roberto Silva esta ha 42 min aguardando.</p>
                   </div>
                 </div>
-                <div className="flex gap-3 rounded-xl bg-amber-50 p-3">
+                <div className="flex gap-3 rounded-lg bg-amber-50 p-3">
                   <AlertTriangle size={18} className="text-amber-600 shrink-0 mt-0.5" />
                   <div>
                     <p className="text-sm font-black text-amber-800">Campanha bloqueada</p>

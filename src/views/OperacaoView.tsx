@@ -62,7 +62,7 @@ export function OperacaoView() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.08 }}
               key={col.id}
-              className="bg-slate-50/85 backdrop-blur-xl rounded-[1.5rem] p-4 sm:p-5 border border-slate-200 shadow-sm flex flex-col min-h-[520px]"
+              className="bg-slate-50/85 backdrop-blur-xl rounded-xl p-4 sm:p-5 border border-slate-200 flex flex-col min-h-[520px]"
             >
               <div className="flex justify-between items-center mb-5 px-1">
                 <div className="flex items-center gap-2">
@@ -82,14 +82,14 @@ export function OperacaoView() {
                       exit={{ opacity: 0, scale: 0.96 }}
                       transition={{ duration: 0.2 }}
                       key={order.id}
-                      className={`bg-white p-4 rounded-[1.25rem] shadow-sm border transition-all cursor-pointer relative overflow-hidden group ${
+                      className={`bg-white p-4 rounded-xl border transition-all cursor-pointer relative overflow-hidden group ${
                         order.late ? 'border-rose-200 hover:border-rose-400' : order.warning ? 'border-amber-200 hover:border-amber-400' : 'border-slate-100 hover:border-teal-200'
                       }`}
                     >
                       <div className={`absolute top-0 left-0 w-1 h-full ${order.late ? 'bg-rose-500' : order.warning ? 'bg-amber-400' : col.dot}`} />
                       <div className="flex justify-between items-start mb-3">
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-black text-slate-800 bg-slate-100 px-2.5 py-1 rounded-lg">#{order.id}</span>
+                          <span className="text-sm font-bold text-slate-800 bg-slate-100 px-2.5 py-1 rounded-md">#{order.id}</span>
                           <span className={`text-[10px] font-black text-white px-2 py-1 rounded-md uppercase tracking-wider ${order.platform === 'iFood' ? 'bg-rose-600' : 'bg-teal-600'}`}>{order.platform}</span>
                         </div>
                         <div className={`flex items-center gap-1.5 text-xs font-black px-2 py-1 rounded-md ${
@@ -102,15 +102,15 @@ export function OperacaoView() {
 
                       <div className="flex items-center justify-between gap-3 mb-4">
                         <h4 className="font-black text-slate-800 text-base">{order.customer}</h4>
-                        <span className="bg-slate-50 text-slate-500 px-2 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider">Itens</span>
+                        <span className="bg-slate-50 text-slate-500 px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider">Itens</span>
                       </div>
 
                       <div className="grid grid-cols-2 gap-2 mb-4">
-                        <div className="bg-slate-50 rounded-xl p-2">
+                        <div className="bg-slate-50 rounded-lg p-2">
                           <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1"><UserCheck size={12} /> Resp.</p>
                           <p className="text-sm font-black text-slate-700">{order.owner}</p>
                         </div>
-                        <div className="bg-slate-50 rounded-xl p-2">
+                        <div className="bg-slate-50 rounded-lg p-2">
                           <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">Total</p>
                           <p className="text-sm font-black text-slate-700">{formatCurrency(order.total)}</p>
                         </div>

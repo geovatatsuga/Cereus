@@ -5,7 +5,6 @@ import {
   TrendingUp, UserRound, Wallet, Zap,
 } from 'lucide-react';
 import { AutomationCard } from '../components/ui/AutomationCard';
-import { MiniVisual } from '../components/ui/MiniVisual';
 import { automationStats, campaigns, clients, formatCurrency } from '../data/mockData';
 
 type GrowthMode = 'campanhas' | 'automacoes';
@@ -36,13 +35,13 @@ export function CampaignsView() {
           <p className="text-xs font-black uppercase tracking-wider text-teal-700 mb-2">Crescimento</p>
           <h2 className="text-3xl font-black text-slate-800 tracking-tight">Vender e recuperar clientes</h2>
         </div>
-        <button className="bg-slate-900 hover:bg-teal-700 text-white px-5 py-2.5 rounded-xl text-sm font-black shadow-sm flex items-center gap-2">
+        <button className="bg-slate-900 hover:bg-teal-700 text-white px-5 py-2.5 rounded-lg text-sm font-bold flex items-center gap-2">
           {activeMode === 'campanhas' ? <Send size={16} className="text-teal-300" /> : <Route size={16} className="text-teal-300" />}
           {activeMode === 'campanhas' ? 'Nova campanha' : 'Nova automacao'}
         </button>
       </div>
 
-      <section className="bg-white rounded-[1.5rem] p-4 border border-slate-100 shadow-sm">
+      <section className="bg-white rounded-xl p-4 border border-slate-200/70">
         <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 flex-1">
           {growthGoals.map((goal) => (
@@ -52,15 +51,15 @@ export function CampaignsView() {
                 setActiveGoal(goal.id);
                 setActiveMode(goal.mode);
               }}
-              className={`text-left rounded-2xl border p-4 transition-all ${
+              className={`text-left rounded-lg border p-4 transition-all ${
                 activeGoal === goal.id
-                  ? 'bg-teal-50 border-teal-200 text-teal-900'
+                  ? 'bg-slate-900 border-slate-900 text-white'
                   : 'bg-slate-50 border-slate-100 text-slate-700 hover:border-teal-200'
               }`}
             >
               <div className="flex items-center gap-3">
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${
-                  activeGoal === goal.id ? 'bg-teal-600 text-white' : 'bg-white text-teal-700'
+                <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${
+                  activeGoal === goal.id ? 'bg-white/10 text-teal-200' : 'bg-white text-slate-600'
                 }`}>
                   {goal.icon}
                 </div>
@@ -71,7 +70,7 @@ export function CampaignsView() {
             </button>
           ))}
           </div>
-          <div className="bg-slate-100 p-1 rounded-2xl border border-slate-200 flex w-full sm:w-fit">
+          <div className="bg-slate-100 p-1 rounded-lg border border-slate-200 flex w-full sm:w-fit">
             {[
               ['campanhas', 'Campanhas', <Send size={15} />],
               ['automacoes', 'Automacoes', <Route size={15} />],
@@ -79,7 +78,7 @@ export function CampaignsView() {
               <button
                 key={String(mode)}
                 onClick={() => setActiveMode(mode as GrowthMode)}
-                className={`flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-black flex items-center justify-center gap-2 transition-all ${
+                className={`flex-1 sm:flex-none px-4 py-2 rounded-md text-xs font-bold flex items-center justify-center gap-2 transition-all ${
                   activeMode === mode ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
@@ -95,13 +94,13 @@ export function CampaignsView() {
         <>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {campaigns.map((campaign) => (
-              <article key={campaign.name} className="bg-white rounded-[1.5rem] p-5 border border-slate-100 shadow-sm hover:shadow-md transition-all">
+              <article key={campaign.name} className="bg-white rounded-xl p-5 border border-slate-200/70 hover:shadow-sm transition-all">
                 <div className="flex items-start justify-between gap-3 mb-4">
                   <div>
                     <h3 className="font-black text-slate-800 text-lg">{campaign.name}</h3>
                     <p className="text-xs text-slate-400 font-bold mt-1">{campaign.audience}</p>
                   </div>
-                  <MiniVisual variant="campaign" tone="teal" className="h-12 w-16 shrink-0" />
+                  <span className="text-xs font-bold text-slate-500 bg-slate-50 border border-slate-100 px-2.5 py-1 rounded-md">{campaign.status}</span>
                 </div>
                 <div className="grid grid-cols-3 gap-2 mb-5">
                   {[
@@ -109,7 +108,7 @@ export function CampaignsView() {
                     ['Data', 'Pontual'],
                     ['Custo', formatCurrency(campaign.budget)],
                   ].map(([label, value]) => (
-                    <div key={label} className="bg-slate-50 rounded-xl p-3">
+                    <div key={label} className="bg-slate-50 rounded-lg p-3">
                       <p className="text-[10px] uppercase font-black text-slate-400">{label}</p>
                       <p className="font-black text-slate-800 text-sm">{value}</p>
                     </div>
@@ -120,8 +119,8 @@ export function CampaignsView() {
                     <p className="text-xs font-bold text-slate-400">Receita prevista</p>
                     <p className="font-black text-slate-900">{formatCurrency(campaign.projectedRevenue)}</p>
                   </div>
-                  <span className="bg-emerald-50 text-emerald-700 px-2 py-1 rounded-lg text-xs font-black">ROI {campaign.roi}x</span>
-                  <button className="bg-slate-900 hover:bg-teal-700 text-white px-3 py-2 rounded-xl text-xs font-black flex items-center gap-1">
+                  <span className="bg-emerald-50 text-emerald-700 px-2 py-1 rounded-md text-xs font-black">ROI {campaign.roi}x</span>
+                  <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-lg text-xs font-black flex items-center gap-1">
                     <Eye size={14} /> Revisar
                   </button>
                 </div>
@@ -130,13 +129,12 @@ export function CampaignsView() {
           </div>
 
           <section className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-            <div className="xl:col-span-2 bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
+            <div className="xl:col-span-2 bg-white rounded-xl p-6 border border-slate-200/70">
               <div className="flex items-start justify-between gap-4 mb-6">
                 <div>
                   <h3 className="font-black text-xl text-slate-800">Resgate VIP 45 dias</h3>
                 </div>
-                <MiniVisual variant="campaign" tone="amber" className="hidden sm:block h-14 w-20" />
-                <span className="bg-amber-50 text-amber-700 px-3 py-1.5 rounded-xl text-xs font-black">Aguardando aprovacao</span>
+                <span className="bg-amber-50 text-amber-700 px-3 py-1.5 rounded-md text-xs font-black">Aguardando aprovacao</span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -145,7 +143,7 @@ export function CampaignsView() {
                   ['Receita prevista', formatCurrency(6300), <Wallet size={20} />],
                   ['Janela', 'Hoje 20:00', <CalendarClock size={20} />],
                 ].map(([title, value, icon]) => (
-                  <div key={String(title)} className="rounded-2xl bg-slate-50 border border-slate-100 p-4">
+                  <div key={String(title)} className="rounded-lg bg-slate-50 border border-slate-100 p-4">
                     <div className="text-teal-700 mb-3">{icon}</div>
                     <p className="text-xs font-black uppercase tracking-wider text-slate-400">{title}</p>
                     <p className="font-black text-slate-900 mt-1">{value}</p>
@@ -153,23 +151,22 @@ export function CampaignsView() {
                 ))}
               </div>
 
-              <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="bg-slate-50 border border-slate-100 rounded-lg p-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <p className="text-xs font-black text-slate-400 uppercase tracking-wider flex items-center gap-2"><MessageCircle size={14} /> Mensagem</p>
                 <p className="text-sm font-black text-slate-800">20% por 24h</p>
               </div>
 
               <div className="flex flex-wrap gap-2">
-                <button className="bg-slate-900 hover:bg-teal-700 text-white px-5 py-3 rounded-xl text-sm font-black flex items-center gap-2"><Send size={16} /> Agendar</button>
-                <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-3 rounded-xl text-sm font-black">Teste</button>
+                <button className="bg-slate-900 hover:bg-teal-700 text-white px-5 py-3 rounded-lg text-sm font-black flex items-center gap-2"><Send size={16} /> Agendar</button>
+                <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-3 rounded-lg text-sm font-black">Teste</button>
               </div>
             </div>
 
-            <aside className="bg-slate-900 rounded-[1.5rem] p-6 text-white shadow-xl h-fit">
-              <MiniVisual variant="automation" tone="teal" className="h-16 w-24 mb-3" />
+            <aside className="bg-slate-900 rounded-xl p-6 text-white shadow-sm h-fit">
               <h3 className="font-black text-xl mb-4">Antes do disparo</h3>
               <div className="grid grid-cols-2 gap-2 text-sm">
                 {['Opt-in ok', 'Tickets excluidos', 'Frequencia ok', 'Cupom testado'].map((item) => (
-                  <div key={item} className="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-slate-300">
+                  <div key={item} className="flex items-center gap-2 rounded-lg bg-white/10 px-3 py-2 text-slate-300">
                     <CheckCircle2 size={16} className="text-teal-300" />
                     <span className="text-xs font-black">{item}</span>
                   </div>
@@ -187,8 +184,8 @@ export function CampaignsView() {
               ['Receita recorrente', formatCurrency(4960), <Repeat2 size={20} />, 'bg-teal-50 text-teal-700'],
               ['Falhas 24h', '41', <AlertTriangle size={20} />, 'bg-rose-50 text-rose-700'],
             ].map(([label, value, icon, style]) => (
-              <div key={String(label)} className="bg-white rounded-[1.5rem] p-5 border border-slate-100 shadow-sm">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${style}`}>{icon}</div>
+              <div key={String(label)} className="bg-white rounded-xl p-5 border border-slate-200/70">
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-4 ${style}`}>{icon}</div>
                 <p className="text-sm font-bold text-slate-500">{label}</p>
                 <p className="text-3xl font-black text-slate-900 mt-1">{value}</p>
               </div>
@@ -212,12 +209,11 @@ export function CampaignsView() {
 
           <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {automationTemplates.map(([title, expected]) => (
-              <article key={title} className="bg-white rounded-[1.5rem] p-5 border border-slate-100 shadow-sm flex items-center justify-between gap-3">
+              <article key={title} className="bg-white rounded-xl p-5 border border-slate-200/70 flex items-center justify-between gap-3">
                 <div>
                   <p className="font-black text-slate-800">{title}</p>
-                  <span className="text-xs font-black bg-emerald-50 text-emerald-700 px-2 py-1 rounded-lg">{expected}</span>
+                  <span className="text-xs font-black bg-emerald-50 text-emerald-700 px-2 py-1 rounded-md">{expected}</span>
                 </div>
-                <MiniVisual variant="automation" tone="sky" className="h-12 w-16 shrink-0" />
               </article>
             ))}
           </section>

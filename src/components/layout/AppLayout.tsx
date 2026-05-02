@@ -17,11 +17,10 @@ export function AppLayout() {
   const [activeTab, setActiveTab] = useState('hoje');
 
   return (
-    <div className="flex h-screen bg-[#F8FAFC] text-slate-700 font-sans overflow-hidden">
+    <div className="flex h-screen bg-[#F6F7F9] text-slate-700 font-sans overflow-hidden">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <main className="flex-1 flex flex-col h-full overflow-y-auto bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-fixed relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC] via-[#F8FAFC]/90 to-white pointer-events-none"></div>
+      <main className="flex-1 flex flex-col h-full overflow-y-auto bg-[#F6F7F9] relative">
         
         <Header />
 

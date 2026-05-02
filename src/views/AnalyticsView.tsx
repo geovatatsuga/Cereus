@@ -40,16 +40,16 @@ export function AnalyticsView() {
           <h2 className="text-3xl font-black text-slate-800 tracking-tight mb-2">Resultados</h2>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <button className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 shadow-sm hover:bg-slate-50 transition-colors">
+          <button className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg border border-slate-200 text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">
             <Calendar size={16} /> Ultimos 6 meses
           </button>
-          <button className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 shadow-sm hover:bg-slate-50 transition-colors">
+          <button className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg border border-slate-200 text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">
             <Filter size={16} /> Filtros
           </button>
         </div>
       </div>
 
-      <div className="flex bg-slate-100 p-1 rounded-2xl w-full md:w-fit shadow-inner border border-slate-200/50">
+      <div className="flex bg-slate-100 p-1 rounded-lg w-full md:w-fit border border-slate-200/50">
         {[
           ['financeiro', 'Financeiro'],
           ['funil', 'Funil e canais'],
@@ -58,7 +58,7 @@ export function AnalyticsView() {
           <button
             key={id}
             onClick={() => setActiveTab(id as any)}
-            className={`flex-1 md:flex-none px-5 py-2 rounded-xl text-sm font-black transition-all ${
+            className={`flex-1 md:flex-none px-5 py-2 rounded-md text-sm font-bold transition-all ${
               activeTab === id ? 'bg-white text-teal-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'
             }`}
           >
@@ -74,9 +74,9 @@ export function AnalyticsView() {
           ['Pedidos Pagos', '840', '+8%', <ShoppingBag size={20} />, 'blue'],
           ['Conversao', '6,72%', '-2%', <PieIcon size={20} />, 'rose'],
         ].map(([title, value, delta, icon, color]) => (
-          <div key={String(title)} className="bg-white rounded-[1.5rem] p-5 shadow-sm border border-slate-100">
+          <div key={String(title)} className="bg-white rounded-xl p-5 border border-slate-200/70">
             <div className="flex justify-between items-start mb-4">
-              <div className={`p-2.5 bg-${color}-50 rounded-xl text-${color}-600`}>{icon}</div>
+              <div className={`p-2.5 bg-${color}-50 rounded-lg text-${color}-600`}>{icon}</div>
               <span className={`text-xs font-black px-2 py-1 rounded-md flex items-center gap-1 ${String(delta).startsWith('+') ? 'text-emerald-700 bg-emerald-50' : 'text-rose-700 bg-rose-50'}`}>
                 {String(delta).startsWith('+') ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
                 {delta}
@@ -90,7 +90,7 @@ export function AnalyticsView() {
 
       {activeTab === 'financeiro' && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <section className="lg:col-span-2 bg-white rounded-[1.5rem] p-6 shadow-sm border border-slate-100">
+          <section className="lg:col-span-2 bg-white rounded-xl p-6 border border-slate-200/70">
             <h3 className="text-xl font-black text-slate-800">Evolucao financeira</h3>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
@@ -109,7 +109,7 @@ export function AnalyticsView() {
               </ResponsiveContainer>
             </div>
           </section>
-          <aside className="bg-slate-900 rounded-[1.5rem] p-6 text-white">
+          <aside className="bg-slate-900 rounded-xl p-6 text-white">
             <Layers size={28} className="text-teal-300 mb-4" />
             <h3 className="font-black text-xl mb-5">Decisao</h3>
             <div className="space-y-3">
@@ -123,7 +123,7 @@ export function AnalyticsView() {
 
       {activeTab === 'funil' && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <section className="bg-white rounded-[1.5rem] p-6 shadow-sm border border-slate-100">
+          <section className="bg-white rounded-xl p-6 border border-slate-200/70">
             <h3 className="text-xl font-black text-slate-800">Funil</h3>
             <div className="space-y-4">
               {funnelData.map((item, index) => (
@@ -132,15 +132,15 @@ export function AnalyticsView() {
                     <span className="text-slate-600">{item.step}</span>
                     <span>{item.count.toLocaleString('pt-BR')}</span>
                   </div>
-                  <div className="h-9 bg-slate-50 rounded-xl overflow-hidden border border-slate-100">
-                    <motion.div initial={{ width: 0 }} animate={{ width: `${(item.count / funnelData[0].count) * 100}%` }} className="h-full rounded-xl" style={{ backgroundColor: item.color }} />
+                  <div className="h-9 bg-slate-50 rounded-lg overflow-hidden border border-slate-100">
+                    <motion.div initial={{ width: 0 }} animate={{ width: `${(item.count / funnelData[0].count) * 100}%` }} className="h-full rounded-lg" style={{ backgroundColor: item.color }} />
                   </div>
                   {index < funnelData.length - 1 && <p className="text-center text-[10px] font-black text-slate-400 mt-1">{Math.round((funnelData[index + 1].count / item.count) * 100)}% seguem</p>}
                 </div>
               ))}
             </div>
           </section>
-          <section className="bg-white rounded-[1.5rem] p-6 shadow-sm border border-slate-100">
+          <section className="bg-white rounded-xl p-6 border border-slate-200/70">
             <h3 className="text-xl font-black text-slate-800">ROI por canal</h3>
             <div className="h-72">
               <ResponsiveContainer width="100%" height="100%">
@@ -160,7 +160,7 @@ export function AnalyticsView() {
       )}
 
       {activeTab === 'cohort' && (
-        <motion.section initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-[1.5rem] p-6 shadow-sm border border-slate-100">
+        <motion.section initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-xl p-6 border border-slate-200/70">
           <div className="flex items-start gap-3 mb-6">
             <Users className="text-teal-600" size={24} />
             <div>

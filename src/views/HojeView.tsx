@@ -1,6 +1,5 @@
 import React from 'react';
 import { AlertTriangle, ArrowRight, PackageSearch, ShoppingBag, Wallet } from 'lucide-react';
-import { MiniVisual } from '../components/ui/MiniVisual';
 import { campaigns, formatCurrency, operations, totals } from '../data/mockData';
 
 type HojeViewProps = {
@@ -36,48 +35,48 @@ export function HojeView({ onNavigate }: HojeViewProps) {
         </div>
       </div>
 
-      <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+      <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
         {kpis.map((kpi) => (
-          <article key={kpi.label} className="bg-white rounded-[1.25rem] p-5 border border-slate-100 shadow-sm">
-            <div className="flex items-start justify-between gap-3 mb-5">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                kpi.tone === 'rose' ? 'bg-rose-50 text-rose-700' : kpi.tone === 'amber' ? 'bg-amber-50 text-amber-700' : kpi.tone === 'sky' ? 'bg-sky-50 text-sky-700' : 'bg-teal-50 text-teal-700'
+          <article key={kpi.label} className="bg-white rounded-xl p-5 border border-slate-200/70">
+            <div className="flex items-start justify-between gap-3 mb-4">
+              <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${
+                kpi.tone === 'rose' ? 'bg-rose-50 text-rose-700' : kpi.tone === 'amber' ? 'bg-amber-50 text-amber-700' : kpi.tone === 'sky' ? 'bg-sky-50 text-sky-700' : 'bg-emerald-50 text-emerald-700'
               }`}>
                 {kpi.icon}
               </div>
-              {kpi.tone === 'rose' && lateOrders.length > 0 && <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse" />}
+              {kpi.tone === 'rose' && lateOrders.length > 0 && <span className="w-2 h-2 rounded-full bg-rose-500" />}
             </div>
-            <p className="text-xs font-black uppercase tracking-wider text-slate-400">{kpi.label}</p>
-            <p className="text-3xl font-black text-slate-900 mt-1">{kpi.value}</p>
-            <p className="text-sm font-bold text-slate-500 mt-2">{kpi.hint}</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">{kpi.label}</p>
+            <p className="text-3xl font-extrabold text-slate-950 mt-1">{kpi.value}</p>
+            <p className="text-sm font-semibold text-slate-500 mt-2">{kpi.hint}</p>
           </article>
         ))}
       </section>
 
       <section className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-        <article className="xl:col-span-2 bg-white rounded-[1.5rem] p-5 sm:p-6 border border-slate-100 shadow-sm">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-            <div className="flex items-center gap-4">
-              <MiniVisual variant="forecast" tone="teal" className="h-16 w-24 shrink-0" />
+        <article className="xl:col-span-2 bg-white rounded-xl p-5 sm:p-6 border border-slate-200/70">
+          <div className="flex flex-col gap-5">
+            <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="text-xs font-black uppercase tracking-wider text-slate-400 mb-1">Fluxo do dia</p>
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight">145 pedidos</h3>
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 mb-1">Fluxo do dia</p>
+                <h3 className="text-2xl font-extrabold text-slate-950 tracking-tight">145 pedidos</h3>
               </div>
+              <span className="text-sm font-semibold text-slate-500">R$ 8,3k</span>
             </div>
-            <div className="grid grid-cols-4 gap-2 min-w-full lg:min-w-[460px]">
+            <div className="grid grid-cols-4 gap-3">
               {dayFlow.map((item) => (
-                <div key={item.hour} className="bg-slate-50 border border-slate-100 rounded-2xl p-3">
+                <div key={item.hour} className="border-t border-slate-100 pt-3">
                   <div className="h-20 flex items-end mb-3">
                     <div
-                      className={`w-full rounded-xl ${
-                        item.tone === 'rose' ? 'bg-rose-400' : item.tone === 'amber' ? 'bg-amber-400' : item.tone === 'sky' ? 'bg-sky-400' : 'bg-teal-500'
+                      className={`w-full rounded-sm ${
+                        item.tone === 'rose' ? 'bg-rose-500' : item.tone === 'amber' ? 'bg-amber-500' : item.tone === 'sky' ? 'bg-sky-500' : 'bg-emerald-600'
                       }`}
                       style={{ height: `${Math.max(26, item.orders)}px` }}
                     />
                   </div>
                   <div className="flex items-center justify-between gap-2">
-                    <p className="text-xs font-black text-slate-900">{item.hour}</p>
-                    <p className="text-[10px] font-black text-slate-400">{item.revenue}</p>
+                    <p className="text-xs font-bold text-slate-900">{item.hour}</p>
+                    <p className="text-[10px] font-semibold text-slate-400">{item.revenue}</p>
                   </div>
                 </div>
               ))}
@@ -85,40 +84,23 @@ export function HojeView({ onNavigate }: HojeViewProps) {
           </div>
         </article>
 
-        <article className="bg-white rounded-[1.5rem] p-5 border border-slate-100 shadow-sm">
-          <p className="text-xs font-black uppercase tracking-wider text-teal-700 mb-2">Crescimento</p>
-          <h3 className="font-black text-lg text-slate-900">{bestCampaign.name}</h3>
+        <article className="bg-white rounded-xl p-5 border border-slate-200/70">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 mb-2">Crescimento</p>
+          <h3 className="font-bold text-lg text-slate-950">{bestCampaign.name}</h3>
           <div className="flex items-end justify-between gap-3 mt-5">
             <div>
-              <p className="text-[10px] font-black uppercase text-slate-400">Receita prevista</p>
-              <p className="text-2xl font-black text-slate-900">{formatCurrency(bestCampaign.projectedRevenue)}</p>
+              <p className="text-[10px] font-semibold uppercase text-slate-400">Receita prevista</p>
+              <p className="text-2xl font-extrabold text-slate-950">{formatCurrency(bestCampaign.projectedRevenue)}</p>
             </div>
-            <span className="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-lg text-xs font-black">{bestCampaign.roi}x ROI</span>
+            <span className="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-md text-xs font-bold">{bestCampaign.roi}x ROI</span>
           </div>
           <button
             onClick={() => onNavigate?.('campanhas')}
-            className="w-full mt-5 bg-white border border-slate-200 hover:bg-teal-50 hover:border-teal-200 text-slate-800 rounded-xl py-3 text-sm font-black flex items-center justify-center gap-2 transition-colors"
+            className="w-full mt-5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 rounded-lg py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors"
           >
             Revisar <ArrowRight size={16} />
           </button>
         </article>
-      </section>
-
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {[
-          ['Pedidos', 'operacao'],
-          ['Atendimento', 'atendimento'],
-          ['Crescimento', 'campanhas'],
-          ['Cereus', 'ia'],
-        ].map(([label, tab]) => (
-          <button
-            key={tab}
-            onClick={() => onNavigate?.(tab)}
-            className="bg-white border border-slate-100 rounded-2xl px-4 py-4 text-sm font-black text-slate-700 shadow-sm hover:border-teal-200 hover:text-teal-700 transition-colors"
-          >
-            {label}
-          </button>
-        ))}
       </section>
     </div>
   );
