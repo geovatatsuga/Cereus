@@ -1,135 +1,167 @@
-import React, { useMemo, useState } from 'react';
-import { motion } from 'motion/react';
-import { Download, Search, Send, Star, TrendingDown, TrendingUp, Users } from 'lucide-react';
-import { KpiCard } from '../components/ui/KpiCard';
-import { clients, formatCurrency } from '../data/mockData';
+import React, { useState } from 'react';
+import { AlertTriangle, Crown, Download, Filter, Heart, Mail, MoreVertical, RefreshCw, Search, SlidersHorizontal, UserRound, Users } from 'lucide-react';
+import { Area, AreaChart, Cell, Pie, PieChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { cardClass, Donut, pageInner, pageShell, Pill, SectionTitle } from '../components/ui/DashboardWidgets';
+import { businessMetrics } from '../data/businessMetrics';
 
-const segmentStyle: Record<string, string> = {
-  VIP: 'bg-amber-50 text-amber-700 border-amber-100',
-  Recorrente: 'bg-emerald-50 text-emerald-700 border-emerald-100',
-  Novo: 'bg-blue-50 text-blue-700 border-blue-100',
-  'Em Risco': 'bg-rose-50 text-rose-700 border-rose-100',
-};
+const health = [
+  { name: '6 mai', value: 18 },
+  { name: '7 mai', value: 42 },
+  { name: '8 mai', value: 28 },
+  { name: '9 mai', value: 48 },
+  { name: '10 mai', value: 66 },
+  { name: '11 mai', value: 62 },
+  { name: '12 mai', value: 76 },
+];
+
+const churn = [
+  { name: 'Baixo risco', value: 735, color: '#9BE2D4' },
+  { name: 'Risco médio', value: 413, color: '#F3C45E' },
+  { name: 'Alto risco', value: 208, color: '#F46D61' },
+];
+
+const customers = [
+  ['Sarah Johnson', 'sarah.j@email.com', 'Fiel', '11 de maio', 'R$ 842', 'Baixo', 'Enviar menu sazonal'],
+  ['Michael Chen', 'mchen@email.com', 'VIP', '8 de maio', 'R$ 1.247', 'Baixo', 'Convidar para evento VIP'],
+  ['Emily Davis', 'emily.d@email.com', 'Em risco', '18 de abril', 'R$ 312', 'Alto', 'Oferta de retorno'],
+  ['David Wilson', 'david.w@email.com', 'Recorrente', '3 de maio', 'R$ 567', 'Médio', 'Sugerir assinatura'],
+  ['Jessica Brown', 'jess.b@email.com', 'Novo', '30 de abril', 'R$ 89', 'Baixo', 'Incentivar 2º pedido'],
+  ['Amanda Morgan', 'amanda.m@email.com', 'Fiel', '29 de abril', 'R$ 724', 'Baixo', 'Enviar cupom de sobremesa'],
+  ['Robert Lee', 'robert.lee@email.com', 'Em risco', '14 de abril', 'R$ 276', 'Alto', 'Oferta win-back'],
+  ['Paula Santos', 'paula.s@email.com', 'VIP', '10 de maio', 'R$ 1.086', 'Baixo', 'Menu exclusivo'],
+  ['Daniel Garcia', 'daniel.g@email.com', 'Recorrente', '5 de maio', 'R$ 638', 'Medio', 'Lembrete de recompra'],
+  ['Carla Mendes', 'carla.m@email.com', 'Novo', '1 de maio', 'R$ 118', 'Baixo', 'Incentivar 2o pedido'],
+  ['Lucas Rocha', 'lucas.r@email.com', 'Fiel', '7 de maio', 'R$ 912', 'Baixo', 'Oferecer pontos extras'],
+  ['Fernanda Alves', 'fernanda.a@email.com', 'Em risco', '12 de abril', 'R$ 354', 'Alto', 'Contato pessoal'],];
 
 export function AudienciaView() {
-  const [activeFilter, setActiveFilter] = useState('Todos');
-  const [search, setSearch] = useState('');
-
-  const filteredClients = useMemo(() => (
-    clients.filter((client) => {
-      const matchesFilter =
-        activeFilter === 'Todos'
-        || client.segment === activeFilter
-        || (activeFilter === 'Sumidos' && client.lastOrderDays >= 20)
-        || (activeFilter === 'Alto valor' && client.spent >= 3000)
-        || (activeFilter === 'Reclamaram' && client.timeline.some((event) => event.toLowerCase().includes('reclam')));
-      const q = search.toLowerCase();
-      const matchesSearch = client.name.toLowerCase().includes(q) || client.email.toLowerCase().includes(q) || client.tags.join(' ').includes(q);
-      return matchesFilter && matchesSearch;
-    })
-  ), [activeFilter, search]);
-
-  const totalSpent = clients.reduce((sum, client) => sum + client.spent, 0);
-  const avgLtv = Math.round(totalSpent / clients.length);
-  const churnList = clients.filter((client) => client.churnRisk >= 60);
+  const [expanded, setExpanded] = useState(false);
+  const visibleCustomers = expanded ? customers : customers.slice(0, 5);
 
   return (
-    <div className="p-4 sm:p-8 pb-20 max-w-7xl mx-auto w-full space-y-8 relative z-0">
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
-        <div>
-          <h2 className="text-3xl font-black text-slate-800 tracking-tight">Clientes</h2>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <button className="bg-white border border-slate-200 text-slate-700 px-4 py-2.5 rounded-xl text-sm font-bold shadow-sm flex items-center gap-2">
-            <Download size={16} /> Importar
-          </button>
-          <button className="bg-slate-900 hover:bg-teal-700 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-sm flex items-center gap-2">
-            <Send size={16} className="text-teal-300" /> Acionar
-          </button>
-        </div>
-      </div>
+    <div className={pageShell}>
+      <div className={pageInner}>
+        <section className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+          <SectionTitle title="Clientes" subtitle="Entenda seus clientes, aumente a fidelidade e cresça o valor de vida." />
+          <div className="flex flex-wrap gap-3">
+            <button className="rounded-xl border border-[#E5ECEA] bg-white px-4 py-2.5 text-sm font-bold text-[#64748B]"><Filter className="mr-2 inline" size={16} /> Mais filtros</button>
+            <button className="rounded-xl border border-[#E5ECEA] bg-white px-4 py-2.5 text-sm font-bold text-[#64748B]"><Download className="mr-2 inline" size={16} /> Exportar</button>
+          </div>
+        </section>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <KpiCard title="Base Ativa" value="1.200" change="+42 novos" isPositive icon={<Users size={20} />} borderTop="border-t-4 border-t-teal-500" data={[1100, 1120, 1150, 1155, 1160, 1180, 1200]} />
-        <KpiCard title="LTV Medio" value={formatCurrency(avgLtv)} change="+7%" isPositive icon={<TrendingUp size={20} />} borderTop="border-t-4 border-t-emerald-500" data={[1400, 1510, 1620, 1700, 1780, 1810, avgLtv]} />
-        <KpiCard title="Clientes em Risco" value={String(churnList.length)} change="Monitorar" isPositive={false} icon={<TrendingDown size={20} />} borderTop="border-t-4 border-t-rose-400" data={[1, 2, 2, 3, 2, 3, churnList.length]} />
-        <KpiCard title="Score Medio" value="68" change="+5 pts" isPositive icon={<Star size={20} />} highlight borderTop="border-t-0" data={[51, 55, 58, 61, 63, 65, 68]} />
-      </div>
+        <section className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+          <div className="flex flex-wrap gap-3">
+            {[
+              ['Todos', businessMetrics.customers.total, <Users size={15} />, 'teal'],
+              ['VIP', '156', <Crown size={15} />, 'amber'],
+              ['Em risco', '213', <AlertTriangle size={15} />, 'rose'],
+              ['Retornando', '642', <RefreshCw size={15} />, 'teal'],
+              ['Alto valor', '278', <Heart size={15} />, 'teal'],
+            ].map(([label, count, icon, tone]) => (
+              <button key={String(label)} className={`rounded-xl border px-3.5 py-2 text-sm font-bold ${label === 'Todos' ? 'border-[#0F8F86] bg-[#E8F8F5] text-[#0F8F86]' : 'border-[#E5ECEA] bg-white text-[#42526B]'}`}>
+                {React.cloneElement(icon as React.ReactElement, { className: 'mr-2 inline' })} {label} <span className="ml-1 rounded-md bg-slate-100 px-1.5 py-0.5 text-[11px]">{count}</span>
+              </button>
+            ))}
+          </div>
+          <div className="relative w-full xl:w-[300px]">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]" size={17} />
+            <input className="w-full rounded-xl border border-[#E5ECEA] bg-white py-2.5 pl-10 pr-10 text-sm font-semibold outline-none" placeholder="Buscar clientes..." />
+            <SlidersHorizontal className="absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B]" size={17} />
+          </div>
+        </section>
 
-      <div>
-        <section className="bg-white rounded-xl p-5 sm:p-6 border border-slate-200/70">
-          <div className="flex flex-col lg:flex-row justify-between gap-4 mb-6">
-            <div className="flex bg-slate-50 p-1 rounded-lg border border-slate-100 overflow-x-auto">
-              {['Todos', 'VIP', 'Em Risco', 'Sumidos', 'Alto valor', 'Reclamaram'].map((filter) => (
-                <button
-                  key={filter}
-                  onClick={() => setActiveFilter(filter)}
-                  className={`px-4 py-2 rounded-lg text-xs font-black whitespace-nowrap transition-all ${
-                    activeFilter === filter ? 'bg-white text-teal-700 shadow-sm border border-slate-100/70' : 'text-slate-500 hover:text-slate-700'
-                  }`}
-                >
-                  {filter}
-                </button>
-              ))}
+        <section className={`${cardClass} relative overflow-hidden bg-[#E8F8F5] p-4`}>
+          <button className="absolute right-5 top-4 text-[#64748B]">×</button>
+          <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr] lg:items-center">
+            <div>
+              <p className="mb-3 flex items-center gap-2 text-sm font-bold text-[#0F8F86]">Oportunidade de retorno</p>
+              <h3 className="text-xl font-bold text-[#082F35]">Recupere {businessMetrics.customers.atRisk} clientes em risco com uma oferta personalizada</h3>
+              <p className="mt-2 max-w-2xl text-sm font-semibold leading-6 text-[#42526B]">Esses clientes não pedem há mais de 21 dias, mas têm {businessMetrics.customers.recoveryProbability} de probabilidade de recomprar com o incentivo certo.</p>
+              <div className="mt-4 flex gap-3">
+                <button className="rounded-lg bg-[#053B3A] px-5 py-2.5 text-sm font-bold text-white">Criar campanha de retorno</button>
+                <button className="text-sm font-bold text-[#0F8F86]">Ver clientes em risco →</button>
+              </div>
             </div>
-            <div className="relative w-full lg:w-72">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"><Search size={16} /></span>
-              <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Buscar cliente" className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-4 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-100 transition-all" />
+            <div className="grid grid-cols-[1fr_180px] items-center gap-4">
+              <Donut data={[{ name: 'chance', value: 68, color: '#43C8B6' }, { name: 'resto', value: 32, color: '#D8F3EE' }]} center="68%" sub="retorno" size={150} />
+              <div className="space-y-3 text-sm font-semibold text-[#42526B]">
+                <p className="flex justify-between"><span>LTV médio</span><b className="text-[#082F35]">{businessMetrics.customers.avgLtv}</b></p>
+                <p className="flex justify-between"><span>Risco</span><b className="text-rose-500">Alto</b></p>
+                <p className="flex justify-between"><span>Canal ideal</span><b className="text-[#082F35]">E-mail</b></p>
+              </div>
             </div>
           </div>
+        </section>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-slate-100 text-slate-400 text-xs font-black uppercase tracking-wider">
-                  <th className="pb-3 px-3">Cliente</th>
-                  <th className="pb-3 px-3">Segmento</th>
-                  <th className="pb-3 px-3">Canal</th>
-                  <th className="pb-3 px-3 text-center">Score</th>
-                  <th className="pb-3 px-3 text-center">Risco</th>
-                  <th className="pb-3 px-3 text-right">LTV</th>
+        <section className="grid gap-3 lg:grid-cols-3">
+          <article className={`${cardClass} p-4`}>
+            <div className="mb-4 flex items-center justify-between"><h3 className="font-bold text-[#082F35]">Principais segmentos</h3><button className="text-xs font-bold text-[#0F8F86]">Ver todos</button></div>
+            {[
+              ['Clientes fiéis', 532, '39%', '#43C8B6'],
+              ['Recorrentes', 421, '31%', '#7DD3C0'],
+              ['Novos', 203, '15%', '#A7E6DC'],
+              ['Em risco', 136, '10%', '#F46D61'],
+              ['VIP', 64, '5%', '#F3C45E'],
+            ].map(([label, value, pct, color]) => (
+              <div key={String(label)} className="mb-3 grid grid-cols-[130px_1fr_80px] items-center gap-3 text-sm font-semibold">
+                <span>{label}</span><span className="h-1.5 rounded-full bg-slate-100"><span className="block h-full rounded-full" style={{ width: pct as string, backgroundColor: color as string }} /></span><span className="text-right text-[#42526B]">{value} ({pct})</span>
+              </div>
+            ))}
+          </article>
+          <article className={`${cardClass} p-4`}>
+            <div className="mb-4 flex items-center justify-between"><h3 className="font-bold text-[#082F35]">Clientes em risco</h3><button className="text-xs font-bold text-[#0F8F86]">Ver relatório</button></div>
+            <div className="grid grid-cols-[150px_1fr] items-center gap-3">
+              <Donut data={churn} center={businessMetrics.customers.total} sub="Total" size={150} />
+              <div className="space-y-3 text-sm font-semibold text-[#42526B]">{churn.map((item) => <p key={item.name} className="flex justify-between"><span><i className="mr-2 inline-block h-2.5 w-2.5 rounded-full" style={{ background: item.color }} />{item.name}</span><b>{item.value}</b></p>)}</div>
+            </div>
+          </article>
+          <article className={`${cardClass} p-4`}>
+            <div className="mb-2 flex items-center justify-between"><h3 className="font-bold text-[#082F35]">Saúde dos clientes</h3><button className="text-xs font-bold text-[#64748B]">Esta semana</button></div>
+            <div className="mb-1 text-right text-2xl font-bold text-[#082F35]">{businessMetrics.customers.healthScore} <span className="text-xs text-[#48BFAE]">↗ 6%</span></div>
+            <div className="h-[120px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={health}>
+                  <defs><linearGradient id="customerHealth" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#7DD3C0" stopOpacity={0.38} /><stop offset="1" stopColor="#7DD3C0" stopOpacity={0.04} /></linearGradient></defs>
+                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748B' }} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748B' }} />
+                  <Area dataKey="value" stroke="#20B5A7" strokeWidth={3} fill="url(#customerHealth)" dot={false} isAnimationActive={false} />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </article>
+        </section>
+
+        <section className={`${cardClass} overflow-hidden`}>
+          <div className="flex items-center justify-between px-5 py-4">
+            <div>
+              <h3 className="font-bold text-[#082F35]">Lista de clientes</h3>
+              <p className="mt-1 text-xs font-semibold text-[#64748B]">
+                {expanded ? `${customers.length} clientes visiveis` : 'Mostrando principais 5 clientes'}
+              </p>
+            </div>
+            <button
+              onClick={() => setExpanded((value) => !value)}
+              className="rounded-lg border border-[#E5ECEA] bg-white px-4 py-2 text-sm font-bold text-[#0F8F86] hover:bg-[#F1F6F4]"
+            >
+              {expanded ? 'Recolher lista' : 'Expandir lista'}
+            </button>
+          </div>
+          <table className="w-full text-left text-sm">
+            <thead className="bg-slate-50 text-xs font-bold text-[#64748B]"><tr><th className="px-5 py-3">Cliente</th><th>Segmento</th><th>Último pedido</th><th>LTV</th><th>Risco</th><th>Próxima ação</th><th /></tr></thead>
+            <tbody className="divide-y divide-[#E5ECEA]">
+              {visibleCustomers.map((row, index) => (
+                <tr key={row[0]} className="text-[#082F35]">
+                  <td className="px-5 py-3"><div className="flex items-center gap-3"><img src={`https://i.pravatar.cc/80?img=${index + 30}`} className="h-10 w-10 rounded-full" alt="" /><div><b>{row[0]}</b><p className="text-xs text-[#64748B]">{row[1]}</p></div></div></td>
+                  <td><Pill tone={row[2] === 'Em risco' ? 'rose' : row[2] === 'VIP' ? 'purple' : row[2] === 'Novo' ? 'slate' : 'teal'}>{row[2]}</Pill></td>
+                  <td><b>{row[3]}</b><p className="text-xs text-[#64748B]">há poucos dias</p></td>
+                  <td><b>{row[4]}</b><p className="text-xs text-[#64748B]">12 pedidos</p></td>
+                  <td><Pill tone={row[5] === 'Alto' ? 'rose' : row[5] === 'Médio' ? 'amber' : 'teal'}>{row[5]}</Pill></td>
+                  <td><div className="flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8F8F5] text-[#0F8F86]"><Mail size={17} /></span><span>{row[6]}</span></div></td>
+                  <td><MoreVertical size={17} className="text-[#64748B]" /></td>
                 </tr>
-              </thead>
-              <tbody>
-                {filteredClients.map((client, index) => (
-                  <motion.tr
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.035 }}
-                    key={client.id}
-                    className="border-b border-slate-50 hover:bg-slate-50/80 transition-colors"
-                  >
-                    <td className="py-3 px-3">
-                      <div className="flex items-center gap-3 min-w-56">
-                        <img src={`https://api.dicebear.com/7.x/fun-emoji/svg?seed=${client.avatarSeed}`} alt={client.name} className="w-10 h-10 rounded-full bg-slate-100" />
-                        <div>
-                          <p className="text-sm font-black text-slate-800">{client.name}</p>
-                          <p className="text-xs text-slate-400 font-medium">
-                            {client.lastOrderDays === 0 ? 'Comprou hoje' : `${client.lastOrderDays} ${client.lastOrderDays === 1 ? 'dia' : 'dias'} sem compra`}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-3 px-3">
-                      <span className={`px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider border ${segmentStyle[client.segment]}`}>
-                        {client.segment}
-                      </span>
-                    </td>
-                    <td className="py-3 px-3 text-sm text-slate-500 font-bold">{client.channel}</td>
-                    <td className="py-3 px-3 text-center">
-                      <span className="text-sm font-black text-slate-800">{client.score}</span>
-                    </td>
-                    <td className="py-3 px-3 text-center">
-                      <span className={`text-xs font-black px-2 py-1 rounded-lg ${client.churnRisk >= 60 ? 'bg-rose-50 text-rose-700' : 'bg-emerald-50 text-emerald-700'}`}>
-                        {client.churnRisk}%
-                      </span>
-                    </td>
-                    <td className="py-3 px-3 text-sm font-black text-slate-800 text-right">{formatCurrency(client.spent)}</td>
-                  </motion.tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </section>
       </div>
     </div>

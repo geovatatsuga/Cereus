@@ -1,120 +1,35 @@
 import React from 'react';
-import { motion } from 'motion/react';
-import { ArrowRight, Bot, FileSearch, Send, Sparkles } from 'lucide-react';
-import { clients, formatCurrency } from '../data/mockData';
+import { ArrowRight, Database, Mail, Paperclip, Send, Shield, Sparkles, Target, UserRound } from 'lucide-react';
+import { cardClass, KpiTile, pageInner, pageShell, SectionTitle } from '../components/ui/DashboardWidgets';
+import { businessMetrics } from '../data/businessMetrics';
 
 export function IAView() {
-  const riskClients = clients.filter((client) => client.churnRisk >= 60);
-
   return (
-    <div className="p-4 sm:p-8 pb-20 max-w-7xl mx-auto w-full space-y-8 relative z-0">
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-        <div>
-          <h2 className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-teal-700 to-emerald-500 tracking-tight mb-2">Cereus</h2>
-        </div>
-        <span className="w-fit bg-white text-slate-600 px-4 py-2 rounded-lg text-sm font-bold border border-slate-200">LLM assistido</span>
-      </div>
-
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <section className="xl:col-span-2 bg-white rounded-xl border border-slate-200/70 flex flex-col min-h-[560px] overflow-hidden">
-          <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-slate-100 bg-white">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-slate-900 flex items-center justify-center text-teal-300">
-                <Bot size={20} />
-              </div>
-              <div>
-                <h3 className="font-black text-slate-900">Cereus Chat</h3>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex-1 p-6 overflow-y-auto space-y-6 bg-slate-50/50">
-            <div className="flex gap-4">
-              <div className="w-10 h-10 rounded-lg bg-slate-900 shrink-0 flex items-center justify-center text-teal-300 shadow-sm">
-                <Sparkles size={20} />
-              </div>
-              <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-100 max-w-[88%]">
-                <p className="text-slate-700 text-sm font-medium leading-relaxed">Hoje: atraso + clientes em risco.</p>
-              </div>
-            </div>
-
-            <div className="flex gap-4 flex-row-reverse">
-              <img src="https://i.pravatar.cc/150?img=32" alt="User" className="w-10 h-10 rounded-full shadow-sm shrink-0" />
-              <div className="bg-slate-900 p-4 rounded-lg shadow-sm max-w-[88%]">
-                <p className="text-white text-sm font-medium leading-relaxed">Receita, operacao e clientes.</p>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <div className="w-10 h-10 rounded-lg bg-slate-900 shrink-0 flex items-center justify-center text-teal-300 shadow-sm">
-                <Sparkles size={20} />
-              </div>
-              <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-100 max-w-[88%] space-y-4">
-                <div>
-                  <p className="text-xs font-black text-teal-700 uppercase tracking-wider mb-2">Resposta do Cereus</p>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {[
-                      ['Atraso em rota', 'rose'],
-                      ['VIPs em risco', 'teal'],
-                      ['Disparo pausado', 'amber'],
-                    ].map(([step, tone]) => (
-                      <div key={step} className={`border rounded-lg p-3 text-sm font-bold ${
-                        tone === 'rose' ? 'bg-rose-50 border-rose-100 text-rose-800' : tone === 'amber' ? 'bg-amber-50 border-amber-100 text-amber-800' : 'bg-teal-50 border-teal-100 text-teal-900'
-                      }`}>
-                        {step}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  <div className="bg-slate-50 border border-slate-100 rounded-lg p-3">
-                    <p className="text-[10px] font-black text-slate-400 uppercase">Receita em risco</p>
-                    <p className="font-black text-slate-900">{formatCurrency(2060)}</p>
-                  </div>
-                  <div className="bg-slate-50 border border-slate-100 rounded-lg p-3">
-                    <p className="text-[10px] font-black text-slate-400 uppercase">Clientes</p>
-                    <p className="font-black text-slate-900">{riskClients.length} prioritarios</p>
-                  </div>
-                  <div className="bg-amber-50 border border-amber-100 rounded-lg p-3">
-                    <p className="text-[10px] font-black text-amber-600 uppercase">Cuidado</p>
-                    <p className="font-black text-amber-800">1 ticket aberto</p>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <button className="bg-slate-900 hover:bg-teal-700 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors flex items-center gap-2"><Send size={15} /> Criar</button>
-                  <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-lg text-sm font-bold transition-colors flex items-center gap-2"><FileSearch size={15} /> Fontes</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-4 bg-white border-t border-slate-100">
-            <div className="relative">
-              <input type="text" placeholder="Pergunte ao Cereus..." className="w-full bg-slate-50 border border-slate-200 rounded-lg py-3.5 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/50" />
-              <button className="absolute right-2 top-2 bg-slate-900 hover:bg-teal-700 transition-colors text-white p-2 rounded-lg">
-                <ArrowRight size={18} />
-              </button>
-            </div>
-          </div>
+    <div className={pageShell}>
+      <div className={pageInner}>
+        <section className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+          <SectionTitle title="Assistente" subtitle="Faça perguntas, encontre oportunidades e transforme recomendações em ações." />
+          <button className="rounded-xl border border-[#E5ECEA] bg-white px-4 py-2.5 text-sm font-bold text-[#082F35]">Novo chat</button>
         </section>
-
-        <aside className="bg-white rounded-xl p-6 border border-slate-200/70 h-fit">
-          <div className="flex items-center justify-between gap-3 mb-4">
-            <h3 className="font-black text-xl text-slate-800">Sinais</h3>
-          </div>
-          <div className="space-y-3">
-            {riskClients.map((client) => (
-              <div key={client.id} className="rounded-lg bg-slate-50 p-4 border border-slate-100 flex items-center justify-between gap-3">
-                <div>
-                  <p className="font-black text-slate-800">{client.name}</p>
-                  <p className="text-xs text-slate-400 font-bold">LTV {formatCurrency(client.spent)}</p>
-                </div>
-                <span className="text-xs font-black text-rose-700 bg-rose-50 border border-rose-100 px-2 py-1 rounded-lg">{client.churnRisk}%</span>
-              </div>
-            ))}
-          </div>
-        </aside>
-      </motion.div>
+        <section className="grid items-stretch gap-3 xl:grid-cols-[1fr_360px]">
+          <article className={`${cardClass} min-h-[520px] p-4`}>
+            <div className="space-y-7">
+              <div className="flex gap-3"><Sparkles className="mt-1 text-[#0F8F86]" /><div><b className="text-[#082F35]">Cereus</b><p className="mt-2 text-sm font-semibold text-[#42526B]">Oi Alex! Posso ajudar você a entender performance, encontrar oportunidades e tomar ações.</p><p className="mt-1 text-xs text-[#64748B]">9:41</p></div></div>
+              <div className="flex justify-end gap-3"><div className="rounded-xl bg-[#E8F8F5] px-5 py-3 text-sm font-semibold text-[#082F35]">Como está a performance do CRM este mês?</div><span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8F8F5] font-bold">AM</span></div>
+              <div className="flex gap-3"><Sparkles className="mt-1 text-[#0F8F86]" /><div className="max-w-[760px]"><b className="text-[#082F35]">Cereus</b><p className="mt-2 text-sm font-semibold text-[#42526B]">Aqui está um resumo rápido da performance em maio até agora.</p><div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4"><KpiTile icon={<Target size={18}/>} label="Receita total" value={businessMetrics.analytics.totalRevenue} change="22,7% vs período" /><KpiTile icon={<UserRound size={18}/>} label="Novos clientes" value="203" change="15,6%" /><KpiTile icon={<Target size={18}/>} label="Recompra" value={businessMetrics.loyalty.repeatRate} change="8,4%" /><KpiTile icon={<Sparkles size={18}/>} label="Em risco" value="213" change="18,3%" danger /></div><button className="mt-3 rounded-lg border border-[#E5ECEA] bg-white px-4 py-2.5 text-sm font-bold text-[#082F35]">Ver dashboard completo →</button></div></div>
+              <div className="flex justify-end gap-3"><div className="rounded-xl bg-[#E8F8F5] px-5 py-3 text-sm font-semibold text-[#082F35]">Quais clientes têm maior risco de parar de comprar?</div><span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8F8F5] font-bold">AM</span></div>
+              <div className="flex gap-3"><Sparkles className="mt-1 text-[#0F8F86]" /><div className="max-w-[700px]"><b className="text-[#082F35]">Cereus</b><p className="mt-2 text-sm font-semibold text-[#42526B]">Estes clientes reduziram frequência, tempo desde o último pedido ou engajamento.</p><table className="mt-4 w-full text-left text-sm"><thead className="bg-slate-50 text-xs text-[#64748B]"><tr><th className="p-3">Cliente</th><th>Último pedido</th><th>LTV</th><th>Risco</th><th>Fator</th></tr></thead><tbody className="divide-y divide-[#E5ECEA]">{[['Jessica Brown','30 abr','R$ 89','Alto','Poucos pedidos'],['David Wilson','3 mai','R$ 567','Médio','Queda de frequência'],['Emily Davis','25 abr','R$ 312','Médio','Engajamento caiu']].map(r=><tr key={r[0]}>{r.map(c=><td key={c} className="p-3 font-semibold">{c}</td>)}</tr>)}</tbody></table><div className="mt-3 flex gap-3"><button className="rounded-lg border border-[#E5ECEA] bg-white px-4 py-2.5 text-sm font-bold text-[#082F35]">Ver clientes em risco</button><button className="rounded-lg bg-[#053B3A] px-4 py-2.5 text-sm font-bold text-white">Criar campanha win-back</button></div></div></div>
+            </div>
+            <div className="mt-8 rounded-2xl border border-[#E5ECEA] p-3"><input className="w-full bg-transparent px-2 py-2 text-sm outline-none" placeholder="Pergunte qualquer coisa sobre clientes, pedidos ou campanhas..." /><div className="flex justify-between"><Paperclip size={18} className="text-[#64748B]" /><button className="rounded-full bg-[#E8F8F5] p-2 text-[#0F8F86]"><Send size={18}/></button></div></div>
+          </article>
+          <aside className="space-y-3">
+            <article className={`${cardClass} p-4`}><h3 className="mb-4 font-bold text-[#082F35]">Sugestões de pergunta</h3>{['Mostrar resumo de vendas de hoje','Recomendar campanha para clientes inativos','Quais itens geram recompra?','Quais segmentos mais crescem?','Como melhorar retenção?'].map(x=><button key={x} className="mb-2 flex w-full justify-between rounded-lg border border-[#E5ECEA] px-3 py-3 text-left text-sm font-semibold text-[#082F35]">{x}<ArrowRight size={16}/></button>)}</article>
+            <article className={`${cardClass} p-4`}><h3 className="mb-4 flex items-center gap-2 font-bold text-[#082F35]"><Target size={18}/>Ações recomendadas</h3>{[['Lançar win-back','Criar campanha'],['Reativar clientes','Ver clientes'],['Promover campeões','Ver itens']].map(r=><div key={r[0]} className="mb-3 flex items-center justify-between rounded-lg border border-[#E5ECEA] p-3"><span className="text-sm font-semibold">{r[0]}</span><button className="rounded-md bg-[#053B3A] px-3 py-1.5 text-xs font-bold text-white">{r[1]}</button></div>)}</article>
+            <article className={`${cardClass} p-4`}><h3 className="mb-4 flex items-center gap-2 font-bold text-[#082F35]"><Database size={18}/>Fontes usadas</h3>{['Pedidos e transações','Perfis de clientes','Performance de campanhas','Cardápio e produtos'].map(x=><p key={x} className="mb-3 text-sm font-semibold text-[#42526B]">✓ {x}</p>)}</article>
+            <article className={`${cardClass} p-4`}><h3 className="mb-3 flex items-center gap-2 font-bold text-[#082F35]"><Shield size={18}/>Por que confiar?</h3><p className="text-sm font-semibold leading-6 text-[#42526B]">O Cereus usa seus dados e modelos do setor para gerar recomendações revisáveis.</p></article>
+          </aside>
+        </section>
+      </div>
     </div>
   );
 }
